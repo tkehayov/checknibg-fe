@@ -1,3 +1,4 @@
+import { CategoryMenuList } from "../CategoryMenuList/CategoryMenuList.jsx";
 import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
 
@@ -8,7 +9,7 @@ export function Header() {
     const productCategoriesResponse =
       await ProductCategoriesApi.fetchCategories();
 
-    if (Object.keys(productCategoriesResponse).length !== 0) {
+    if (productCategoriesResponse.length !== 0) {
       setProductCategories(productCategoriesResponse);
     }
   }
@@ -21,7 +22,7 @@ export function Header() {
 
   return (
     <div>
-      <h1>this is simple header</h1>
+      {productCategories && <CategoryMenuList categories={productCategories} />}
     </div>
   );
 }
