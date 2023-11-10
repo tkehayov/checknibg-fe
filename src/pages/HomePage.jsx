@@ -1,5 +1,8 @@
-import Button from "@mui/material/Button";
-
+import { Header } from "../components/Header/Header";
 export function HomePage() {
-  return <div></div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }
