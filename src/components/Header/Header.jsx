@@ -18,8 +18,6 @@ export function Header() {
     fetchProductCategories();
   }, []);
 
-  console.log(productCategories);
-
   return (
     <div>
       {productCategories && <CategoryMenuList categories={productCategories} />}
