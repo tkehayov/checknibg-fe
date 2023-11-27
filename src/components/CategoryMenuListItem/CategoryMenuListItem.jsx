@@ -5,7 +5,11 @@ import { Link as ReactRouterLink } from "react-router-dom";
 export function CategoryMenuListItem({ category, handleClose, href }) {
   return (
     <>
-      <MenuItem component={ReactRouterLink} onClick={handleClose} to={href}>
+      <MenuItem
+        component={ReactRouterLink}
+        onClick={() => handleClose(category)}
+        to={href}
+      >
         {category.name}
       </MenuItem>
     </>

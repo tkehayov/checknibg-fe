@@ -6,7 +6,7 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { useState } from "react";
 import { PAGES_URL } from "../../config";
 
-export function CategoryMenuList({ categories }) {
+export function CategoryMenuList({ categories, currentCategory }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -14,7 +14,8 @@ export function CategoryMenuList({ categories }) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (category) => {
+    currentCategory(category);
     setAnchorEl(null);
   };
 

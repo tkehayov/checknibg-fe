@@ -3,7 +3,7 @@ import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 
-export function Header() {
+export function Header({ selectedCategory }) {
   const [productCategories, setProductCategories] = useState();
 
   async function fetchProductCategories() {
@@ -23,7 +23,10 @@ export function Header() {
     <div>
       <Container maxWidth="xl">
         {productCategories && (
-          <CategoryMenuList categories={productCategories} />
+          <CategoryMenuList
+            currentCategory={selectedCategory}
+            categories={productCategories}
+          />
         )}
       </Container>
     </div>
