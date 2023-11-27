@@ -1,7 +1,13 @@
-export function CategoryMenuListItem({ category }) {
+import MenuItem from "@mui/material/MenuItem";
+
+import { Link as ReactRouterLink } from "react-router-dom";
+
+export function CategoryMenuListItem({ category, handleClose, href }) {
   return (
     <>
-      <p>{category.name}</p>
+      <MenuItem component={ReactRouterLink} onClick={handleClose} to={href}>
+        {category.name}
+      </MenuItem>
     </>
   );
 }

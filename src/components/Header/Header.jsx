@@ -1,6 +1,7 @@
 import { CategoryMenuList } from "../CategoryMenuList/CategoryMenuList.jsx";
 import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
+import { Container } from "@mui/material";
 
 export function Header() {
   const [productCategories, setProductCategories] = useState();
@@ -20,7 +21,11 @@ export function Header() {
 
   return (
     <div>
-      {productCategories && <CategoryMenuList categories={productCategories} />}
+      <Container maxWidth="xl">
+        {productCategories && (
+          <CategoryMenuList categories={productCategories} />
+        )}
+      </Container>
     </div>
   );
 }
