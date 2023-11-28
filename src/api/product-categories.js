@@ -7,4 +7,10 @@ export class ProductCategoriesApi {
 
     return response.data;
   }
+
+  static async fetchCategoryByAlias(alias) {
+    const response = await axios.get(`${BASE_URL}/categories/${alias}`);
+
+    return response.data;
+  }
 }

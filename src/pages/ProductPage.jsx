@@ -19,7 +19,6 @@ export function ProductPage() {
   useEffect(() => {
     fetchProduct();
   }, []);
-  console.log("asdfasdf: ", product);
   return (
     <div>
       <Header />
