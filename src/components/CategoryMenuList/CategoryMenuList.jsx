@@ -15,7 +15,10 @@ export function CategoryMenuList({ categories, currentCategory }) {
   };
 
   const handleClose = (category) => {
-    currentCategory(category);
+    if (category.id) {
+      currentCategory(category);
+    }
+
     setAnchorEl(null);
   };
 
