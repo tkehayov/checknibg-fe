@@ -13,4 +13,20 @@ export class ProductCategoriesApi {
 
     return response.data;
   }
+
+  static async fetchCategoryFilters(categoryId) {
+    const response = await axios.get(
+      `${BASE_URL}/categories/filters/${categoryId}`
+    );
+
+    return response.data;
+  }
+
+  static async fetchProductFilters(categoryId, filtersId) {
+    const response = await axios.get(
+      `${BASE_URL}/products/filters/${categoryId}?filters=${filtersId}`
+    );
+
+    return response.data;
+  }
 }
