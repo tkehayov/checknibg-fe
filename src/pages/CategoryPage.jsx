@@ -60,11 +60,11 @@ export function CategoryPage() {
     <div>
       <Header selectedCategory={selectedCategory} />
       <Container maxWidth="xl">
-        <Grid container spacing={2}>
-          <Grid item md={4} sm={4}>
+        <Grid container spacing={1}>
+          <Grid item md={3} sm={4}>
             {currentCategory && (
               <>
-                <h1>hello from category {currentCategory.name}</h1>
+                <h3>Категория {currentCategory.name}</h3>
                 <CategoryFilterList
                   onClickItem={updateSelectedProductFilters}
                   category={currentCategory}
@@ -72,7 +72,7 @@ export function CategoryPage() {
               </>
             )}
           </Grid>
-          <Grid item md={8} sm={8}>
+          <Grid item md={9} sm={8}>
             {currentCategory && (
               <ProductList
                 categoryFilters={currentCategory}

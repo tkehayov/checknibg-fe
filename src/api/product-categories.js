@@ -29,4 +29,12 @@ export class ProductCategoriesApi {
 
     return response.data;
   }
+
+  static async fetchCategoryProducts(categoryId) {
+    const response = await axios.get(
+      `${BASE_URL}/products/category/${categoryId}`
+    );
+
+    return response.data;
+  }
 }
