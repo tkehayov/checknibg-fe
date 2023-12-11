@@ -22,17 +22,19 @@ export class ProductCategoriesApi {
     return response.data;
   }
 
-  static async fetchProductFilters(categoryId, filtersId) {
+  static async fetchProductFilters(categoryId, filtersId, page) {
     const response = await axios.get(
-      `${BASE_URL}/products/filters/${categoryId}?filters=${filtersId}`
+      `${BASE_URL}/products/filters/${categoryId}`,
+      { params: { filters: `${filtersId}`, page: `${page - 1}` } }
     );
 
     return response.data;
   }
 
-  static async fetchCategoryProducts(categoryId) {
+  static async fetchCategoryProducts(categoryId, page) {
     const response = await axios.get(
-      `${BASE_URL}/products/category/${categoryId}`
+      `${BASE_URL}/products/category/${categoryId}`,
+      { params: { page: `${page - 1}` } }
     );
 
     return response.data;
