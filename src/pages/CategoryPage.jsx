@@ -6,7 +6,7 @@ import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { ProductList } from "../components/ProductList/ProductList.jsx";
 
-export function CategoryPage() {
+export function CategoryPage({ loadingPage }) {
   const [currentCategory, setCurrentCategory] = useState();
   const [selectedProductFilters, setSelectedProductFilters] = useState([]);
 
@@ -68,6 +68,7 @@ export function CategoryPage() {
                 <CategoryFilterList
                   onClickItem={updateSelectedProductFilters}
                   category={currentCategory}
+                  loadingPage={loadingPage}
                 />
               </>
             )}

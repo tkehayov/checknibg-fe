@@ -1,6 +1,10 @@
 import { ProductFiltersListItem } from "../ProductFiltersListItem/ProductFiltersListItem";
 
-export function CategoryGroupListItem({ filter, onChangeProductItem }) {
+export function CategoryGroupListItem({
+  filter,
+  onChangeProductItem,
+  loadingPage,
+}) {
   return (
     <div>
       {filter.name}
@@ -12,6 +16,7 @@ export function CategoryGroupListItem({ filter, onChangeProductItem }) {
               <ProductFiltersListItem
                 onChange={onChangeProductItem}
                 productFilter={productFilter}
+                loadingPage={loadingPage}
               />
             }
           </div>
