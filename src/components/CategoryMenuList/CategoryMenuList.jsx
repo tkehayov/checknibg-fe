@@ -23,7 +23,7 @@ export function CategoryMenuList({ categories, currentCategory }) {
   };
 
   return (
-    <div>
+    <>
       <Button
         startIcon={open ? <MenuOpenIcon /> : <MenuIcon />}
         id="basic-button"
@@ -54,6 +54,6 @@ export function CategoryMenuList({ categories, currentCategory }) {
           );
         })}
       </Menu>
-    </div>
+    </>
   );
 }

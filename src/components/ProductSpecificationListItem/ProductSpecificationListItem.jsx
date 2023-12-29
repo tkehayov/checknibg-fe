@@ -4,11 +4,7 @@ import React from "react";
 export function ProductSpecificationListItem({ productSpecGroup }) {
   return (
     <>
-      <TableRow
-        component="th"
-        scope="row"
-        sx={{ width: "100%", backgroundColor: "grey" }}
-      >
+      <TableRow sx={{ width: "100%", backgroundColor: "grey" }}>
         <TableCell>
           <strong>{productSpecGroup.name}</strong>
         </TableCell>
