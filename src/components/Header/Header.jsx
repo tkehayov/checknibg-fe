@@ -1,7 +1,8 @@
 import { CategoryMenuList } from "../CategoryMenuList/CategoryMenuList.jsx";
 import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
+import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
 
 export function Header({ selectedCategory }) {
   const [productCategories, setProductCategories] = useState();
@@ -20,15 +21,20 @@ export function Header({ selectedCategory }) {
   }, []);
 
   return (
-    <div>
-      <Container maxWidth="xl">
-        {productCategories && (
-          <CategoryMenuList
-            currentCategory={selectedCategory}
-            categories={productCategories}
-          />
-        )}
-      </Container>
-    </div>
+    <Container maxWidth="xl">
+      <Grid container>
+        <Grid item>
+          {productCategories && (
+            <CategoryMenuList
+              currentCategory={selectedCategory}
+              categories={productCategories}
+            />
+          )}
+        </Grid>
+        <Grid item>
+          <SearchProduct />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }

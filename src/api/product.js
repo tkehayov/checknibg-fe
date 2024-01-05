@@ -7,4 +7,12 @@ export class ProductApi {
 
     return response.data;
   }
+
+  static async searchProduct(searchTerm) {
+    const response = await axios.get(
+      `${BASE_URL}/products/search/?s=${searchTerm}`
+    );
+
+    return response.data;
+  }
 }
