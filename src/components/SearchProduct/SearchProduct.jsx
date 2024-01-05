@@ -51,6 +51,7 @@ export function SearchProduct() {
             freeSolo
             id="combo-box-demo"
             options={options}
+            filterOptions={(options) => options}
             onInputChange={onInputChange}
             getOptionLabel={(option) => option.name}
             onChange={clickOnProduct}

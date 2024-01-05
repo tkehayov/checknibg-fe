@@ -15,7 +15,7 @@ export function CategoryMenuList({ categories, currentCategory }) {
   };
 
   const handleClose = (category) => {
-    if (category.id) {
+    if (category.id && currentCategory !== undefined) {
       currentCategory(category);
     }
 
