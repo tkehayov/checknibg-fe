@@ -5,14 +5,20 @@ import { ProductCategoriesApi } from "../api/product-categories.js";
 import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { ProductList } from "../components/ProductList/ProductList.jsx";
+import { PAGES_URL } from "../config.js";
 
 export function CategoryPage({ loadingPage }) {
   const [currentCategory, setCurrentCategory] = useState();
   const [selectedProductFilters, setSelectedProductFilters] = useState([]);
+  const [breadcrumbs, setBreadcrumbs] = useState();
 
   function selectedCategory(currentCategory) {
     if (currentCategory) {
       setCurrentCategory(currentCategory);
+      setBreadcrumbs([
+        { key: 1, name: "Home", href: PAGES_URL.home },
+        { key: 2, name: currentCategory.name, href: "" },
+      ]);
     }
   }
 
@@ -58,7 +64,7 @@ export function CategoryPage({ loadingPage }) {
 
   return (
     <div>
-      <Header selectedCategory={selectedCategory} />
+      <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
       <Container maxWidth="xl">
         <Grid container spacing={1}>
           <Grid item md={3} sm={4}>

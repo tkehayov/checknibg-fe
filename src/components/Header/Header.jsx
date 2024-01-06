@@ -3,8 +3,9 @@ import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
 import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
+import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs.jsx";
 
-export function Header({ selectedCategory }) {
+export function Header({ selectedCategory, breadcrumbs }) {
   const [productCategories, setProductCategories] = useState();
 
   async function fetchProductCategories() {
@@ -33,6 +34,11 @@ export function Header({ selectedCategory }) {
         </Grid>
         <Grid item>
           <SearchProduct />
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item>
+          <BreadCrumbs breadcrumbs={breadcrumbs} />
         </Grid>
       </Grid>
     </Container>

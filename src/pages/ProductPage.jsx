@@ -6,17 +6,27 @@ import { ProductGallery } from "../components/ProductGallery/ProductGallery";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
 import ProductTabs from "../components/ProductTabs/ProductTabs";
+import { PAGES_URL } from "../config";
 
 export function ProductPage() {
   const { id } = useParams();
-
   const [product, setProduct] = useState();
+  const [breadcrumbs, setBreadcrumbs] = useState();
 
   async function fetchProduct() {
     const productResponse = await ProductApi.fetchProduct(id);
 
     if (Object.keys(productResponse).length !== 0) {
       setProduct(productResponse);
+      setBreadcrumbs([
+        { key: 1, name: "Home", href: PAGES_URL.home },
+        {
+          key: 2,
+          name: productResponse.category.name,
+          href: `${PAGES_URL.category}/${productResponse.category.alias}`,
+        },
+        { key: 3, name: productResponse.name, href: "" },
+      ]);
     }
   }
 
@@ -26,7 +36,7 @@ export function ProductPage() {
 
   return (
     <div>
-      <Header />
+      <Header breadcrumbs={breadcrumbs} />
 
       {product && (
         <Container>
