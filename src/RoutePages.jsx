@@ -7,6 +7,8 @@ import { PAGES_URL } from "./config";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
+import { Container } from "@mui/material";
 export function RoutePages() {
   const [loadingPage, setLoadingPage] = useState();
 
@@ -32,7 +34,7 @@ export function RoutePages() {
     );
   }, []);
   return (
-    <>
+    <Container>
       <ProgressBar show={loadingPage} />
       <Router>
         <Routes>
@@ -50,6 +52,7 @@ export function RoutePages() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
-    </>
+      <ScrollToTop />
+    </Container>
   );
 }
