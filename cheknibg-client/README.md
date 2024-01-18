@@ -1,2 +1,1 @@
-# checknibg-fe
-FE
+# checknibg-client
