@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { RoutePages } from "./RoutePages";
 import { ColorModeContext, useMode } from "./theme";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
