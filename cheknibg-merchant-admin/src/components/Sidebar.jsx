@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { tokens } from "../theme";
 import "react-pro-sidebar/dist/css/styles.css";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import DevicesIcon from "@mui/icons-material/Devices";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -101,6 +102,13 @@ export function Sidebar() {
               title="Начало"
               to="/"
               icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Продукти"
+              to="/products"
+              icon={<DevicesIcon />}
               selected={selected}
               setSelected={setSelected}
             />
