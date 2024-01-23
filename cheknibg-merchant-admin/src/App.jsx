@@ -3,8 +3,10 @@ import { ColorModeContext, useMode } from "./theme";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import { Sidebar } from "./components/Sidebar";
-import { ProductsPage } from "./pages/ProductPage";
+import { HomePage } from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
+import { ProductPage } from "./pages/ProductPage";
+import { PAGES_URL } from "./config";
 
 export function App() {
   const [theme, colorMode] = useMode();
@@ -18,7 +20,8 @@ export function App() {
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
             <Routes>
-              <Route path="/" element={<ProductsPage />} />
+              <Route path={PAGES_URL.home} element={<HomePage />} />
+              <Route path={PAGES_URL.products} element={<ProductPage />} />
             </Routes>
           </main>
         </div>
