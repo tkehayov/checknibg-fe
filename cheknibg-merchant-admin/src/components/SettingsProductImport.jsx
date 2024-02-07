@@ -113,7 +113,6 @@ export function SettingsProductImport() {
       <form onSubmit={formik.handleSubmit}>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          // defaultValue={defaultCheck}
           name="radios"
         >
           <FormControlLabel
