@@ -1,4 +1,4 @@
 const BASE_URL = "/api";
-const PAGES_URL = { home: "/", products: "/products" };
+const PAGES_URL = { home: "/", products: "/products", settings: "/settings" };
 
 export { BASE_URL, PAGES_URL };

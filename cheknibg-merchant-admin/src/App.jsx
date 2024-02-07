@@ -6,6 +6,7 @@ import { Sidebar } from "./components/Sidebar";
 import { HomePage } from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import { ProductPage } from "./pages/ProductPage";
+import { SettingsPage } from "./pages/SettingsPage";
 import { PAGES_URL } from "./config";
 
 export function App() {
@@ -22,6 +23,7 @@ export function App() {
             <Routes>
               <Route path={PAGES_URL.home} element={<HomePage />} />
               <Route path={PAGES_URL.products} element={<ProductPage />} />
+              <Route path={PAGES_URL.settings} element={<SettingsPage />} />
             </Routes>
           </main>
         </div>

@@ -36,4 +36,11 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    "/api/merchants-settings",
+    createProxyMiddleware({
+      target: "http://localhost:8070",
+      changeOrigin: true,
+    })
+  );
 };

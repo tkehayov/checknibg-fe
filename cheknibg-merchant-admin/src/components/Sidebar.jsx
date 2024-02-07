@@ -1,14 +1,13 @@
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { tokens } from "../theme";
 import "react-pro-sidebar/dist/css/styles.css";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
 import DevicesIcon from "@mui/icons-material/Devices";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -112,17 +111,24 @@ export function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Импорт на продукти"
               to="/import"
               icon={<FileUploadIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Item
+            /> */}
+            {/* <Item
               title="Контакти"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
+            <Item
+              title="Настройки"
+              to="/settings"
+              icon={<SettingsIcon />}
               selected={selected}
               setSelected={setSelected}
             />
