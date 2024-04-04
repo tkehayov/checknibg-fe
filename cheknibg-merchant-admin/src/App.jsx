@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import { ProductPage } from "./pages/ProductPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { PAGES_URL } from "./config";
+import { FileImportProductsPage } from "./pages/FileImportProductsPage";
 
 export function App() {
   const [theme, colorMode] = useMode();
@@ -23,6 +24,10 @@ export function App() {
             <Routes>
               <Route path={PAGES_URL.home} element={<HomePage />} />
               <Route path={PAGES_URL.products} element={<ProductPage />} />
+              <Route
+                path={PAGES_URL.import}
+                element={<FileImportProductsPage />}
+              />
               <Route path={PAGES_URL.settings} element={<SettingsPage />} />
             </Routes>
           </main>
