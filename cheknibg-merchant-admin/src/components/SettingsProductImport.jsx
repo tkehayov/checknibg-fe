@@ -57,7 +57,6 @@ export function SettingsProductImport() {
       }
 
       if (urlConfig.id && values.radios !== "urlImport") {
-        console.log(values.radios);
         deleteMerchantUrlImportSettings(urlConfig.id);
       }
     },
