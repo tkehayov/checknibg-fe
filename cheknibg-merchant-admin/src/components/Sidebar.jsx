@@ -1,6 +1,7 @@
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
@@ -111,13 +112,13 @@ export function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
+            <Item
               title="Импорт на продукти"
               to="/import"
               icon={<FileUploadIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             {/* <Item
               title="Контакти"
               to="/contacts"

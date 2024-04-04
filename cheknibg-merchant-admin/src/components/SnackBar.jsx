@@ -1,7 +1,7 @@
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-export function SnackBar({ open, setOpenSnackBar }) {
+export function SnackBar({ open, setOpenSnackBar, message, severity }) {
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -9,7 +9,6 @@ export function SnackBar({ open, setOpenSnackBar }) {
 
     setOpenSnackBar(false);
   };
-
   return (
     <div>
       <Snackbar
@@ -20,11 +19,11 @@ export function SnackBar({ open, setOpenSnackBar }) {
       >
         <Alert
           onClose={handleClose}
-          severity="success"
+          severity={severity}
           variant="filled"
           sx={{ width: "100%" }}
         >
-          Настройките бяха запазени успешно
+          {message}
         </Alert>
       </Snackbar>
     </div>

@@ -28,7 +28,7 @@ export function SettingsProductImport() {
   const formik = useFormik({
     initialValues: {
       importUrlText: urlConfig.url,
-      radios: "",
+      radios: defaultCheck,
     },
     validationSchema: validationSchema,
     enableReinitialize: true,
@@ -57,6 +57,7 @@ export function SettingsProductImport() {
       }
 
       if (urlConfig.id && values.radios !== "urlImport") {
+        console.log(values.radios);
         deleteMerchantUrlImportSettings(urlConfig.id);
       }
     },
@@ -108,7 +109,12 @@ export function SettingsProductImport() {
 
   return (
     <div>
-      <SnackBar open={openSnackBar} setOpenSnackBar={setOpenSnackBar} />
+      <SnackBar
+        open={openSnackBar}
+        setOpenSnackBar={setOpenSnackBar}
+        message={"Настройките бяха запазени успешно"}
+        severity={"success"}
+      />
 
       <form onSubmit={formik.handleSubmit}>
         <RadioGroup
