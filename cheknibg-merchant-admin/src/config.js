@@ -4,6 +4,8 @@ const PAGES_URL = {
   products: "/products",
   settings: "/settings",
   import: "/import",
+  login: "/login",
+  register: "/register",
 };
 
 export { BASE_URL, PAGES_URL };

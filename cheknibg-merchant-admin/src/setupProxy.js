@@ -30,6 +30,20 @@ module.exports = function (app) {
     })
   );
   app.use(
+    "/api/register",
+    createProxyMiddleware({
+      target: "http://localhost:8070",
+      changeOrigin: true,
+    })
+  );
+  app.use(
+    "/api/login",
+    createProxyMiddleware({
+      target: "http://localhost:8070",
+      changeOrigin: true,
+    })
+  );
+  app.use(
     "/api/merchants",
     createProxyMiddleware({
       target: "http://localhost:8070",
