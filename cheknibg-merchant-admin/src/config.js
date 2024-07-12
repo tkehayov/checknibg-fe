@@ -1,9 +1,18 @@
-const BASE_URL = "/api";
+const BASE_API_URL = "";
+
 const PAGES_URL = {
   home: "/",
   products: "/products",
   settings: "/settings",
   import: "/import",
+  login: "/login",
+  register: "/register",
 };
 
-export { BASE_URL, PAGES_URL };
+const API_URLS = {
+  products: `/products/api`,
+  merchants: `/merchants/api`,
+  base: `${BASE_API_URL}`,
+};
+
+export { BASE_API_URL, PAGES_URL, API_URLS };

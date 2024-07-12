@@ -28,7 +28,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-export function Sidebar() {
+export function Sidebar({ isSidebar }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -54,88 +54,90 @@ export function Sidebar() {
         },
       }}
     >
-      <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
-          {/* LOGO AND MENU ICON */}
-          <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{
-              margin: "10px 0 20px 0",
-              color: colors.grey[100],
-            }}
-          >
+      {isSidebar && (
+        <ProSidebar collapsed={isCollapsed}>
+          <Menu iconShape="square">
+            {/* LOGO AND MENU ICON */}
+            <MenuItem
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+              style={{
+                margin: "10px 0 20px 0",
+                color: colors.grey[100],
+              }}
+            >
+              {!isCollapsed && (
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  ml="15px"
+                >
+                  <Typography variant="h3" color={colors.grey[100]}>
+                    ADMINIS
+                  </Typography>
+                  <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                    <MenuOutlinedIcon />
+                  </IconButton>
+                </Box>
+              )}
+            </MenuItem>
+
             {!isCollapsed && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="15px"
-              >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
-                </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
-                </IconButton>
+              <Box mb="25px">
+                <Box textAlign="center">
+                  <Typography
+                    variant="h2"
+                    color={colors.grey[100]}
+                    fontWeight="bold"
+                    sx={{ m: "10px 0 0 0" }}
+                  >
+                    Tihomir Kehayov
+                  </Typography>
+                </Box>
               </Box>
             )}
-          </MenuItem>
 
-          {!isCollapsed && (
-            <Box mb="25px">
-              <Box textAlign="center">
-                <Typography
-                  variant="h2"
-                  color={colors.grey[100]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                  Tihomir Kehayov
-                </Typography>
-              </Box>
-            </Box>
-          )}
-
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
-              title="Начало"
-              to="/"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Продукти"
-              to="/products"
-              icon={<DevicesIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Импорт на продукти"
-              to="/import"
-              icon={<FileUploadIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            {/* <Item
+            <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+              <Item
+                title="Начало"
+                to="/"
+                icon={<HomeOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Продукти"
+                to="/products"
+                icon={<DevicesIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Импорт на продукти"
+                to="/import"
+                icon={<FileUploadIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              {/* <Item
               title="Контакти"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             /> */}
-            <Item
-              title="Настройки"
-              to="/settings"
-              icon={<SettingsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          </Box>
-        </Menu>
-      </ProSidebar>
+              <Item
+                title="Настройки"
+                to="/settings"
+                icon={<SettingsIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Box>
+          </Menu>
+        </ProSidebar>
+      )}
     </Box>
   );
 }
