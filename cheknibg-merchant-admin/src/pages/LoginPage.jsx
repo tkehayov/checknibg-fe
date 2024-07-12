@@ -31,11 +31,10 @@ export function LoginPage({ changeSidebar }) {
     enableReinitialize: true,
     validateOnMount: true,
     onSubmit: (values) => {
-      console.log(values);
       AuthApi.loginUser(values.email, values.password).then((response) => {
         if (response.errors) {
           setErrorMessage("Невалиден username/password.");
-          console.log("underr", response);
+
           return;
         }
         setErrorMessage("");

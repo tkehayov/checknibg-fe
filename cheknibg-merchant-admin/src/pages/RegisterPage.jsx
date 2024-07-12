@@ -42,9 +42,8 @@ export function RegisterPage({ changeSidebar }) {
     enableReinitialize: true,
     validateOnMount: true,
     onSubmit: (values) => {
-      AuthApi.registerMerchant(values.email, values.password, values.url)
-        .then((response) => {
-          console.log("sss:", response);
+      AuthApi.registerMerchant(values.email, values.password, values.url).then(
+        (response) => {
           if ("errors" in response) {
             let errorMessage = "";
             setIsRegNotSuccess(true);
@@ -60,10 +59,8 @@ export function RegisterPage({ changeSidebar }) {
           setIsRegNotSuccess(false);
           setIsRegSuccess(true);
           setAuthToken(response.token);
-        })
-        .catch((error) => {
-          console.log("errorsss: ", error);
-        });
+        }
+      );
     },
   });
 
