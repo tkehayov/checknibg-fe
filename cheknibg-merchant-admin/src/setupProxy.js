@@ -2,58 +2,31 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   app.use(
-    "/api/products",
+    "/products",
     createProxyMiddleware({
-      target: "http://localhost:8080",
+      target: "http://localhost:9090",
+      changeOrigin: true,
+    })
+  );
+
+  app.use(
+    "/auth/register",
+    createProxyMiddleware({
+      target: "http://localhost:9090",
       changeOrigin: true,
     })
   );
   app.use(
-    "/api/merchant-product",
+    "/auth/authenticate",
     createProxyMiddleware({
-      target: "http://localhost:8080",
+      target: "http://localhost:9090",
       changeOrigin: true,
     })
   );
   app.use(
-    "/api/categories",
+    "/merchants/api",
     createProxyMiddleware({
-      target: "http://localhost:8080",
-      changeOrigin: true,
-    })
-  );
-  app.use(
-    "/api/images",
-    createProxyMiddleware({
-      target: "http://localhost:8080",
-      changeOrigin: true,
-    })
-  );
-  app.use(
-    "/api/register",
-    createProxyMiddleware({
-      target: "http://localhost:8070",
-      changeOrigin: true,
-    })
-  );
-  app.use(
-    "/api/login",
-    createProxyMiddleware({
-      target: "http://localhost:8070",
-      changeOrigin: true,
-    })
-  );
-  app.use(
-    "/api/merchants",
-    createProxyMiddleware({
-      target: "http://localhost:8070",
-      changeOrigin: true,
-    })
-  );
-  app.use(
-    "/api/merchants-settings",
-    createProxyMiddleware({
-      target: "http://localhost:8070",
+      target: "http://localhost:9090",
       changeOrigin: true,
     })
   );

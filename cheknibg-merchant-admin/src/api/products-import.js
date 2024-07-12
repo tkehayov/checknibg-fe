@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "../config";
+import { API_URLS } from "../config";
 
 export class ProductImportApi {
   static async importProducts(formData) {
     const response = await axios.post(
-      `${BASE_URL}/merchant-product/file`,
+      `${API_URLS.products}/merchant-product/file`,
       formData,
       {
         headers: {

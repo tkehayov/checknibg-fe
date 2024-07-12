@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ColorModeContext, useMode } from "./theme";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
@@ -12,8 +12,7 @@ import { FileImportProductsPage } from "./pages/FileImportProductsPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import axios from "axios";
-import { AuthApi, getAuthToken } from "./api/auth-api";
-// import { baseURL } from "../utils/config";
+import { getAuthToken } from "./api/auth-api";
 
 export function App() {
   const [theme, colorMode] = useMode();
@@ -22,46 +21,50 @@ export function App() {
   function changeSidebar(sidebar) {
     setIsSidebar(sidebar);
   }
-  //todo
-  useEffect(() => {
-    axios.interceptors.request.use(
-      (config) => {
-        let token = getAuthToken();
-        config.headers["Authorization"] = `Bearer ${token}`;
-        console.log("ASdf", token);
 
+  axios.interceptors.request.use(
+    (config) => {
+      let token = getAuthToken();
+
+      if (token === "") {
         return config;
-      },
-      (error) => {
+      }
+
+      config.headers["Authorization"] = `Bearer ${token}`;
+
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  axios.interceptors.response.use(
+    (config) => {
+      return config;
+    },
+    (error) => {
+      let token = getAuthToken();
+      const status = error?.response?.status || 0;
+
+      const resBaseURL = error?.response?.config?.baseURL;
+      if (status === 400) {
         return Promise.reject(error);
       }
-    );
-
-    axios.interceptors.response.use(
-      (config) => {
-        console.log("ASdf22");
-        return config;
-      },
-      (error) => {
-        let token = getAuthToken();
-        const status = error?.response?.status || 0;
-        const resBaseURL = error?.response?.config?.baseURL;
-        if (status === 401) {
-          console.log("ASdfqqq111", token);
-
-          if (token) {
-            // console.log("ASdfqqq");
-
-            // localStorage.clear();
-            // window.location.assign("/");
-            return Promise.reject(error);
-          } else {
-            return Promise.reject(error);
-          }
+      if (status === 401) {
+        if (token) {
+          return Promise.reject(error);
+        } else {
+          return Promise.reject(error);
         }
       }
-    );
-  }, []);
+
+      if (status === 403) {
+        //TODO
+        // window.location.replace("login");
+      }
+    }
+  );
 
   return (
     <ColorModeContext.Provider value={colorMode}>

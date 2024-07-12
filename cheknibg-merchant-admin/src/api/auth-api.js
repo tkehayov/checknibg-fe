@@ -1,47 +1,67 @@
 import axios from "axios";
-import { BASE_URL } from "../config";
+import { API_URLS } from "../config";
 
 export class AuthApi {
-  // register USer
-  static async registerUser(firstName, lastName, username, password) {
+  static async registerMerchant(email, password, url) {
     let headers = {};
-    if (getAuthToken() !== null && getAuthToken() !== "null") {
-      headers = { Authorization: `Baerer ${getAuthToken()}` };
-    }
-    const response = await axios.post(
-      `${BASE_URL}/register`,
-      {
-        firstName: firstName,
-        lastName: lastName,
-        login: username,
-        password: password,
-      },
-      headers
-    );
 
+    if (
+      getAuthToken() !== null &&
+      getAuthToken() !== "null" &&
+      getAuthToken() !== ""
+    ) {
+      headers = { Authorization: `Bearer ${getAuthToken()}` };
+    }
+    let response = await axios
+      .post(
+        `${API_URLS.base}/auth/register`,
+        {
+          email: email,
+          password: password,
+          url: url,
+          role: "MANAGER",
+        },
+        headers
+      )
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        if (error) {
+          return error.response;
+        }
+      });
     return response.data;
   }
 
-  // login USer
-
-  static async loginUser(username, password) {
+  static async loginUser(email, password) {
     let headers = {};
     if (getAuthToken() !== null && getAuthToken() !== "null") {
-      headers = { Authorization: `Baerer ${getAuthToken()}` };
+      headers = { Authorization: `Bearer ${getAuthToken()}` };
     }
-    const response = await axios.post(`${BASE_URL}/login`, {
-      login: username,
-      password: password,
-    });
+    const response = await axios
+      .post(`/auth/authenticate`, {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        if (error) {
+          return error.response;
+        }
+      });
 
     return response.data;
   }
 }
 
 export const getAuthToken = () => {
-  return window.localStorage.getItem("auth_token");
+  let token = window.localStorage.getItem("access_token");
+  return token === "undefined" ? "" : token;
 };
 
 export const setAuthToken = (token) => {
-  return window.localStorage.setItem("auth_token", token);
+  return window.localStorage.setItem("access_token", token);
 };
