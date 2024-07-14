@@ -3,7 +3,6 @@ import { API_URLS } from "../config";
 
 export class ProductCategoriesApi {
   static async fetchCategories() {
-    console.log(`${API_URLS.products}/categories`);
     const response = await axios.get(`${API_URLS.products}/categories`);
 
     return response.data;
