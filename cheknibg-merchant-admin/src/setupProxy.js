@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   app.use(
-    "/products",
+    "/products-service/api",
     createProxyMiddleware({
       target: "http://localhost:9090",
       changeOrigin: true,
@@ -24,7 +24,7 @@ module.exports = function (app) {
     })
   );
   app.use(
-    "/merchants/api",
+    "/merchants-service/api",
     createProxyMiddleware({
       target: "http://localhost:9090",
       changeOrigin: true,

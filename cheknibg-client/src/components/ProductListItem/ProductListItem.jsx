@@ -4,10 +4,19 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { BASE_URL, PAGES_URL, PRODUCTS_IMAGES_URL } from "../../config";
+import { API_URLS, PAGES_URL, PRODUCTS_IMAGES_URL } from "../../config";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export function ProductListItem({ currentProduct }) {
+  const [imageUrl, setImageUrl] = useState();
+
+  useEffect(() => {
+    let imageUrl = currentProduct.images[0].filename.includes("cdn")
+      ? "?url=" + currentProduct.images[0].filename
+      : "/" + currentProduct.images[0].filename;
+    setImageUrl(imageUrl);
+  }, []);
   return (
     <Grid item>
       <Card key={currentProduct.id} sx={{ width: 215, height: 300 }}>
@@ -15,12 +24,7 @@ export function ProductListItem({ currentProduct }) {
           <CardMedia
             component="img"
             height="140"
-            image={
-              BASE_URL +
-              PRODUCTS_IMAGES_URL +
-              "/" +
-              currentProduct.images[0].filename
-            }
+            image={API_URLS.products + PRODUCTS_IMAGES_URL + `${imageUrl}`}
             alt="green iguana"
           />
           <CardContent sx={{ height: 80 }}>

@@ -1,7 +1,7 @@
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { useEffect, useState } from "react";
-import { BASE_URL, PRODUCTS_IMAGES_URL } from "../../config";
+import { API_URLS, PRODUCTS_IMAGES_URL } from "../../config";
 import styles from "./style.module.css";
 
 export function ProductGallery({ images }) {
@@ -11,9 +11,12 @@ export function ProductGallery({ images }) {
     if (images.length !== 0) {
       const currentImages = [];
       images.forEach((image) => {
+        let imageUrl = image.filename.includes("cdn")
+          ? "?url=" + image.filename
+          : "/" + image.filename;
         const galleryImage = {
-          original: BASE_URL + PRODUCTS_IMAGES_URL + "/" + image.filename,
-          thumbnail: BASE_URL + PRODUCTS_IMAGES_URL + "/" + image.filename,
+          original: API_URLS.products + PRODUCTS_IMAGES_URL + imageUrl,
+          thumbnail: API_URLS.products + PRODUCTS_IMAGES_URL + imageUrl,
         };
         currentImages.push(galleryImage);
       });
