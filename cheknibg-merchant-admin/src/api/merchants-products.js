@@ -1,14 +1,23 @@
 import axios from "axios";
 import { API_URLS } from "../config";
-
+import { UserApi } from "./user-api";
 export class MerchantProductApi {
   static async getProducts(currentPage, pageSize) {
-    const response = await axios.get(
-      `${API_URLS.products}/merchant-product/2?page=${
-        currentPage - 1
-      }&size=${pageSize}`
-    );
+    let userId = await UserApi.getMerchantId();
 
-    return response.data;
+    const response = await axios
+      .get(
+        `${API_URLS.products}/merchant-product/${userId}?page=${
+          currentPage - 1
+        }&size=${pageSize}`
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        return error.response.data;
+      });
+
+    return response;
   }
 }

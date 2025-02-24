@@ -60,8 +60,7 @@ export function App() {
       }
 
       if (status === 403) {
-        //TODO
-        // window.location.replace("login");
+        window.location.replace("login");
       }
     }
   );
