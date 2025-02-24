@@ -8,6 +8,7 @@ import { Box, Button } from "@mui/material";
 import { MerchantSettingsApi } from "../api/merchant-settings";
 import { useEffect, useState } from "react";
 import { SnackBar } from "./SnackBar";
+import { UserApi } from "../api/user-api";
 
 const validationSchema = yup.object({
   importUrlText: yup.string().when("radios", ([radios], schema) => {
@@ -19,11 +20,17 @@ const validationSchema = yup.object({
 });
 
 export function SettingsProductImport() {
-  // TODO replace with real userId
-  const userId = 2;
   const [urlConfig, setUrl] = useState({});
   const [defaultCheck, setDefaultCheck] = useState("");
   const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [merchantId, setMerchantId] = useState("");
+
+  async function fetchMerchantId() {
+    const merchantIdResponse = await UserApi.getMerchantId();
+    if (merchantIdResponse.data !== "") {
+      setMerchantId(merchantIdResponse);
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -44,14 +51,14 @@ export function SettingsProductImport() {
         (urlConfig.url === "" || Object.keys(urlConfig).length === 0) &&
         values.radios === "urlImport"
       ) {
-        createMerchantUrlImportSettings(values.importUrlText, userId);
+        createMerchantUrlImportSettings(values.importUrlText, merchantId);
         return;
       }
 
       if (urlConfig.id !== "" && values.radios === "urlImport") {
         updateMerchantUrlImportSettings(
           values.importUrlText,
-          userId,
+          merchantId,
           urlConfig.id
         );
       }
@@ -91,7 +98,8 @@ export function SettingsProductImport() {
 
   async function getMerchantUrlImportSettings() {
     const urlConfigResponse =
-      await MerchantSettingsApi.getMerchantUrlImportSettings(userId);
+      await MerchantSettingsApi.getMerchantUrlImportSettings(merchantId);
+
     if (urlConfigResponse) {
       setUrl(urlConfigResponse);
     }
@@ -103,8 +111,12 @@ export function SettingsProductImport() {
   }
 
   useEffect(() => {
-    getMerchantUrlImportSettings();
-  }, []);
+    const fetchData = async () => {
+      fetchMerchantId();
+      getMerchantUrlImportSettings();
+    };
+    fetchData();
+  }, [merchantId]);
 
   return (
     <div>

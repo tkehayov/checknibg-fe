@@ -19,13 +19,21 @@ import { ImportProductResultsList } from "../components/ImportProductResultsList
 import { HttpStatusCode } from "axios";
 import { MerchantSettingsApi } from "../api/merchant-settings";
 import Alert from "@mui/material/Alert";
+import { UserApi } from "../api/user-api";
 
 export function FileImportProductsPage({ open }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [isFileImport, setIsFileImport] = useState(false);
+  const [userId, setUserId] = useState("");
 
+  async function fetchUserId() {
+    const userIdResponse = await UserApi.getMerchantId();
+    if (userIdResponse.data !== "") {
+      setUserId(userIdResponse);
+    }
+  }
   const [snackBar, setSnackBar] = useState({
     severity: "success",
     message: "",
@@ -62,29 +70,27 @@ export function FileImportProductsPage({ open }) {
           setProductsResult();
           const snack = {
             severity: "error",
-            message: "Невалиден файл фопрмат",
+            message: "Невалиден файл формат",
           };
           setSnackBar(snack);
         }
       });
   }
 
-  async function getMerchantUrlImportSettings() {
-    // TODO replace with real userId
-    const userId = 2;
-
-    const urlConfigResponse =
-      await MerchantSettingsApi.getMerchantUrlImportSettings(userId);
-    if (urlConfigResponse.url) {
-      setIsFileImport(false);
-      return;
-    }
-    setIsFileImport(true);
-  }
-
   useEffect(() => {
+    const getMerchantUrlImportSettings = async () => {
+      const urlConfigResponse =
+        await MerchantSettingsApi.getMerchantUrlImportSettings(userId);
+      if (urlConfigResponse.url) {
+        setIsFileImport(false);
+        return;
+      }
+      setIsFileImport(true);
+    };
+
+    fetchUserId();
     getMerchantUrlImportSettings();
-  }, []);
+  }, [userId]);
 
   return (
     <>
@@ -158,7 +164,7 @@ export function FileImportProductsPage({ open }) {
                 color="secondary"
                 variant="contained"
                 onClick={upload}
-                disabled={files.length == 0}
+                disabled={files.length === 0}
               >
                 Запази
               </Button>
