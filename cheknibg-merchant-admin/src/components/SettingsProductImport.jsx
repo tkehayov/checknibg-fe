@@ -25,13 +25,6 @@ export function SettingsProductImport() {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [merchantId, setMerchantId] = useState("");
 
-  async function fetchMerchantId() {
-    const merchantIdResponse = await UserApi.getMerchantId();
-    if (merchantIdResponse.data !== "") {
-      setMerchantId(merchantIdResponse);
-    }
-  }
-
   const formik = useFormik({
     initialValues: {
       importUrlText: urlConfig.url,
@@ -96,26 +89,30 @@ export function SettingsProductImport() {
     });
   }
 
-  async function getMerchantUrlImportSettings() {
-    const urlConfigResponse =
-      await MerchantSettingsApi.getMerchantUrlImportSettings(merchantId);
-
-    if (urlConfigResponse) {
-      setUrl(urlConfigResponse);
-    }
-    if (urlConfigResponse.url) {
-      setDefaultCheck("urlImport");
-      return;
-    }
-    setDefaultCheck("fileImport");
-  }
-
   useEffect(() => {
-    const fetchData = async () => {
-      fetchMerchantId();
-      getMerchantUrlImportSettings();
+    const fetchMerchantId = async () => {
+      const merchantIdResponse = await UserApi.getMerchantId();
+      if (merchantIdResponse.data !== "") {
+        setMerchantId(merchantIdResponse);
+      }
     };
-    fetchData();
+
+    const getMerchantUrlImportSettings = async () => {
+      const urlConfigResponse =
+        await MerchantSettingsApi.getMerchantUrlImportSettings(merchantId);
+
+      if (urlConfigResponse) {
+        setUrl(urlConfigResponse);
+      }
+      if (urlConfigResponse.url) {
+        setDefaultCheck("urlImport");
+        return;
+      }
+      setDefaultCheck("fileImport");
+    };
+
+    fetchMerchantId();
+    getMerchantUrlImportSettings();
   }, [merchantId]);
 
   return (

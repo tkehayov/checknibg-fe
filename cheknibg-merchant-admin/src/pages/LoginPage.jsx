@@ -1,6 +1,4 @@
-import { Box, useTheme, Button, Grid, TextField, Paper } from "@mui/material";
-
-import { tokens } from "../theme";
+import { Button, Grid, TextField, Paper } from "@mui/material";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +9,6 @@ import Alert from "@mui/material/Alert";
 import { AuthApi, setAuthToken } from "../api/auth-api";
 
 export function LoginPage({ changeSidebar }) {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const history = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
