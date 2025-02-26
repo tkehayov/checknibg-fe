@@ -86,7 +86,7 @@ export function ProductPage() {
   }, [pageState.page, pageState.pageSize]);
 
   function mapData(data) {
-    let productContent = new Array();
+    let productContent = [];
     data.content.forEach((content) => {
       productContent.push({
         id: content.id,

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { ColorModeContext, useMode } from "./theme";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
@@ -18,9 +18,9 @@ export function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
 
-  function changeSidebar(sidebar) {
+  const changeSidebar = useCallback((sidebar) => {
     setIsSidebar(sidebar);
-  }
+  }, []);
 
   axios.interceptors.request.use(
     (config) => {
@@ -47,7 +47,6 @@ export function App() {
       let token = getAuthToken();
       const status = error?.response?.status || 0;
 
-      const resBaseURL = error?.response?.config?.baseURL;
       if (status === 400) {
         return Promise.reject(error);
       }

@@ -35,10 +35,6 @@ export class AuthApi {
   }
 
   static async loginUser(email, password) {
-    let headers = {};
-    if (getAuthToken() !== null && getAuthToken() !== "null") {
-      headers = { Authorization: `Bearer ${getAuthToken()}` };
-    }
     const response = await axios
       .post(`/auth/authenticate`, {
         email: email,
