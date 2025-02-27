@@ -14,7 +14,7 @@ export function LoginPage({ changeSidebar }) {
 
   useEffect(() => {
     changeSidebar(false);
-  }, []);
+  }, [changeSidebar]);
 
   const validationSchema = yup.object({
     email: yup.string().required("Невалиден email"),
