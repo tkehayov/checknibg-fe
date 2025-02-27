@@ -26,12 +26,12 @@ export function FileImportProductsPage({ open }) {
   const colors = tokens(theme.palette.mode);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [isFileImport, setIsFileImport] = useState(false);
-  const [userId, setUserId] = useState("");
+  const [merchantId, setMerchantId] = useState("");
 
-  async function fetchUserId() {
-    const userIdResponse = await UserApi.getMerchantId();
-    if (userIdResponse.data !== "") {
-      setUserId(userIdResponse);
+  async function fetchMerchantId() {
+    const merchantId = await UserApi.getMerchantId();
+    if (merchantId.data !== "") {
+      setMerchantId(merchantId);
     }
   }
   const [snackBar, setSnackBar] = useState({
@@ -53,7 +53,7 @@ export function FileImportProductsPage({ open }) {
 
     const file = acceptedFiles[0];
     formData.append("file", file);
-    await ProductImportApi.importProducts(formData)
+    await ProductImportApi.importProducts(formData, merchantId)
       .then((response) => {
         setProductsResult(response);
         setOpenSnackBar(true);
@@ -80,7 +80,7 @@ export function FileImportProductsPage({ open }) {
   useEffect(() => {
     const getMerchantUrlImportSettings = async () => {
       const urlConfigResponse =
-        await MerchantSettingsApi.getMerchantUrlImportSettings(userId);
+        await MerchantSettingsApi.getMerchantUrlImportSettings(merchantId);
       if (urlConfigResponse.url) {
         setIsFileImport(false);
         return;
@@ -88,9 +88,9 @@ export function FileImportProductsPage({ open }) {
       setIsFileImport(true);
     };
 
-    fetchUserId();
+    fetchMerchantId();
     getMerchantUrlImportSettings();
-  }, [userId]);
+  }, [merchantId]);
 
   return (
     <>

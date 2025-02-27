@@ -13,7 +13,7 @@ export function RegisterPage({ changeSidebar }) {
 
   useEffect(() => {
     changeSidebar(false);
-  }, []);
+  }, [changeSidebar]);
 
   const validationSchema = yup.object({
     email: yup.string().email("Невалиден email").required("Невалиден email"),
