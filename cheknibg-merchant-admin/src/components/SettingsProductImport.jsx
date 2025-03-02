@@ -94,8 +94,6 @@ export function SettingsProductImport() {
       const merchantIdResponse = await UserApi.getMerchantId();
       if (merchantIdResponse && merchantIdResponse.data !== "") {
         setMerchantId(merchantIdResponse);
-      } else {
-        console.log("tralal: ", merchantIdResponse);
       }
     };
 
