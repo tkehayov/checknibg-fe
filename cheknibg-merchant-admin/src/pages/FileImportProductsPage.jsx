@@ -89,7 +89,9 @@ export function FileImportProductsPage({ open }) {
     };
 
     fetchMerchantId();
-    getMerchantUrlImportSettings();
+    if (merchantId) {
+      getMerchantUrlImportSettings();
+    }
   }, [merchantId]);
 
   return (

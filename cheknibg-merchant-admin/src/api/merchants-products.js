@@ -1,10 +1,7 @@
 import axios from "axios";
 import { API_URLS } from "../config";
-import { UserApi } from "./user-api";
 export class MerchantProductApi {
-  static async getProducts(currentPage, pageSize) {
-    let userId = await UserApi.getMerchantId();
-
+  static async getProducts(currentPage, pageSize, userId) {
     const response = await axios
       .get(
         `${API_URLS.products}/merchant-product/${userId}?page=${

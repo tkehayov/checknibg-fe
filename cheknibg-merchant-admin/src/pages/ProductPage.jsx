@@ -8,6 +8,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useState } from "react";
 import { useEffect } from "react";
 import { MerchantProductApi } from "../api/merchants-products";
+import { UserApi } from "../api/user-api";
 
 export function ProductPage() {
   const theme = useTheme();
@@ -68,18 +69,22 @@ export function ProductPage() {
         ...old,
         isLoading: true,
       }));
-      const response = await MerchantProductApi.getProducts(
-        pageState.page,
-        pageState.pageSize
-      );
+      let merchantId = await UserApi.getMerchantId();
+      if (merchantId) {
+        const response = await MerchantProductApi.getProducts(
+          pageState.page,
+          pageState.pageSize,
+          merchantId
+        );
 
-      let data = mapData(response);
-      setPageState((old) => ({
-        ...old,
-        isLoading: false,
-        content: data.content,
-        totalPages: data.totalPages,
-      }));
+        let data = mapData(response);
+        setPageState((old) => ({
+          ...old,
+          isLoading: false,
+          content: data.content,
+          totalPages: data.totalPages,
+        }));
+      }
     };
 
     fetchData();
