@@ -92,7 +92,7 @@ export function SettingsProductImport() {
   useEffect(() => {
     const fetchMerchantId = async () => {
       const merchantIdResponse = await UserApi.getMerchantId();
-      if (merchantIdResponse.data !== "") {
+      if (merchantIdResponse && merchantIdResponse.data !== "") {
         setMerchantId(merchantIdResponse);
       }
     };
@@ -112,7 +112,9 @@ export function SettingsProductImport() {
     };
 
     fetchMerchantId();
-    getMerchantUrlImportSettings();
+    if (merchantId) {
+      getMerchantUrlImportSettings();
+    }
   }, [merchantId]);
 
   return (

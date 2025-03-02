@@ -9,17 +9,19 @@ export class UserApi {
     const merchantId = await axios
       .get(`/auth/users/${token}`)
       .then((userIdRes) => {
-        const merchantId = axios
-          .get(`${API_URLS.merchants}/merchants/user-id/${userIdRes.data}`)
-          .then((merchantIdRes) => {
-            return merchantIdRes.data;
-          })
-          .catch((error) => {
-            if (error) {
-              return error.response.data;
-            }
-          });
-        return merchantId;
+        if (userIdRes.data) {
+          const merchantId = axios
+            .get(`${API_URLS.merchants}/merchants/user-id/${userIdRes.data}`)
+            .then((merchantIdRes) => {
+              return merchantIdRes.data;
+            })
+            .catch((error) => {
+              if (error) {
+                return error.response.data;
+              }
+            });
+          return merchantId;
+        }
       })
       .catch((error) => {
         if (error) {
