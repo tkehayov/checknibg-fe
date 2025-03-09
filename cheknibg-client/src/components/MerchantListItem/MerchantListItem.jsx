@@ -4,8 +4,9 @@ import { MerchantsApi } from "../../api/merchants";
 import { useState, useEffect } from "react";
 import { API_URLS, MERCHANTS_IMAGES_URL } from "../../config";
 import s from "./style.module.css";
+import { FinanceApi } from "../../api/finance";
 
-export function MerchantListItem({ merchant }) {
+export function MerchantListItem({ merchant, productId }) {
   const [merchantDetails, setMerchantDetails] = useState();
   async function fetchMerchantInfo(id) {
     const merchantResponse = await MerchantsApi.fetchMerchant(id);
@@ -16,6 +17,10 @@ export function MerchantListItem({ merchant }) {
 
   function goToMerchantPage(url) {
     window.open(url, "_blank");
+  }
+
+  function updateCounter(merchantId) {
+    FinanceApi.updateCounter({ merchantId: merchantId, productId: productId });
   }
 
   useEffect(() => {
@@ -55,7 +60,10 @@ export function MerchantListItem({ merchant }) {
               color="primary"
               variant="contained"
               size="medium"
-              onClick={() => goToMerchantPage(merchant.url)}
+              onClick={() => {
+                goToMerchantPage(merchant.url);
+                updateCounter(merchant.merchantId);
+              }}
             >
               Към Магазина
             </Button>

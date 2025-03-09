@@ -16,4 +16,12 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    "/finance-service/api",
+    createProxyMiddleware({
+      target: "http://localhost:9090",
+      changeOrigin: true,
+    })
+  );
 };

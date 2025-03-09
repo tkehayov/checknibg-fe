@@ -60,7 +60,7 @@ export default function ProductTabs({ product }) {
         </Tabs>
       </Box>
       <SimpleTabs value={value} index={0}>
-        <MerchantList merchants={product.merchants} />
+        <MerchantList merchants={product.merchants} productId={product.id} />
       </SimpleTabs>
       <SimpleTabs value={value} index={1}>
         <ProductSpecificationList productSpecGroup={product.propertiesGroup} />

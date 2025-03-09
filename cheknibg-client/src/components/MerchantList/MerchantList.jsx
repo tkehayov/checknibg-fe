@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { MerchantListItem } from "../MerchantListItem/MerchantListItem";
 
-export function MerchantList({ merchants }) {
+export function MerchantList({ merchants, productId }) {
   return (
     <>
       <TableContainer component={Paper}>
@@ -17,7 +17,10 @@ export function MerchantList({ merchants }) {
               merchants.map((merchant) => {
                 return (
                   <TableRow key={merchant.id}>
-                    <MerchantListItem merchant={merchant} />
+                    <MerchantListItem
+                      merchant={merchant}
+                      productId={productId}
+                    />
                   </TableRow>
                 );
               })}
