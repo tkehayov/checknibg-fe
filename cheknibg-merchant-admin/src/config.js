@@ -12,6 +12,7 @@ const PAGES_URL = {
 const API_URLS = {
   products: `/products-service/api`,
   merchants: `/merchants-service/api`,
+  finance: `/finance-service/api`,
   base: `${BASE_API_URL}`,
 };
 
