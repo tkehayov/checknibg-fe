@@ -1,11 +1,13 @@
-import { CategoryMenuList } from "../CategoryMenuList/CategoryMenuList.jsx";
 import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
-import { Container, Grid } from "@mui/material";
+import { AppBar, Grid, Link } from "@mui/material";
 import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs.jsx";
+import logoSrc from "../../assets/images/CHEKNI-LOGO.svg";
+import { PAGES_URL } from "../../config.js";
+import { NavBarHeader } from "../CategoryMenuList/NavBarHeader.jsx";
 
-export function Header({ selectedCategory, breadcrumbs }) {
+export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
   const [productCategories, setProductCategories] = useState();
 
   async function fetchProductCategories() {
@@ -22,18 +24,21 @@ export function Header({ selectedCategory, breadcrumbs }) {
   }, []);
 
   return (
-    <Container maxWidth="xl">
+    <AppBar position="sticky" color="default" elevation={1}>
       <Grid container>
         <Grid item>
-          {productCategories && (
-            <CategoryMenuList
-              currentCategory={selectedCategory}
-              categories={productCategories}
-            />
-          )}
+          <Link href={PAGES_URL.home}>
+            <img src={logoSrc} alt="Chekni logo" width={200} />
+          </Link>
         </Grid>
         <Grid item>
           <SearchProduct />
+        </Grid>
+      </Grid>
+
+      <Grid container>
+        <Grid item>
+          <NavBarHeader />
         </Grid>
       </Grid>
       <Grid container>
@@ -41,6 +46,6 @@ export function Header({ selectedCategory, breadcrumbs }) {
           <BreadCrumbs breadcrumbs={breadcrumbs} />
         </Grid>
       </Grid>
-    </Container>
+    </AppBar>
   );
 }

@@ -34,25 +34,27 @@ export function RoutePages() {
     );
   }, []);
   return (
-    <Container>
+    <>
       <ProgressBar show={loadingPage} />
-      <Router>
-        <Routes>
-          <Route path={PAGES_URL.home} exact element={<HomePage />} />
-          <Route
-            path={PAGES_URL.product + "/:id"}
-            exact
-            element={<ProductPage />}
-          />
-          <Route
-            path={PAGES_URL.category + "/:id"}
-            exact
-            element={<CategoryPage loadingPage={loadingPage} />}
-          />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Router>
-      <ScrollToTop />
-    </Container>
+      <Container maxWidth="xl">
+        <Router>
+          <Routes>
+            <Route path={PAGES_URL.home} exact element={<HomePage />} />
+            <Route
+              path={PAGES_URL.product + "/:id"}
+              exact
+              element={<ProductPage />}
+            />
+            <Route
+              path={PAGES_URL.category + "/:id"}
+              exact
+              element={<CategoryPage loadingPage={loadingPage} />}
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Router>
+        <ScrollToTop />
+      </Container>
+    </>
   );
 }
