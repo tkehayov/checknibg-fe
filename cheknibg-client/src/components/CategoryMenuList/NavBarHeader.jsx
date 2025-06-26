@@ -14,15 +14,15 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useState } from "react";
-import { DrawerNav, DrawerNavList } from "./DrawerNavList";
+import { DrawerNavList } from "./DrawerNavList";
 
 const pages = [
   {
-    main: "лаптопи",
+    main: "Лаптопи",
     sub: [
       {
         title: "Марки",
-        itemss: [
+        items: [
           "Всички",
           "Dell",
           "ASUS",
@@ -36,63 +36,59 @@ const pages = [
         ],
       },
       {
-        title: "оперативна памет",
-        itemss: ["8 GB", "16 GB", "32 GB"],
+        title: "Оперативна памет",
+        items: ["8 GB", "16 GB", "32 GB"],
+      },
+      {
+        title: "Процесор",
+        items: ["Intel Core i7 (12-ядрен)", "Intel Core i5 (4-ядрен)"],
       },
     ],
   },
   {
-    main: "компютри",
-    sub: [{ title: "Марки", itemss: ["Pricing1.1", "Pricing1.2"] }],
+    main: "Компютри",
+    sub: [{ title: "Марки", items: ["Pricing1.1", "Pricing1.2"] }],
   },
   {
-    main: "таблети",
-    sub: [{ title: "Марки", itemss: ["Blog1.1", "Blog1.2"] }],
+    main: "Таблети",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
   },
   {
-    main: "чанти и раници",
-    sub: [{ title: "Марки", itemss: ["Blog1.1", "Blog1.2"] }],
+    main: "Смартфони",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
   },
   {
-    main: "смартфони",
-    sub: [{ title: "Марки", itemss: ["Blog1.1", "Blog1.2"] }],
+    main: "Часовници",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
   },
   {
-    main: "смарт часовници",
-    sub: [{ title: "Марки", itemss: ["Blog1.1", "Blog1.2"] }],
+    main: "Aудио",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
   },
   {
-    main: "периферия",
-    sub: [{ title: "Марки", itemss: ["Blog1.1", "Blog1.2"] }],
+    main: "Монитори",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
   },
   {
-    main: "мултимедия",
-    sub: [{ title: "Марки", itemss: ["Blog1.1", "Blog1.2"] }],
+    main: "Телевизори",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
   },
   {
-    main: "компоненти",
-    sub: [{ title: "Марки", itemss: ["Blog1.1", "Blog1.2"] }],
+    main: "Периферия",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
   },
-  { main: "ups", sub: [{ title: "Марки", itemss: ["Blog1.1", "Blog1.2"] }] },
+  {
+    main: "Kомпоненти",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
+  },
+  {
+    main: "Аксесоари",
+    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
+  },
 ];
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 export function NavBarHeader() {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+  const [selectedMainIndex, setSelectedMainIndex] = useState(null);
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -105,9 +101,10 @@ export function NavBarHeader() {
   };
   const handleCloseSubmenu = (index) => {
     setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: null });
+    setSelectedMainIndex(null);
   };
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" disableGutters>
       <Toolbar disableGutters>
         <StepIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
 
@@ -120,62 +117,85 @@ export function NavBarHeader() {
             onClick={toggleDrawer(true)}
             color="inherit"
           >
-            <MenuIcon />
+            <MenuIcon color="success" sx={{ fontSize: 40 }} />
           </IconButton>
           <DrawerNavList
             pages={pages}
             open={open}
             toggleDrawer={toggleDrawer}
           />
-
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            sx={{ display: { xs: "block", md: "none" } }}
-          >
-            {pages.map((page, index) => (
-              <div key={index}>
-                <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {page.main}
-                  </Typography>
-                </MenuItem>
-              </div>
-            ))}
-          </Menu>
         </Box>
 
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+        <Box
+          sx={{
+            paddingBottom: "0px",
+            flexGrow: 1,
+            display: { xs: "none", md: "flex" },
+          }}
+        >
           {pages.map((page, index) => (
             <Box key={`nav-item-${index}`}>
               <Button
-                onClick={(e) => handleOpenSubmenu(e, index)}
-                sx={{ color: "black", display: "block" }}
+                sx={{
+                  ...(selectedMainIndex === index && {
+                    backgroundColor: "#2fccc2",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#2aada6",
+                    },
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      bottom: -3,
+                      left: "50%",
+                      transform: "translateX(-50%) rotate(180deg)",
+
+                      width: 0,
+                      height: 0,
+                      borderLeft: "8px solid transparent",
+                      borderRight: "8px solid transparent",
+                      borderTop: "8px solid white",
+                    },
+                  }),
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#2fccc2",
+                    color: "white",
+                  },
+                  "&.Mui-selected": {
+                    backgroundColor: "#2fccc2",
+                    color: "white",
+                  },
+
+                  "&:hover,click": {
+                    backgroundColor: "#2fccc2",
+                    color: "white",
+                  },
+                  marginTop: "10px",
+                }}
+                onClick={(e) => {
+                  setSelectedMainIndex(index);
+                  handleOpenSubmenu(e, index);
+                }}
               >
                 <Typography
                   sx={{
                     fontSize: {
                       xs: "0.75rem",
                       sm: "0.85rem",
-                      md: "0.7rem",
-                      lg: "14px",
+                      md: "15px",
+                      lg: "16px",
                     },
+                    padding: {
+                      md: "4px",
+                      lg: "10px",
+                    },
+                    textTransform: "none",
                   }}
                 >
-                  {page.main}
+                  {page.main}s
                 </Typography>
               </Button>
+
               <Menu
                 anchorEl={submenuAnchorEls[index]}
                 open={Boolean(submenuAnchorEls[index])}
@@ -193,7 +213,11 @@ export function NavBarHeader() {
                     sx: {
                       display: "flex",
                       flexDirection: "row",
-                      p: 2,
+                      marginTop: "3px",
+                      paddingTop: 0,
+                      paddingLeft: 2,
+                      paddingRight: 2,
+                      paddingBottom: 2,
                       minWidth: 150,
                     },
                   },
@@ -202,7 +226,8 @@ export function NavBarHeader() {
                   sx: {
                     display: "flex",
                     flexDirection: "row",
-                    gap: 3,
+                    gap: 0,
+                    paddingTop: 0,
                   },
                 }}
               >
@@ -218,7 +243,7 @@ export function NavBarHeader() {
                     <ListSubheader disableSticky sx={{ pl: 0 }}>
                       {subItem.title}
                     </ListSubheader>
-                    {subItem.itemss.map((item, itemIndex) => (
+                    {subItem.items.map((item, itemIndex) => (
                       <MenuItem
                         key={`item-${subIndex}-${itemIndex}`}
                         onClick={() => handleCloseSubmenu(index)}

@@ -36,7 +36,13 @@ export function RoutePages() {
   return (
     <>
       <ProgressBar show={loadingPage} />
-      <Container maxWidth="xl">
+      <Container
+        maxWidth="xl"
+        sx={{
+          p: 0,
+          mt: 1,
+        }}
+      >
         <Router>
           <Routes>
             <Route path={PAGES_URL.home} exact element={<HomePage />} />
