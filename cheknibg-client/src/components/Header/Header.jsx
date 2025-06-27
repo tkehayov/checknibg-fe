@@ -1,12 +1,16 @@
-import { CategoryMenuList } from "../CategoryMenuList/CategoryMenuList.jsx";
 import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
-import { Container, Grid } from "@mui/material";
+import { AppBar, Box, Grid, Link } from "@mui/material";
 import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs.jsx";
+import { PAGES_URL } from "../../config.js";
+import { NavBarHeader } from "../CategoryMenuList/NavBarHeader.jsx";
+import { tokens } from "../../theme.js";
+import { ReactComponent as Logo } from "../../assets/images/CHEKNI-LOGO.svg";
 
-export function Header({ selectedCategory, breadcrumbs }) {
+export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
   const [productCategories, setProductCategories] = useState();
+  const colors = tokens();
 
   async function fetchProductCategories() {
     const productCategoriesResponse =
@@ -22,18 +26,45 @@ export function Header({ selectedCategory, breadcrumbs }) {
   }, []);
 
   return (
-    <Container maxWidth="xl">
-      <Grid container>
-        <Grid item>
-          {productCategories && (
-            <CategoryMenuList
-              currentCategory={selectedCategory}
-              categories={productCategories}
-            />
-          )}
+    <AppBar
+      position="sticky"
+      sx={{ backgroundColor: `${colors.white[0]}` }}
+      elevation={0}
+    >
+      <Grid
+        container
+        sx={{
+          borderBottom: "3px solid",
+          borderImageSlice: 1,
+          borderImageSource: `linear-gradient(to right, #30CCC3, #84D176, #C2D43F, #F0D716)`,
+        }}
+        justifyContent="left"
+        alignItems="center"
+      >
+        {/* LOGO */}
+        <Grid item xl={3} md={4} xs={12} order={{ xl: 1, md: 1, sm: 1, xs: 1 }}>
+          <Box
+            sx={{
+              width: {
+                xs: "150px",
+                sm: "150px",
+                md: "150px",
+                lg: "200px",
+              },
+            }}
+          >
+            <Link href={PAGES_URL.home}>
+              <Logo style={{ width: "100%", height: "auto" }} />
+            </Link>
+          </Box>
         </Grid>
-        <Grid item>
+        {/* SEARCH */}
+        <Grid item xl={6} md={8} order={{ xl: 2, md: 2, sm: 3, xs: 3 }}>
           <SearchProduct />
+        </Grid>
+        {/* NAV */}
+        <Grid item order={{ xl: 3, md: 2, sm: 1, xs: 2 }}>
+          <NavBarHeader />
         </Grid>
       </Grid>
       <Grid container>
@@ -41,6 +72,6 @@ export function Header({ selectedCategory, breadcrumbs }) {
           <BreadCrumbs breadcrumbs={breadcrumbs} />
         </Grid>
       </Grid>
-    </Container>
+    </AppBar>
   );
 }

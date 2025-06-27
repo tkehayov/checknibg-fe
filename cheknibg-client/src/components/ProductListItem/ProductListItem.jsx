@@ -25,7 +25,8 @@ export function ProductListItem({ currentProduct }) {
             component="img"
             height="140"
             image={API_URLS.products + PRODUCTS_IMAGES_URL + `${imageUrl}`}
-            alt="green iguana"
+            alt={currentProduct.name}
+            title={currentProduct.name}
           />
           <CardContent sx={{ height: 80 }}>
             <Typography variant="body3">{currentProduct.name}</Typography>

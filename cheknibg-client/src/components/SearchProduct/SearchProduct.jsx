@@ -7,6 +7,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { PAGES_URL } from "../../config";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
+import { InputAdornment } from "@mui/material";
 
 export function SearchProduct() {
   const [options, setOptions] = useState([]);
@@ -44,9 +45,8 @@ export function SearchProduct() {
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-        <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-        <Stack spacing={2} sx={{ width: 600 }}>
+      <Box sx={{ display: "flex" }}>
+        <Stack spacing={2} sx={{ width: { xl: 600, md: 400, sm: 300 } }}>
           <Autocomplete
             freeSolo
             id="combo-box-demo"
@@ -56,7 +56,19 @@ export function SearchProduct() {
             getOptionLabel={(option) => option.name}
             onChange={clickOnProduct}
             renderInput={(params) => (
-              <TextField {...params} label="Търси" variant="standard" />
+              <TextField
+                {...params}
+                label="Търси в сайта"
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
             )}
           />
         </Stack>

@@ -63,7 +63,7 @@ export function CategoryPage({ loadingPage }) {
   }, []);
 
   return (
-    <div>
+    <>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
       <Container maxWidth="xl">
         <Grid container spacing={1}>
@@ -89,6 +89,6 @@ export function CategoryPage({ loadingPage }) {
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </>
   );
 }
