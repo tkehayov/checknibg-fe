@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { AppBar, Box, Grid, Link } from "@mui/material";
 import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs.jsx";
-// import logoSrc from "../../assets/images/CHEKNI-LOGO.svg";
 import { PAGES_URL } from "../../config.js";
 import { NavBarHeader } from "../CategoryMenuList/NavBarHeader.jsx";
 import { tokens } from "../../theme.js";
@@ -43,14 +42,7 @@ export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
         alignItems="center"
       >
         {/* LOGO */}
-        <Grid
-          // sx={{ border: "1px solid red" }}
-          item
-          xl={3}
-          md={4}
-          xs={12}
-          order={{ xl: 1, md: 1, sm: 1, xs: 1 }}
-        >
+        <Grid item xl={3} md={4} xs={12} order={{ xl: 1, md: 1, sm: 1, xs: 1 }}>
           <Box
             sx={{
               width: {
@@ -67,13 +59,7 @@ export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
           </Box>
         </Grid>
         {/* SEARCH */}
-        <Grid
-          item
-          // sx={{ border: "1px solid blue" }}
-          xl={6}
-          md={8}
-          order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
-        >
+        <Grid item xl={6} md={8} order={{ xl: 2, md: 2, sm: 3, xs: 3 }}>
           <SearchProduct />
         </Grid>
         {/* NAV */}

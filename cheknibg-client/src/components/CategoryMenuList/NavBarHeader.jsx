@@ -192,7 +192,7 @@ export function NavBarHeader() {
                     textTransform: "none",
                   }}
                 >
-                  {page.main}s
+                  {page.main}
                 </Typography>
               </Button>
 
