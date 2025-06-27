@@ -8,11 +8,24 @@ import {
   Box,
   IconButton,
   Link,
+  Collapse,
+  ListSubheader,
 } from "@mui/material";
 import { ReactComponent as Logo } from "../../assets/images/CHEKNI-LOGO.svg";
 import CloseIcon from "@mui/icons-material/Close";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import { useState } from "react";
 
 export function DrawerNavList({ pages, open, toggleDrawer }) {
+  const [openSubMenus, setOpenSubMenus] = useState({});
+  const handleClick = (index) => {
+    setOpenSubMenus((prev) => ({
+      ...prev,
+      [index]: !prev[index], // Toggle the state for the clicked index
+    }));
+  };
+
   const DrawerList = (
     <Box role="presentation">
       {/* LOGO AND CLOSE BUTTON */}
@@ -40,14 +53,43 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
         </IconButton>
       </Box>
       <List>
-        {pages.map((text, index) => (
+        {pages.map((page, index) => (
           <div key={index}>
-            <ListItem key={text.main} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={text.main} />
+            <ListItem key={page.main} disablePadding>
+              <ListItemButton onClick={() => handleClick(index)}>
+                <ListItemText primary={page.main} />
+                {page.sub &&
+                  (openSubMenus[index] ? <ExpandLess /> : <ExpandMore />)}
               </ListItemButton>
             </ListItem>
             <Divider />
+            {page.sub && ( // Only render Collapse if there are sub-items
+              <Collapse in={openSubMenus[index]} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {page.sub.map((subCategory, subCatIndex) => (
+                    <Box key={`sub-cat-${subCatIndex}`} sx={{ pl: 2 }}>
+                      <ListSubheader disableSticky sx={{ pl: 0 }}>
+                        {subCategory.title}
+                      </ListSubheader>
+                      {subCategory.items.map((item, itemIndex) => (
+                        <ListItem
+                          key={`item-${subCatIndex}-${itemIndex}`}
+                          disablePadding
+                        >
+                          <ListItemButton
+                            sx={{ pl: 4 }}
+                            onClick={toggleDrawer(false)}
+                          >
+                            {/* Indent sub-items, close drawer on click */}
+                            <ListItemText primary={item} />
+                          </ListItemButton>
+                        </ListItem>
+                      ))}
+                    </Box>
+                  ))}
+                </List>
+              </Collapse>
+            )}
           </div>
         ))}
       </List>
