@@ -1,12 +1,4 @@
-import {
-  Paper,
-  TableContainer,
-  Table,
-  TableRow,
-  TableBody,
-  TableHead,
-  TableCell,
-} from "@mui/material";
+import { Paper, TableContainer, Table, TableBody } from "@mui/material";
 
 import { ProductSpecificationListItem } from "../ProductSpecificationListItem/ProductSpecificationListItem";
 

@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import { Carousel, CarouselAd } from "../components/Carousel/Carousel";
+import { CarouselAd } from "../components/Carousel/Carousel";
 import { Header } from "../components/Header/Header";
 
 export function HomePage() {

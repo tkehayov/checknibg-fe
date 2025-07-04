@@ -6,11 +6,17 @@ import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { ProductList } from "../components/ProductList/ProductList.jsx";
 import { PAGES_URL } from "../config.js";
+import { useLocation } from "react-router-dom";
 
 export function CategoryPage({ loadingPage }) {
   const [currentCategory, setCurrentCategory] = useState();
   const [selectedProductFilters, setSelectedProductFilters] = useState([]);
   const [breadcrumbs, setBreadcrumbs] = useState();
+
+  const location = useLocation();
+  const locationFilters = location.state?.filters;
+  const [resetSelectedProductFilters, setResetSelectedProductFilters] =
+    useState(false);
 
   function selectedCategory(currentCategory) {
     if (currentCategory) {
@@ -23,6 +29,12 @@ export function CategoryPage({ loadingPage }) {
   }
 
   function updateSelectedProductFilters(productFilter, event) {
+    if (resetSelectedProductFilters) {
+      setResetSelectedProductFilters(false);
+      setSelectedProductFilters([productFilter.id]);
+      return;
+    }
+
     if (event.target.checked) {
       setSelectedProductFilters([...selectedProductFilters, productFilter.id]);
     } else {
@@ -61,6 +73,13 @@ export function CategoryPage({ loadingPage }) {
       fetchCurrentCategory();
     }
   }, []);
+
+  useEffect(() => {
+    if (locationFilters) {
+      setSelectedProductFilters([locationFilters]);
+      setResetSelectedProductFilters(true);
+    }
+  }, [locationFilters]);
 
   return (
     <>

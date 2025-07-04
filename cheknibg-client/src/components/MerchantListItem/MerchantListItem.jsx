@@ -8,12 +8,6 @@ import { FinanceApi } from "../../api/finance";
 
 export function MerchantListItem({ merchant, productId }) {
   const [merchantDetails, setMerchantDetails] = useState();
-  async function fetchMerchantInfo(id) {
-    const merchantResponse = await MerchantsApi.fetchMerchant(id);
-    if (merchantResponse) {
-      setMerchantDetails(merchantResponse);
-    }
-  }
 
   function goToMerchantPage(url) {
     window.open(url, "_blank");
@@ -24,10 +18,17 @@ export function MerchantListItem({ merchant, productId }) {
   }
 
   useEffect(() => {
+    async function fetchMerchantInfo(id) {
+      const merchantResponse = await MerchantsApi.fetchMerchant(id);
+      if (merchantResponse) {
+        setMerchantDetails(merchantResponse);
+      }
+    }
+
     if (merchant) {
       fetchMerchantInfo(merchant.id);
     }
-  }, []);
+  });
 
   return (
     <>
@@ -44,6 +45,7 @@ export function MerchantListItem({ merchant, productId }) {
                   "/" +
                   merchantDetails.logo
                 }
+                alt={merchant.name}
               />
             )}
           </TableCell>

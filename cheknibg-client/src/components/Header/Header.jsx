@@ -1,5 +1,5 @@
 import { ProductCategoriesApi } from "../../api/product-categories.js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AppBar, Box, Grid, Link } from "@mui/material";
 import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs.jsx";
@@ -9,16 +9,10 @@ import { tokens } from "../../theme.js";
 import { ReactComponent as Logo } from "../../assets/images/CHEKNI-LOGO.svg";
 
 export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
-  const [productCategories, setProductCategories] = useState();
   const colors = tokens();
 
   async function fetchProductCategories() {
-    const productCategoriesResponse =
-      await ProductCategoriesApi.fetchCategories();
-
-    if (productCategoriesResponse.length !== 0) {
-      setProductCategories(productCategoriesResponse);
-    }
+    await ProductCategoriesApi.fetchCategories();
   }
 
   useEffect(() => {

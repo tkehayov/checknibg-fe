@@ -15,81 +15,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import { useState } from "react";
 import { DrawerNavList } from "./DrawerNavList";
-
-const pages = [
-  {
-    main: "Лаптопи",
-    sub: [
-      {
-        title: "Марки",
-        items: [
-          "Всички",
-          "Dell",
-          "ASUS",
-          "Lenovo",
-          "Acer",
-          "HP",
-          "MSI",
-          "Apple",
-          "Microsoft",
-          "Gigabyte",
-        ],
-      },
-      {
-        title: "Оперативна памет",
-        items: ["8 GB", "16 GB", "32 GB"],
-      },
-      {
-        title: "Процесор",
-        items: ["Intel Core i7 (12-ядрен)", "Intel Core i5 (4-ядрен)"],
-      },
-    ],
-  },
-  {
-    main: "Компютри",
-    sub: [{ title: "Марки", items: ["Pricing1.1", "Pricing1.2"] }],
-  },
-  {
-    main: "Таблети",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-  {
-    main: "Смартфони",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-  {
-    main: "Часовници",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-  {
-    main: "Aудио",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-  {
-    main: "Монитори",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-  {
-    main: "Телевизори",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-  {
-    main: "Периферия",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-  {
-    main: "Kомпоненти",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-  {
-    main: "Аксесоари",
-    sub: [{ title: "Марки", items: ["Blog1.1", "Blog1.2"] }],
-  },
-];
+import { useNavigate } from "react-router-dom";
+import { PAGES_URL } from "../../config";
+import { MENU_FILTERS } from "../../api/menu-filters";
 
 export function NavBarHeader() {
   const [selectedMainIndex, setSelectedMainIndex] = useState(null);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -99,10 +32,16 @@ export function NavBarHeader() {
   const handleOpenSubmenu = (event, index) => {
     setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: event.currentTarget });
   };
-  const handleCloseSubmenu = (index) => {
+
+  const handleCloseSubmenu = (index, submenuId) => {
     setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: null });
     setSelectedMainIndex(null);
+
+    navigate(PAGES_URL.category + "/laptops", {
+      state: { filters: submenuId },
+    });
   };
+
   return (
     <Container maxWidth="xl" disableGutters>
       <Toolbar disableGutters>
@@ -120,7 +59,7 @@ export function NavBarHeader() {
             <MenuIcon color="success" sx={{ fontSize: 40 }} />
           </IconButton>
           <DrawerNavList
-            pages={pages}
+            pages={MENU_FILTERS}
             open={open}
             toggleDrawer={toggleDrawer}
           />
@@ -133,7 +72,7 @@ export function NavBarHeader() {
             display: { xs: "none", md: "flex" },
           }}
         >
-          {pages.map((page, index) => (
+          {MENU_FILTERS.map((page, index) => (
             <Box key={`nav-item-${index}`}>
               <Button
                 sx={{
@@ -246,9 +185,9 @@ export function NavBarHeader() {
                     {subItem.items.map((item, itemIndex) => (
                       <MenuItem
                         key={`item-${subIndex}-${itemIndex}`}
-                        onClick={() => handleCloseSubmenu(index)}
+                        onClick={() => handleCloseSubmenu(index, item.id)}
                       >
-                        {item}
+                        {item.name}
                       </MenuItem>
                     ))}
                   </Box>
