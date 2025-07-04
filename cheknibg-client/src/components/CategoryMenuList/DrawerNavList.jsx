@@ -81,7 +81,7 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
                             onClick={toggleDrawer(false)}
                           >
                             {/* Indent sub-items, close drawer on click */}
-                            <ListItemText primary={item} />
+                            <ListItemText primary={item.name} />
                           </ListItemButton>
                         </ListItem>
                       ))}

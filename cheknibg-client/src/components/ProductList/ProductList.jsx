@@ -42,7 +42,7 @@ export function ProductList({ categoryFilters, selectedProductFilters }) {
 
   // Loads products when category filter is selected
   useEffect(() => {
-    if (selectedProductFilters.length == 0) {
+    if (selectedProductFilters.length === 0) {
       fetchCategoryProducts();
       return;
     }
@@ -51,7 +51,7 @@ export function ProductList({ categoryFilters, selectedProductFilters }) {
   }, [categoryFilters, selectedProductFilters]);
 
   useEffect(() => {
-    if (selectedProductFilters.length == 0) {
+    if (selectedProductFilters.length === 0) {
       fetchCategoryProducts();
       return;
     }

@@ -1,6 +1,5 @@
-import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button } from "@mui/material";
+import { Button } from "@mui/material";
 
 export function CarouselAd() {
   var items = [
@@ -30,7 +29,7 @@ function Item(props) {
       <h2>
         {props.item.name} {props.item.img}
       </h2>
-      <img src={`/assets/slider/${props.item.img}`} />
+      <img src={`/assets/slider/${props.item.img}`} alt={`${props.item.img}`} />
       <p>{props.item.description}</p>
 
       <Button className="CheckButton">Check it out!</Button>

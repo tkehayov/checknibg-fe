@@ -5,17 +5,17 @@ import { CategoryGroupListItem } from "../CategoryGroupListItem/CategoryGroupLis
 
 export function CategoryFilterList({ category, onClickItem, loadingPage }) {
   const [currentCategoryFilters, setCurrentCategoryFilters] = useState([]);
-  async function fetchCategoryFilters() {
-    const categoryFilters = await ProductCategoriesApi.fetchCategoryFilters(
-      category.id
-    );
-
-    if (categoryFilters.length > 0) {
-      setCurrentCategoryFilters(categoryFilters);
-    }
-  }
 
   useEffect(() => {
+    async function fetchCategoryFilters() {
+      const categoryFilters = await ProductCategoriesApi.fetchCategoryFilters(
+        category.id
+      );
+
+      if (categoryFilters.length > 0) {
+        setCurrentCategoryFilters(categoryFilters);
+      }
+    }
     fetchCategoryFilters();
   }, [category]);
 
