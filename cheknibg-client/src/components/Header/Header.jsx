@@ -1,5 +1,5 @@
 import { ProductCategoriesApi } from "../../api/product-categories.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AppBar, Box, Grid, Link } from "@mui/material";
 import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs.jsx";
@@ -10,9 +10,56 @@ import { ReactComponent as Logo } from "../../assets/images/CHEKNI-LOGO.svg";
 
 export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
   const colors = tokens();
+  const [navData, setNavData] = useState([{}]);
 
   async function fetchProductCategories() {
-    await ProductCategoriesApi.fetchCategories();
+    let categoriesResponse = await ProductCategoriesApi.fetchCategories();
+    mapCategoriesResponse(categoriesResponse);
+  }
+
+  function mapCategoriesResponse(response) {
+    let categoriesData = [];
+    let addedAllBrands = false;
+
+    response.forEach((categories, index) => {
+      let subCat = [];
+      categories.filterGroups.forEach((filterGroup) => {
+        let items = [];
+
+        filterGroup.productFilters.forEach((productFilter) => {
+          items.push({
+            name: capitalizeFirstLetter(productFilter.filter),
+            id: productFilter.id,
+          });
+        });
+
+        if (!addedAllBrands) {
+          items.unshift({
+            name: "Всички",
+            id: 0,
+          });
+          addedAllBrands = true;
+        }
+
+        subCat.push({
+          title: capitalizeFirstLetter(filterGroup.name),
+          items: items,
+        });
+      });
+
+      categoriesData.push({
+        main: capitalizeFirstLetter(categories.name),
+        sub: subCat,
+      });
+    });
+
+    if (categoriesData.length > 0) {
+      setNavData(categoriesData);
+    }
+  }
+
+  function capitalizeFirstLetter(val) {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
   }
 
   useEffect(() => {
@@ -57,9 +104,11 @@ export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
           <SearchProduct />
         </Grid>
         {/* NAV */}
-        <Grid item order={{ xl: 3, md: 2, sm: 1, xs: 2 }}>
-          <NavBarHeader />
-        </Grid>
+        {navData.length > 1 && (
+          <Grid item order={{ xl: 3, md: 2, sm: 1, xs: 2 }}>
+            <NavBarHeader navData={navData} />
+          </Grid>
+        )}
       </Grid>
       <Grid container>
         <Grid item>

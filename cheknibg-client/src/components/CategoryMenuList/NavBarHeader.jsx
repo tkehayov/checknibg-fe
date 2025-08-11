@@ -17,9 +17,8 @@ import { useState } from "react";
 import { DrawerNavList } from "./DrawerNavList";
 import { useNavigate } from "react-router-dom";
 import { PAGES_URL } from "../../config";
-import { MENU_FILTERS } from "../../api/menu-filters";
 
-export function NavBarHeader() {
+export function NavBarHeader({ navData }) {
   const [selectedMainIndex, setSelectedMainIndex] = useState(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -36,6 +35,12 @@ export function NavBarHeader() {
   const handleCloseSubmenu = (index, submenuId) => {
     setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: null });
     setSelectedMainIndex(null);
+
+    if (submenuId === 0) {
+      navigate(PAGES_URL.category + "/laptops");
+      navigate(0);
+      return;
+    }
 
     navigate(PAGES_URL.category + "/laptops", {
       state: { filters: submenuId },
@@ -59,7 +64,7 @@ export function NavBarHeader() {
             <MenuIcon color="success" sx={{ fontSize: 40 }} />
           </IconButton>
           <DrawerNavList
-            pages={MENU_FILTERS}
+            pages={navData}
             open={open}
             toggleDrawer={toggleDrawer}
           />
@@ -72,7 +77,7 @@ export function NavBarHeader() {
             display: { xs: "none", md: "flex" },
           }}
         >
-          {MENU_FILTERS.map((page, index) => (
+          {navData.map((page, index) => (
             <Box key={`nav-item-${index}`}>
               <Button
                 sx={{
