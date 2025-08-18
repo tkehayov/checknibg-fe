@@ -18,7 +18,7 @@ import { DrawerNavList } from "./DrawerNavList";
 import { useNavigate } from "react-router-dom";
 import { PAGES_URL } from "../../config";
 
-export function NavBarHeader({ navData }) {
+export function NavBarHeader({ navData, selectedCategory }) {
   const [selectedMainIndex, setSelectedMainIndex] = useState(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -32,17 +32,30 @@ export function NavBarHeader({ navData }) {
     setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: event.currentTarget });
   };
 
+  const handleCloseMenu = (index) => {
+    setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: null });
+    setSelectedMainIndex(null);
+  };
+
   const handleCloseSubmenu = (index, submenuId) => {
+    let category = navData[index];
+    let alias = category.alias;
+    let currentCategory = {
+      id: category.id,
+    };
+
     setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: null });
     setSelectedMainIndex(null);
 
     if (submenuId === 0) {
-      navigate(PAGES_URL.category + "/laptops");
+      navigate(PAGES_URL.category + `/${alias}`);
       navigate(0);
       return;
     }
 
-    navigate(PAGES_URL.category + "/laptops", {
+    selectedCategory(currentCategory);
+
+    navigate(PAGES_URL.category + `/${alias}`, {
       state: { filters: submenuId },
     });
   };
@@ -143,7 +156,7 @@ export function NavBarHeader({ navData }) {
               <Menu
                 anchorEl={submenuAnchorEls[index]}
                 open={Boolean(submenuAnchorEls[index])}
-                onClose={() => handleCloseSubmenu(index)}
+                onClose={() => handleCloseMenu(index)}
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "left",
