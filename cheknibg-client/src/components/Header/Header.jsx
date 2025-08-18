@@ -19,7 +19,6 @@ export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
 
   function mapCategoriesResponse(response) {
     let categoriesData = [];
-    let addedAllBrands = false;
 
     response.forEach((categories, index) => {
       let subCat = [];
@@ -33,12 +32,11 @@ export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
           });
         });
 
-        if (!addedAllBrands) {
+        if (filterGroup.name.includes("марка")) {
           items.unshift({
             name: "Всички",
             id: 0,
           });
-          addedAllBrands = true;
         }
 
         subCat.push({
@@ -48,6 +46,8 @@ export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
       });
 
       categoriesData.push({
+        id: categories.id,
+        alias: categories.alias,
         main: capitalizeFirstLetter(categories.name),
         sub: subCat,
       });
@@ -106,7 +106,10 @@ export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
         {/* NAV */}
         {navData.length > 1 && (
           <Grid item order={{ xl: 3, md: 2, sm: 1, xs: 2 }}>
-            <NavBarHeader navData={navData} />
+            <NavBarHeader
+              navData={navData}
+              selectedCategory={selectedCategory}
+            />
           </Grid>
         )}
       </Grid>
