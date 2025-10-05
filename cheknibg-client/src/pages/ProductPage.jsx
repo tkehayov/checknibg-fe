@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
 import ProductTabs from "../components/ProductTabs/ProductTabs";
 import { PAGES_URL } from "../config";
+import { Footer } from "../components/Footer/Footer";
 
 export function ProductPage() {
   const { id } = useParams();
@@ -57,6 +58,7 @@ export function ProductPage() {
           </Grid>
         </Container>
       )}
+      <Footer />
     </div>
   );
 }

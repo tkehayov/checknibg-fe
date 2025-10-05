@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import { ProductList } from "../components/ProductList/ProductList.jsx";
 import { PAGES_URL } from "../config.js";
 import { useLocation } from "react-router-dom";
+import { Footer } from "../components/Footer/Footer.jsx";
 
 export function CategoryPage({ loadingPage }) {
   const [currentCategory, setCurrentCategory] = useState();
@@ -108,6 +109,7 @@ export function CategoryPage({ loadingPage }) {
           </Grid>
         </Grid>
       </Container>
+      <Footer />
     </>
   );
 }
