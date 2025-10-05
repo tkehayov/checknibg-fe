@@ -26,7 +26,7 @@ export function ProductGallery({ images }) {
     }
 
     fetchImages();
-  }, []);
+  }, [images]);
 
   return (
     <ImageGallery

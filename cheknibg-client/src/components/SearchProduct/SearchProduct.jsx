@@ -24,8 +24,17 @@ export function SearchProduct() {
   }
 
   function clickOnProduct(event, value, reason) {
-    navigate(PAGES_URL.product + `/${value.id}`);
+    if (value) {
+      navigate(PAGES_URL.product + `/${value.id}`);
+    }
   }
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
 
   const onInputChange = (event, value, reason) => {
     clearTimeout(timer);
@@ -46,25 +55,49 @@ export function SearchProduct() {
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        <Stack spacing={2} sx={{ width: { xl: 600, md: 400, sm: 300 } }}>
+        <Stack spacing={2} sx={{ width: { xl: 700, md: 500, sm: 300 } }}>
           <Autocomplete
             freeSolo
-            id="combo-box-demo"
             options={options}
             filterOptions={(options) => options}
             onInputChange={onInputChange}
             getOptionLabel={(option) => option.name}
             onChange={clickOnProduct}
+            onKeyDown={handleKeyDown}
+            sx={{
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: (theme) => theme.palette.primary.main,
+                borderWidth: "2px",
+              },
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: (theme) => theme.palette.primary.main,
+                borderWidth: "3px",
+              },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: (theme) => theme.palette.primary.main,
+                  borderWidth: "3px",
+                },
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Търси в сайта"
                 variant="outlined"
                 size="small"
+                onKeyDown={handleKeyDown}
+                sx={{
+                  "& .MuiInputLabel-root": {
+                    color: (theme) => theme.palette.primary.main,
+                  },
+                }}
                 InputProps={{
+                  ...params.InputProps,
                   endAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon />
+                      <SearchIcon
+                        sx={{ color: (theme) => theme.palette.primary.main }}
+                      />
                     </InputAdornment>
                   ),
                 }}

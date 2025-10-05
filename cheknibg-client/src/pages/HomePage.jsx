@@ -9,7 +9,7 @@ export function HomePage() {
       <Container maxWidth="xl">
         <Grid container>
           <Grid item>
-            <Header categoryMenu="true" />
+            <Header />
           </Grid>
         </Grid>
 
