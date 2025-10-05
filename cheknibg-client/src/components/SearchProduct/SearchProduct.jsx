@@ -70,7 +70,9 @@ export function SearchProduct() {
                 borderWidth: "2px",
               },
               "&:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: (theme) => theme.palette.primary.main,
+                borderColor: (theme) =>
+                  theme.palette.primary.main + " !important",
+                // borderColor: "#24b2cc !important",
                 borderWidth: "3px",
               },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
