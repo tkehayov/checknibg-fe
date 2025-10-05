@@ -8,7 +8,7 @@ import { NavBarHeader } from "../CategoryMenuList/NavBarHeader.jsx";
 import { tokens } from "../../theme.js";
 import { ReactComponent as Logo } from "../../assets/images/CHEKNI-LOGO.svg";
 
-export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
+export function Header({ selectedCategory, breadcrumbs }) {
   const colors = tokens();
   const [navData, setNavData] = useState([{}]);
 

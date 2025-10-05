@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Header } from "../components/Header/Header";
 import { useEffect, useState } from "react";
 import { ProductApi } from "../api/product";
@@ -10,6 +10,7 @@ import { PAGES_URL } from "../config";
 import { Footer } from "../components/Footer/Footer";
 
 export function ProductPage() {
+  const location = useLocation();
   const { id } = useParams();
   const [product, setProduct] = useState();
   const [breadcrumbs, setBreadcrumbs] = useState();
@@ -33,7 +34,7 @@ export function ProductPage() {
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [location]);
 
   return (
     <div>
