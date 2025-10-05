@@ -69,7 +69,7 @@ export function Header({ selectedCategory, breadcrumbs, categoryMenu }) {
   return (
     <AppBar
       position="sticky"
-      sx={{ backgroundColor: `${colors.white[0]}` }}
+      sx={{ backgroundColor: `${colors.white[0]}`, marginBottom: "10px" }}
       elevation={0}
     >
       <Grid
