@@ -32,7 +32,10 @@ export function Header({ selectedCategory, breadcrumbs }) {
           });
         });
 
-        if (filterGroup.name.includes("марка")) {
+        if (
+          filterGroup.name.includes("марка") ||
+          filterGroup.name.includes("периферия")
+        ) {
           items.unshift({
             name: "Всички",
             id: 0,
