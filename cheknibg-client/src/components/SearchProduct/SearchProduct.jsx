@@ -7,12 +7,19 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { PAGES_URL } from "../../config";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
-import { InputAdornment } from "@mui/material";
+import {
+  Backdrop,
+  InputAdornment,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
 export function SearchProduct() {
   const [options, setOptions] = useState([]);
   const [timer, setTimer] = useState(null);
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isNotSmall = useMediaQuery(theme.breakpoints.up("md"));
 
   async function getData(searchTerm) {
     const productResponse = await ProductApi.searchProduct(searchTerm);
@@ -52,10 +59,20 @@ export function SearchProduct() {
     }
   };
 
+  const [isFocused, setIsFocused] = useState(false);
   return (
     <>
+      <Backdrop
+        open={isFocused}
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          backdropFilter: "blur(2px)",
+          zIndex: 1200 - 1,
+          pointerEvents: "none",
+        }}
+      />
       <Box sx={{ display: "flex" }}>
-        <Stack spacing={2} sx={{ width: { xl: 700, md: 500, sm: 300 } }}>
+        <Stack sx={{ width: { xl: 700, lg: 700, md: 400, sm: 300, xs: 300 } }}>
           <Autocomplete
             freeSolo
             options={options}
@@ -67,31 +84,30 @@ export function SearchProduct() {
             sx={{
               "& .MuiOutlinedInput-notchedOutline": {
                 borderColor: (theme) => theme.palette.primary.main,
-                borderWidth: "2px",
+                borderRadius: 6,
+                borderWidth: 3,
               },
               "&:hover .MuiOutlinedInput-notchedOutline": {
                 borderColor: (theme) =>
                   theme.palette.primary.main + " !important",
-                // borderColor: "#24b2cc !important",
                 borderWidth: "3px",
               },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: (theme) => theme.palette.primary.main,
-                  borderWidth: "3px",
-                },
+              zIndex: 1200,
+              position: "relative",
             }}
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Търси в сайта"
+                label=""
+                placeholder="Търси в сайта..."
                 variant="outlined"
-                size="small"
+                size={isNotSmall ? "medium" : "small"}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
                 onKeyDown={handleKeyDown}
                 sx={{
-                  "& .MuiInputLabel-root": {
-                    color: (theme) => theme.palette.primary.main,
-                  },
+                  backgroundColor: "white",
+                  borderRadius: 6,
                 }}
                 InputProps={{
                   ...params.InputProps,

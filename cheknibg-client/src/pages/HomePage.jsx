@@ -2,20 +2,24 @@ import { Container, Grid } from "@mui/material";
 import { CarouselAd } from "../components/Carousel/Carousel";
 import { Header } from "../components/Header/Header";
 import { Footer } from "../components/Footer/Footer";
+import { Banner } from "../components/Banner/Banner";
 
 export function HomePage() {
+  function selectedCategory(currentCategory) {}
   return (
     <>
       <Container maxWidth="xl">
         <Grid container>
           <Grid item>
-            <Header />
+            <Header selectedCategory={selectedCategory} />
           </Grid>
         </Grid>
 
         <Grid container>
-          <Grid item xs={3}></Grid>
-          <Grid item xs={9}>
+          <Banner />
+        </Grid>
+        <Grid container>
+          <Grid item xs={12}>
             <CarouselAd />
           </Grid>
         </Grid>
