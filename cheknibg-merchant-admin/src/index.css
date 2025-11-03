@@ -1,4 +1,5 @@
 html, body, #root, .app, .content {
+    font-family: 'Geologica', sans-serif;
     height: 100%;
     width: 100%;
     font-family: 'Source Sans 3', sans-serif;
