@@ -12,14 +12,14 @@ export function Banner() {
         position: "relative",
       }}
     >
-      <picture>
-        <img
-          alt="Smooth hands generic header Jan 2025"
-          loading="eager"
-          src="/assets/slider/banner.svg"
-          fetchpriority="high"
-        />
-      </picture>
+      <img
+        alt="Smooth hands generic header Jan 2025"
+        loading="eager"
+        src="/assets/slider/banner.svg"
+        fetchpriority="high"
+        width="100%"
+        height="100%"
+      />
       <Box
         sx={{
           position: "absolute",
