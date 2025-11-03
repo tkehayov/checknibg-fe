@@ -17,6 +17,7 @@ export function Banner() {
           alt="Smooth hands generic header Jan 2025"
           loading="eager"
           src="/assets/slider/banner.svg"
+          fetchpriority="high"
         />
       </picture>
       <Box
