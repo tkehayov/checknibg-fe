@@ -113,3 +113,4 @@ export function CategoryPage({ loadingPage }) {
     </>
   );
 }
+export default CategoryPage;

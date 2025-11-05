@@ -127,3 +127,4 @@ export function SearchProduct() {
     </>
   );
 }
+export default SearchProduct;

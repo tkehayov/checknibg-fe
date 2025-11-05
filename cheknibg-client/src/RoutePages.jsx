@@ -1,14 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
-import { NotFoundPage } from "./pages/NotFoundPage";
-import { ProductPage } from "./pages/ProductPage";
-import { CategoryPage } from "./pages/CategoryPage";
+import React, { Suspense, useEffect, useState } from "react";
 import { PAGES_URL } from "./config";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import axios from "axios";
 import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
 import { Container } from "@mui/material";
+
+const ProductPage = React.lazy(() => import("./pages/ProductPage"));
+const CategoryPage = React.lazy(() => import("./pages/CategoryPage"));
+const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
+
 export function RoutePages() {
   const [loadingPage, setLoadingPage] = useState();
 
@@ -33,6 +36,14 @@ export function RoutePages() {
       }
     );
   }, []);
+
+  const LazyFallback = () => (
+    <div
+      style={{ minHeight: "80vh", textAlign: "center", paddingTop: "100px" }}
+    >
+      Loading Content...
+    </div>
+  );
   return (
     <>
       <ProgressBar show={loadingPage} />
@@ -44,20 +55,22 @@ export function RoutePages() {
         }}
       >
         <Router>
-          <Routes>
-            <Route path={PAGES_URL.home} exact element={<HomePage />} />
-            <Route
-              path={PAGES_URL.product + "/:id"}
-              exact
-              element={<ProductPage />}
-            />
-            <Route
-              path={PAGES_URL.category + "/:id"}
-              exact
-              element={<CategoryPage loadingPage={loadingPage} />}
-            />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <Suspense fallback={<LazyFallback />}>
+            <Routes>
+              <Route path={PAGES_URL.home} exact element={<HomePage />} />
+              <Route
+                path={PAGES_URL.product + "/:id"}
+                exact
+                element={<ProductPage />}
+              />
+              <Route
+                path={PAGES_URL.category + "/:id"}
+                exact
+                element={<CategoryPage loadingPage={loadingPage} />}
+              />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
         </Router>
         <ScrollToTop />
       </Container>

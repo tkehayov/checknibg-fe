@@ -69,3 +69,4 @@ function Slide({ images, numberPerSlide }) {
     </Box>
   );
 }
+export default CarouselAd;

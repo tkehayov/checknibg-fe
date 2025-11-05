@@ -3,9 +3,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import * as React from "react";
 import { MerchantList } from "../MerchantList/MerchantList";
 import { ProductSpecificationList } from "../ProductSpecification/ProductSpecification";
+import { useState } from "react";
 
 export function SimpleTabs(props) {
   const { children, value, index, ...other } = props;
@@ -41,7 +41,7 @@ function a11yProps(index) {
 }
 
 export default function ProductTabs({ product }) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

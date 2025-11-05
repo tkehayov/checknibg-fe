@@ -1,9 +1,13 @@
 import { Container, Grid } from "@mui/material";
-import { CarouselAd } from "../components/Carousel/Carousel";
 import { Header } from "../components/Header/Header";
-import { Footer } from "../components/Footer/Footer";
 import { Banner } from "../components/Banner/Banner";
+import React from "react";
+import { LazyLoad } from "../components/LazyLoad/LazyLoad";
 
+const LazyCarouselAd = React.lazy(() =>
+  import("../components/Carousel/Carousel")
+);
+const LazyFooter = React.lazy(() => import("../components/Footer/Footer"));
 export function HomePage() {
   function selectedCategory(currentCategory) {}
   return (
@@ -20,11 +24,23 @@ export function HomePage() {
         </Grid>
         <Grid container>
           <Grid item xs={12}>
-            <CarouselAd />
+            <LazyLoad
+              component={LazyCarouselAd}
+              componentProps={{}}
+              fallback={
+                <div style={{ minHeight: "500px" }}>
+                  Loading product details...
+                </div>
+              }
+            />
           </Grid>
         </Grid>
       </Container>
-      <Footer />
+      <LazyLoad
+        component={LazyFooter}
+        componentProps={{}}
+        fallback={<div style={{ minHeight: "150px" }}></div>}
+      />
     </>
   );
 }

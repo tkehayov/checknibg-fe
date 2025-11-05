@@ -1,13 +1,17 @@
 import { useLocation, useParams } from "react-router-dom";
 import { Header } from "../components/Header/Header";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProductApi } from "../api/product";
 import { ProductGallery } from "../components/ProductGallery/ProductGallery";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
-import ProductTabs from "../components/ProductTabs/ProductTabs";
 import { PAGES_URL } from "../config";
 import { Footer } from "../components/Footer/Footer";
+import { LazyLoad } from "../components/LazyLoad/LazyLoad";
+
+const LazyProductTabs = React.lazy(() =>
+  import("../components/ProductTabs/ProductTabs")
+);
 
 export function ProductPage() {
   const location = useLocation();
@@ -54,7 +58,15 @@ export function ProductPage() {
           </Grid>
           <Grid container spacing={3}>
             <Grid item md={12} sm={4}>
-              <ProductTabs product={product} />
+              <LazyLoad
+                component={LazyProductTabs}
+                componentProps={{ product: product }}
+                fallback={
+                  <div style={{ minHeight: "500px" }}>
+                    Loading product details...
+                  </div>
+                }
+              />
             </Grid>
           </Grid>
         </Container>
@@ -63,3 +75,4 @@ export function ProductPage() {
     </div>
   );
 }
+export default ProductPage;

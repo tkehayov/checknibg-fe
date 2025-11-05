@@ -1,7 +1,11 @@
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { SearchProduct } from "../SearchProduct/SearchProduct";
+import { LazyLoad } from "../LazyLoad/LazyLoad";
+import React from "react";
+const LazySearchProduct = React.lazy(() =>
+  import("../SearchProduct/SearchProduct")
+);
 
 export function Banner() {
   return (
@@ -12,14 +16,28 @@ export function Banner() {
         position: "relative",
       }}
     >
-      <img
-        alt="Smooth hands generic header Jan 2025"
-        loading="eager"
-        src="/assets/slider/banner.svg"
-        fetchpriority="high"
-        width="100%"
-        height="100%"
-      />
+      <picture>
+        <source
+          media="(max-width: 600px)"
+          srcset="/assets/slider/CHEKNI-HP-BANNER-XSMALL.webp"
+        />
+        <source
+          media="(max-width: 900px)"
+          srcset="/assets/slider/CHEKNI-HP-BANNER-SMALL.webp"
+        />
+        <source
+          media="(max-width: 1200px)"
+          srcset="/assets/slider/CHEKNI-HP-BANNER-MEDIUM.webp"
+        />
+        <img
+          alt="Smooth hands generic header Jan 2025"
+          loading="eager"
+          src="/assets/slider/CHEKNI-HP-BANNER-LARGE.webp"
+          fetchpriority="high"
+          width="100%"
+          height="100%"
+        />
+      </picture>
       <Box
         sx={{
           position: "absolute",
@@ -66,7 +84,11 @@ export function Banner() {
           left: "3%",
         }}
       >
-        <SearchProduct />
+        <LazyLoad
+          component={LazySearchProduct}
+          componentProps={{}}
+          fallback={null}
+        />
       </Box>
     </Grid>
   );
