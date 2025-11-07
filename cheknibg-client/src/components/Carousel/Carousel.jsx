@@ -2,20 +2,11 @@ import Carousel from "react-material-ui-carousel";
 import { Button, Grid, Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-export function CarouselAd() {
+export function CarouselAd({ items }) {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
   const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
   const numberPerSlide = isMdUp ? 3 : isSmUp ? 2 : 1;
-
-  // TODO: Replace with real images
-  const items = [
-    "laptops.jpg",
-    "slider2.jpg",
-    "slider3.jpg",
-    "laptops.jpg",
-    "laptops.jpg",
-  ];
 
   const slides = [];
   for (let i = 0; i < items.length; i += numberPerSlide) {
@@ -24,7 +15,12 @@ export function CarouselAd() {
   }
 
   return (
-    <Carousel navButtonsAlwaysVisible animation="slide" indicators={false}>
+    <Carousel
+      autoPlay={false}
+      navButtonsAlwaysVisible
+      animation="slide"
+      indicators={false}
+    >
       {slides.map((slide, i) => (
         <Slide key={i} images={slide} numberPerSlide={numberPerSlide} />
       ))}

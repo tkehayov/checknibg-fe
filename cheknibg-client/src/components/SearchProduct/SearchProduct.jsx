@@ -85,12 +85,15 @@ export function SearchProduct() {
               "& .MuiOutlinedInput-notchedOutline": {
                 borderColor: (theme) => theme.palette.primary.main,
                 borderRadius: 6,
-                borderWidth: 3,
+                borderWidth: 2,
               },
               "&:hover .MuiOutlinedInput-notchedOutline": {
                 borderColor: (theme) =>
                   theme.palette.primary.main + " !important",
                 borderWidth: "3px",
+              },
+              "& .MuiInputBase-input": {
+                color: (theme) => "#6f767fff",
               },
               zIndex: 1200,
               position: "relative",
@@ -106,8 +109,13 @@ export function SearchProduct() {
                 onBlur={() => setIsFocused(false)}
                 onKeyDown={handleKeyDown}
                 sx={{
+                  width: { md: 600, sm: 400 },
                   backgroundColor: "white",
                   borderRadius: 6,
+                  "& .MuiInputBase-input::placeholder": {
+                    color: "#6f767fff",
+                    opacity: 1,
+                  },
                 }}
                 InputProps={{
                   ...params.InputProps,

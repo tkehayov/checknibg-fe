@@ -19,20 +19,20 @@ export function Banner() {
       <picture>
         <source
           media="(max-width: 600px)"
-          srcset="/assets/slider/CHEKNI-HP-BANNER-XSMALL.webp"
+          srcset="/assets/slider/CHEKNI-HP-BANNER-XSMALL-OLD.jpeg"
         />
         <source
           media="(max-width: 900px)"
-          srcset="/assets/slider/CHEKNI-HP-BANNER-SMALL.webp"
+          srcset="/assets/slider/CHEKNI-HP-BANNER-SMALL-OLD.jpeg"
         />
         <source
           media="(max-width: 1200px)"
-          srcset="/assets/slider/CHEKNI-HP-BANNER-MEDIUM.webp"
+          srcset="/assets/slider/CHEKNI-HP-BANNER-MEDIUM-OLD.jpeg"
         />
         <img
           alt="Smooth hands generic header Jan 2025"
           loading="eager"
-          src="/assets/slider/CHEKNI-HP-BANNER-LARGE.webp"
+          src="/assets/slider/CHEKNI-HP-BANNER-LARGE-OLD.jpeg"
           fetchpriority="high"
           width="100%"
           height="100%"

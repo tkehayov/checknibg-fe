@@ -24,9 +24,58 @@ export function HomePage() {
         </Grid>
         <Grid container>
           <Grid item xs={12}>
+            <h2>Популярни продукти</h2>
             <LazyLoad
               component={LazyCarouselAd}
-              componentProps={{}}
+              componentProps={{
+                items: [
+                  "laptops.jpg",
+                  "slider2.jpg",
+                  "slider3.jpg",
+                  "laptops.jpg",
+                  "laptops.jpg",
+                ],
+              }}
+              fallback={
+                <div style={{ minHeight: "500px" }}>
+                  Loading product details...
+                </div>
+              }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <h2>Чекни най-новия Iphone 17</h2>
+            <LazyLoad
+              component={LazyCarouselAd}
+              componentProps={{
+                items: [
+                  "laptops.jpg",
+                  "slider2.jpg",
+                  "slider3.jpg",
+                  "laptops.jpg",
+                  "laptops.jpg",
+                ],
+              }}
+              fallback={
+                <div style={{ minHeight: "500px" }}>
+                  Loading product details...
+                </div>
+              }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <h2>Чекни най-новите лаптопи</h2>
+            <LazyLoad
+              component={LazyCarouselAd}
+              componentProps={{
+                items: [
+                  "laptops.jpg",
+                  "slider2.jpg",
+                  "slider3.jpg",
+                  "laptops.jpg",
+                  "laptops.jpg",
+                ],
+              }}
               fallback={
                 <div style={{ minHeight: "500px" }}>
                   Loading product details...
