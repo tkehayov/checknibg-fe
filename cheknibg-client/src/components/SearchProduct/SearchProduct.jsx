@@ -109,7 +109,7 @@ export function SearchProduct() {
                 onBlur={() => setIsFocused(false)}
                 onKeyDown={handleKeyDown}
                 sx={{
-                  width: { md: 600, sm: 400 },
+                  width: { md: 600, sm: 400, xs: 250 },
                   backgroundColor: "white",
                   borderRadius: 6,
                   "& .MuiInputBase-input::placeholder": {

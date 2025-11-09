@@ -16,9 +16,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
+import { PAGES_URL } from "../../config";
+import { useNavigate } from "react-router-dom";
 
 export function DrawerNavList({ pages, open, toggleDrawer }) {
+  const navigate = useNavigate();
   const [openSubMenus, setOpenSubMenus] = useState({});
+
   const handleClick = (index) => {
     setOpenSubMenus((prev) => ({
       ...prev,
@@ -26,6 +30,20 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
     }));
   };
 
+  const navigateToPage = (alias, itemId) => {
+    if (itemId === 0) {
+      navigate(PAGES_URL.category + `/${alias}`);
+      navigate(0);
+      toggleDrawer(false)();
+
+      return;
+    }
+
+    navigate(PAGES_URL.category + `/${alias}`, {
+      state: { filters: itemId },
+    });
+    toggleDrawer(false)();
+  };
   const DrawerList = (
     <Box role="presentation">
       {/* LOGO AND CLOSE BUTTON */}
@@ -44,11 +62,11 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
             alignItems: "center",
           }}
         >
-          <Link href="/" onClick={toggleDrawer(false)}>
+          <Link href="/" onClick={() => toggleDrawer(false)()}>
             <Logo style={{ height: "60px", width: "auto" }} />
           </Link>
         </Box>
-        <IconButton onClick={toggleDrawer(false)}>
+        <IconButton onClick={() => toggleDrawer(false)()}>
           <CloseIcon />
         </IconButton>
       </Box>
@@ -78,7 +96,7 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
                         >
                           <ListItemButton
                             sx={{ pl: 4 }}
-                            onClick={toggleDrawer(false)}
+                            onClick={() => navigateToPage(page.alias, item.id)}
                           >
                             {/* Indent sub-items, close drawer on click */}
                             <ListItemText primary={item.name} />
@@ -99,7 +117,7 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
   return (
     <Drawer
       open={open}
-      onClose={toggleDrawer(false)}
+      onClose={() => toggleDrawer(false)()}
       PaperProps={{
         sx: {
           width: "100%",
