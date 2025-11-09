@@ -103,7 +103,7 @@ export function Header({ selectedCategory, breadcrumbs }) {
           </Box>
         </Grid>
         {/* SEARCH */}
-        <Grid item xl={6} md={8} order={{ xl: 2, md: 2, sm: 3, xs: 3 }}>
+        <Grid item xl={6} md={8} xs={9} order={{ xl: 2, md: 2, sm: 3, xs: 3 }}>
           <SearchProduct />
         </Grid>
         {/* NAV */}
