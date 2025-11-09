@@ -19,7 +19,7 @@ import { useState } from "react";
 import { PAGES_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
 
-export function DrawerNavList({ pages, open, toggleDrawer }) {
+export function DrawerNavList({ pages, open, toggleDrawer, selectedCategory }) {
   const navigate = useNavigate();
   const [openSubMenus, setOpenSubMenus] = useState({});
 
@@ -30,7 +30,11 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
     }));
   };
 
-  const navigateToPage = (alias, itemId) => {
+  const navigateToPage = (categoryId, alias, itemId) => {
+    let currentCategory = {
+      id: categoryId,
+    };
+    console.log("Navigating to:", alias);
     if (itemId === 0) {
       navigate(PAGES_URL.category + `/${alias}`);
       navigate(0);
@@ -38,6 +42,7 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
 
       return;
     }
+    selectedCategory(currentCategory);
 
     navigate(PAGES_URL.category + `/${alias}`, {
       state: { filters: itemId },
@@ -96,7 +101,9 @@ export function DrawerNavList({ pages, open, toggleDrawer }) {
                         >
                           <ListItemButton
                             sx={{ pl: 4 }}
-                            onClick={() => navigateToPage(page.alias, item.id)}
+                            onClick={() =>
+                              navigateToPage(page.id, page.alias, item.id)
+                            }
                           >
                             {/* Indent sub-items, close drawer on click */}
                             <ListItemText primary={item.name} />
