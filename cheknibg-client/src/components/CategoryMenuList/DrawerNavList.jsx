@@ -34,7 +34,7 @@ export function DrawerNavList({ pages, open, toggleDrawer, selectedCategory }) {
     let currentCategory = {
       id: categoryId,
     };
-    console.log("Navigating to:", alias);
+
     if (itemId === 0) {
       navigate(PAGES_URL.category + `/${alias}`);
       navigate(0);

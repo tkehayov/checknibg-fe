@@ -40,9 +40,10 @@ export function ProductPage() {
     fetchProduct();
   }, [location]);
 
+  function selectedCategory(currentCategory) {}
   return (
     <div>
-      <Header breadcrumbs={breadcrumbs} />
+      <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
 
       {product && (
         <Container>

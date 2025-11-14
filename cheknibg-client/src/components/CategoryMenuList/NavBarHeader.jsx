@@ -46,7 +46,7 @@ export function NavBarHeader({ navData, selectedCategory }) {
 
     setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: null });
     setSelectedMainIndex(null);
-    console.log("alias", alias);
+
     if (submenuId === 0) {
       navigate(PAGES_URL.category + `/${alias}`);
       navigate(0);
