@@ -28,7 +28,7 @@ export function MerchantListItem({ merchant, productId }) {
     if (merchant) {
       fetchMerchantInfo(merchant.id);
     }
-  });
+  }, [merchant]);
 
   return (
     <>
