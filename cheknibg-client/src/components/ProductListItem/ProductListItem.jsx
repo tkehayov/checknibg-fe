@@ -12,22 +12,22 @@ export function ProductListItem({ currentProduct }) {
   const [imageUrl, setImageUrl] = useState();
 
   useEffect(() => {
-    let imageUrl = currentProduct.images[0].filename.includes("cdn")
-      ? "?url=" + currentProduct.images[0].filename
-      : "/" + currentProduct.images[0].filename;
+    let imageUrl = "/" + currentProduct.images[0].filename;
     setImageUrl(imageUrl);
   }, []);
   return (
     <Grid item>
       <Card key={currentProduct.id} sx={{ width: 215, height: 300 }}>
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height="140"
-            image={API_URLS.products + PRODUCTS_IMAGES_URL + `${imageUrl}`}
-            alt={currentProduct.name}
-            title={currentProduct.name}
-          />
+          {imageUrl && (
+            <CardMedia
+              component="img"
+              height="140"
+              image={API_URLS.products + PRODUCTS_IMAGES_URL + `${imageUrl}`}
+              alt={currentProduct.name}
+              title={currentProduct.name}
+            />
+          )}
           <CardContent sx={{ height: 80 }}>
             <Typography variant="body3">{currentProduct.name}</Typography>
           </CardContent>
