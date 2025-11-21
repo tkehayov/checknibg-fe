@@ -12,13 +12,8 @@ export function HomePage() {
   function selectedCategory(currentCategory) {}
   return (
     <>
+      <Header selectedCategory={selectedCategory} />
       <Container maxWidth="xl">
-        <Grid container>
-          <Grid item>
-            <Header selectedCategory={selectedCategory} />
-          </Grid>
-        </Grid>
-
         <Grid container>
           <Banner />
         </Grid>

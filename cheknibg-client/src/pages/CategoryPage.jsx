@@ -87,19 +87,34 @@ export function CategoryPage({ loadingPage }) {
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
       <Container maxWidth="xl">
         <Grid container spacing={1}>
-          <Grid item md={3} sm={4}>
+          <Grid item md={12} xs={12} sm={12}>
+            {currentCategory && <h3>Категория {currentCategory.name}</h3>}
+          </Grid>
+          <Grid
+            item
+            md={3}
+            xs={12}
+            sm={12}
+            sx={{
+              position: "sticky",
+              top: 115,
+              backgroundColor: "white",
+              zIndex: 100,
+              paddingBottom: 2,
+            }}
+          >
             {currentCategory && (
               <>
-                <h3>Категория {currentCategory.name}</h3>
                 <CategoryFilterList
                   onClickItem={updateSelectedProductFilters}
                   category={currentCategory}
                   loadingPage={loadingPage}
+                  selectedProductFilters={selectedProductFilters}
                 />
               </>
             )}
           </Grid>
-          <Grid item md={9} sm={8}>
+          <Grid item md={9} sm={12}>
             {currentCategory && (
               <ProductList
                 categoryFilters={currentCategory}
