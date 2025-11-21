@@ -2,8 +2,15 @@ import { ProductCategoriesApi } from "../../api/product-categories";
 import { useState, useEffect } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import { CategoryGroupListItem } from "../CategoryGroupListItem/CategoryGroupListItem";
+import { Box } from "@mui/material";
+import ProductFilterDrawer from "../ProductFilterDrawer/ProductFilterDrawer";
 
-export function CategoryFilterList({ category, onClickItem, loadingPage }) {
+export function CategoryFilterList({
+  category,
+  onClickItem,
+  loadingPage,
+  selectedProductFilters,
+}) {
   const [currentCategoryFilters, setCurrentCategoryFilters] = useState([]);
 
   useEffect(() => {
@@ -20,18 +27,30 @@ export function CategoryFilterList({ category, onClickItem, loadingPage }) {
   }, [category]);
 
   return (
-    <FormGroup>
-      {currentCategoryFilters.map((filter) => {
-        return (
-          <div key={filter.id}>
-            <CategoryGroupListItem
-              onChangeProductItem={onClickItem}
-              filter={filter}
-              loadingPage={loadingPage}
-            />
-          </div>
-        );
-      })}
-    </FormGroup>
+    <>
+      <Box sx={{ display: { md: "none" } }}>
+        <ProductFilterDrawer
+          currentCategoryFilters={currentCategoryFilters}
+          onClickItem={onClickItem}
+          loadingPage={loadingPage}
+          selectedProductFilters={selectedProductFilters}
+        />
+      </Box>
+      <Box sx={{ display: { xs: "none", md: "flex" } }}>
+        <FormGroup>
+          {currentCategoryFilters.map((filter) => {
+            return (
+              <div key={filter.id}>
+                <CategoryGroupListItem
+                  onChangeProductItem={onClickItem}
+                  filter={filter}
+                  loadingPage={loadingPage}
+                />
+              </div>
+            );
+          })}
+        </FormGroup>
+      </Box>
+    </>
   );
 }

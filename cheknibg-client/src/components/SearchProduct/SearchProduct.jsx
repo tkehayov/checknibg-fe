@@ -60,6 +60,8 @@ export function SearchProduct() {
   };
 
   const [isFocused, setIsFocused] = useState(false);
+  const [zIndexText, setZIndexText] = useState(1000);
+  const [zIndexBackdrop, setZIndexBackdrop] = useState(999);
   return (
     <>
       <Backdrop
@@ -67,7 +69,7 @@ export function SearchProduct() {
         sx={{
           backgroundColor: "rgba(0, 0, 0, 0.7)",
           backdropFilter: "blur(2px)",
-          zIndex: 1200 - 1,
+          zIndex: zIndexBackdrop,
           pointerEvents: "none",
         }}
       />
@@ -95,7 +97,7 @@ export function SearchProduct() {
               "& .MuiInputBase-input": {
                 color: (theme) => "#6f767fff",
               },
-              zIndex: 1200,
+              zIndex: zIndexText,
               position: "relative",
             }}
             renderInput={(params) => (
@@ -105,8 +107,18 @@ export function SearchProduct() {
                 placeholder="Търси в сайта..."
                 variant="outlined"
                 size={isNotSmall ? "medium" : "small"}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
+                onClick={() => {
+                  setZIndexText(1102);
+                  setZIndexBackdrop(1101);
+                }}
+                onFocus={() => {
+                  setIsFocused(true);
+                }}
+                onBlur={() => {
+                  setIsFocused(false);
+                  setZIndexText(1000);
+                  setZIndexBackdrop(999);
+                }}
                 onKeyDown={handleKeyDown}
                 sx={{
                   width: { md: 600, sm: 400, xs: 250 },
