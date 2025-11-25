@@ -15,12 +15,30 @@ export function ProductListItem({ currentProduct }) {
     let imageUrl = "/" + currentProduct.images[0].filename;
     setImageUrl(imageUrl);
   }, []);
+
   return (
-    <Grid item>
+    <Grid
+      item
+      xs={12}
+      sm={4}
+      md={3}
+      lg={3}
+      xl={3}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <Card
         variant="outlined"
         key={currentProduct.id}
-        sx={{ width: 215, height: 300 }}
+        sx={{
+          maxWidth: 350,
+          height: 300,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
       >
         <CardActionArea>
           {imageUrl && (
@@ -44,7 +62,6 @@ export function ProductListItem({ currentProduct }) {
               color: "#fff",
               borderRadius: 6,
               fontWeight: 900,
-              marginTop: 4,
             }}
             variant="contained"
             component={Link}
