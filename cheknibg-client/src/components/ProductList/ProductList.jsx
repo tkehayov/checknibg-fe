@@ -60,7 +60,7 @@ export function ProductList({ categoryFilters, selectedProductFilters }) {
   }, [page]);
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
       {currentProducts.content &&
         currentProducts.content.map((currentProduct) => {
           return (

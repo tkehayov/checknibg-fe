@@ -80,6 +80,9 @@ export const themeSettings = () => {
       background: {
         default: colors.white[0],
       },
+      gradient: {
+        main: "linear-gradient(to right, #30CCC3, #84D176, #C2D43F, #F0D716)",
+      },
     },
     typography: {
       fontFamily: [

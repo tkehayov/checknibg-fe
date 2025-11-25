@@ -85,45 +85,47 @@ export function CategoryPage({ loadingPage }) {
   return (
     <>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
-      <Container maxWidth="xl">
-        <Grid container spacing={1}>
-          <Grid item md={12} xs={12} sm={12}>
-            {currentCategory && <h3>Категория {currentCategory.name}</h3>}
-          </Grid>
-          <Grid
-            item
-            md={3}
-            xs={12}
-            sm={12}
-            sx={{
-              position: "sticky",
-              top: 115,
-              backgroundColor: "white",
-              zIndex: 100,
-              paddingBottom: 2,
-            }}
-          >
-            {currentCategory && (
-              <>
-                <CategoryFilterList
-                  onClickItem={updateSelectedProductFilters}
-                  category={currentCategory}
-                  loadingPage={loadingPage}
-                  selectedProductFilters={selectedProductFilters}
-                />
-              </>
-            )}
-          </Grid>
-          <Grid item md={9} sm={12}>
-            {currentCategory && (
-              <ProductList
-                categoryFilters={currentCategory}
+
+      <Grid container spacing={1} sx={{ px: { xs: 1, md: 0 } }}>
+        <Grid item md={12} xs={12} sm={12}>
+          {currentCategory && <h3>Категория {currentCategory.name}</h3>}
+        </Grid>
+        {/* Filter Section */}
+        <Grid
+          item
+          md={2}
+          xs={12}
+          sm={12}
+          sx={{
+            position: "sticky",
+            top: 115,
+            backgroundColor: "white",
+            zIndex: 100,
+            paddingBottom: 2,
+          }}
+        >
+          {currentCategory && (
+            <>
+              <CategoryFilterList
+                onClickItem={updateSelectedProductFilters}
+                category={currentCategory}
+                loadingPage={loadingPage}
                 selectedProductFilters={selectedProductFilters}
               />
-            )}
-          </Grid>
+            </>
+          )}
         </Grid>
-      </Container>
+        {/* Products Section */}
+        <Grid item md={10} sm={12}>
+          {currentCategory && (
+            <ProductList
+              categoryFilters={currentCategory}
+              selectedProductFilters={selectedProductFilters}
+            />
+          )}
+        </Grid>
+      </Grid>
+
       <Footer />
     </>
   );

@@ -96,10 +96,10 @@ export function NavBarHeader({ navData, selectedCategory }) {
               <Button
                 sx={{
                   ...(selectedMainIndex === index && {
-                    backgroundColor: "#2fccc2",
+                    backgroundColor: "#24b2cc",
                     color: "white",
                     "&:hover": {
-                      backgroundColor: "#2aada6",
+                      backgroundColor: "#24b2cc",
                     },
                     "&::after": {
                       content: '""',
@@ -116,16 +116,16 @@ export function NavBarHeader({ navData, selectedCategory }) {
                     },
                   }),
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2fccc2",
+                    backgroundColor: "#24b2cc",
                     color: "white",
                   },
                   "&.Mui-selected": {
-                    backgroundColor: "#2fccc2",
+                    backgroundColor: "#24b2cc",
                     color: "white",
                   },
 
                   "&:hover,click": {
-                    backgroundColor: "#2fccc2",
+                    backgroundColor: "#24b2cc",
                     color: "white",
                   },
                   marginTop: "10px",

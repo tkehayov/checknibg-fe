@@ -4,13 +4,8 @@ import {
   Drawer,
   Box,
   List,
-  ListItem,
-  ListItemText,
-  Link,
   IconButton,
-  Typography,
   FormGroup,
-  AppBar,
 } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CloseIcon from "@mui/icons-material/Close";
@@ -74,7 +69,13 @@ export default function ProductFilterDrawer({
         </FormGroup>
       </List>
       <Button
-        sx={{ width: "100%", position: "fixed", bottom: 0 }}
+        sx={{
+          width: "100%",
+          position: "fixed",
+          bottom: 0,
+          color: "#fff",
+          fontWeight: 900,
+        }}
         variant="contained"
         color="primary"
         onClick={() => toggleDrawer(false)()}
@@ -87,11 +88,16 @@ export default function ProductFilterDrawer({
   return (
     <Box>
       <Button
+        color="primary"
         startIcon={<FilterAltIcon />}
         onClick={toggleDrawer(true)}
         size="large"
         variant="contained"
-        color="primary"
+        sx={{
+          color: "#fff",
+          borderRadius: 6,
+          fontWeight: 900,
+        }}
       >
         Филтри
       </Button>
