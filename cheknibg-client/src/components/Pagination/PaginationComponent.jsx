@@ -26,7 +26,7 @@ export function PaginationComponent({
   }, [isPageCleared]);
 
   return (
-    <Stack>
+    <Stack sx={{ marginTop: 2 }}>
       <Pagination
         count={elements.totalPages}
         shape="rounded"

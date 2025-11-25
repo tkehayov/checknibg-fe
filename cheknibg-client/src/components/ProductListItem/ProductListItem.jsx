@@ -17,7 +17,11 @@ export function ProductListItem({ currentProduct }) {
   }, []);
   return (
     <Grid item>
-      <Card key={currentProduct.id} sx={{ width: 215, height: 300 }}>
+      <Card
+        variant="outlined"
+        key={currentProduct.id}
+        sx={{ width: 215, height: 300 }}
+      >
         <CardActionArea>
           {imageUrl && (
             <CardMedia
@@ -32,15 +36,21 @@ export function ProductListItem({ currentProduct }) {
             <Typography variant="body3">{currentProduct.name}</Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions sx={{ justifyContent: "flex-end" }}>
+        <CardActions>
           <Button
-            size="small"
+            fullWidth
             color="primary"
+            sx={{
+              color: "#fff",
+              borderRadius: 6,
+              fontWeight: 900,
+              marginTop: 4,
+            }}
             variant="contained"
             component={Link}
             to={PAGES_URL.product + `/${currentProduct.id}`}
           >
-            Сравни цените
+            CHEKN✔
           </Button>
         </CardActions>
       </Card>

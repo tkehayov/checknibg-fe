@@ -15,7 +15,7 @@ export function ProductFiltersListItem({
   return (
     <FormControlLabel
       onChange={onChange_}
-      control={<Checkbox disabled={loadingPage} />}
+      control={<Checkbox disabled={loadingPage} size="medium" />}
       label={productFilter.filter}
       checked={isChecked}
     />

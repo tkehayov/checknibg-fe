@@ -1,6 +1,6 @@
 import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
-import { AppBar, Box, Grid, Link } from "@mui/material";
+import { AppBar, Box, Grid, Link, useTheme } from "@mui/material";
 import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs.jsx";
 import { PAGES_URL } from "../../config.js";
@@ -10,6 +10,9 @@ import { ReactComponent as Logo } from "../../assets/images/CHEKNI-LOGO.svg";
 
 export function Header({ selectedCategory, breadcrumbs }) {
   const colors = tokens();
+  const theme = useTheme();
+  const gradient = theme.palette.gradient.main;
+
   const [navData, setNavData] = useState([{}]);
 
   async function fetchProductCategories() {
@@ -83,7 +86,7 @@ export function Header({ selectedCategory, breadcrumbs }) {
         sx={{
           borderBottom: "3px solid",
           borderImageSlice: 1,
-          borderImageSource: `linear-gradient(to right, #30CCC3, #84D176, #C2D43F, #F0D716)`,
+          borderImageSource: `${gradient}`,
         }}
         justifyContent="left"
         alignItems="center"
