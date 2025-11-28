@@ -73,60 +73,74 @@ export function Header({ selectedCategory, breadcrumbs }) {
   }, []);
 
   return (
-    <AppBar
-      position="sticky"
-      sx={{
-        backgroundColor: `${colors.white[0]}`,
-        marginBottom: "10px",
-      }}
-      elevation={0}
-    >
-      <Grid
-        container
+    <>
+      <AppBar
+        position="sticky"
         sx={{
-          borderBottom: "3px solid",
-          borderImageSlice: 1,
-          borderImageSource: `${gradient}`,
+          backgroundColor: `${colors.white[0]}`,
+          marginBottom: "10px",
         }}
-        justifyContent="left"
-        alignItems="center"
+        elevation={0}
       >
-        {/* LOGO */}
-        <Grid item xl={3} md={4} xs={12} order={{ xl: 1, md: 1, sm: 1, xs: 1 }}>
-          <Box
-            sx={{
-              width: {
-                xs: "150px",
-                sm: "150px",
-                md: "150px",
-                lg: "200px",
-              },
-            }}
+        <Grid
+          container
+          sx={{
+            borderBottom: "3px solid",
+            borderImageSlice: 1,
+            borderImageSource: `${gradient}`,
+          }}
+          justifyContent="left"
+          alignItems="center"
+        >
+          {/* LOGO */}
+          <Grid
+            item
+            xl={3}
+            md={4}
+            xs={12}
+            order={{ xl: 1, md: 1, sm: 1, xs: 1 }}
           >
-            <Link href={PAGES_URL.home}>
-              <Logo style={{ width: "100%", height: "auto" }} />
-            </Link>
-          </Box>
-        </Grid>
-        {/* SEARCH */}
-        <Grid item xl={6} md={8} xs={9} order={{ xl: 2, md: 2, sm: 3, xs: 3 }}>
-          <SearchProduct />
-        </Grid>
-        {/* NAV */}
-        {navData.length > 1 && (
-          <Grid item order={{ xl: 3, md: 2, sm: 1, xs: 2 }}>
-            <NavBarHeader
-              navData={navData}
-              selectedCategory={selectedCategory}
-            />
+            <Box
+              sx={{
+                width: {
+                  xs: "150px",
+                  sm: "150px",
+                  md: "150px",
+                  lg: "200px",
+                },
+              }}
+            >
+              <Link href={PAGES_URL.home}>
+                <Logo style={{ width: "100%", height: "auto" }} />
+              </Link>
+            </Box>
           </Grid>
-        )}
-      </Grid>
+          {/* SEARCH */}
+          <Grid
+            item
+            xl={6}
+            md={8}
+            xs={9}
+            order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
+          >
+            <SearchProduct />
+          </Grid>
+          {/* NAV */}
+          {navData.length > 1 && (
+            <Grid item order={{ xl: 3, md: 2, sm: 1, xs: 2 }}>
+              <NavBarHeader
+                navData={navData}
+                selectedCategory={selectedCategory}
+              />
+            </Grid>
+          )}
+        </Grid>
+      </AppBar>
       <Grid container>
         <Grid item>
           <BreadCrumbs breadcrumbs={breadcrumbs} />
         </Grid>
       </Grid>
-    </AppBar>
+    </>
   );
 }

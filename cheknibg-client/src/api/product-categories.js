@@ -16,6 +16,14 @@ export class ProductCategoriesApi {
     return response.data;
   }
 
+  static async fetchCategoryById(id) {
+    const response = await axios.get(
+      `${API_URLS.products}/categories/name/${id}`
+    );
+
+    return response.data;
+  }
+
   static async fetchCategoryFilters(categoryId) {
     const response = await axios.get(
       `${API_URLS.products}/categories/filters/${categoryId}`

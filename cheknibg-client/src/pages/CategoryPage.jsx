@@ -2,7 +2,6 @@ import { Header } from "../components/Header/Header";
 import { CategoryFilterList } from "../components/CategoryFilterList/CategoryFilterList";
 import { useState, useEffect } from "react";
 import { ProductCategoriesApi } from "../api/product-categories.js";
-import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { ProductList } from "../components/ProductList/ProductList.jsx";
 import { PAGES_URL } from "../config.js";
@@ -19,12 +18,19 @@ export function CategoryPage({ loadingPage }) {
   const [resetSelectedProductFilters, setResetSelectedProductFilters] =
     useState(false);
 
-  function selectedCategory(currentCategory) {
+  async function selectedCategory(currentCategory) {
     if (currentCategory) {
-      setCurrentCategory(currentCategory);
+      let categoryWithDetails = currentCategory;
+
+      if (!currentCategory.name) {
+        categoryWithDetails = await fetchCategoryById(currentCategory.id);
+      }
+
+      setCurrentCategory(categoryWithDetails);
       setBreadcrumbs([
-        { key: 1, name: "Home", href: PAGES_URL.home },
-        { key: 2, name: currentCategory.name, href: "" },
+        { key: 1, name: "Начало", href: PAGES_URL.home },
+        { key: 2, name: "Категория", href: "" },
+        { key: 3, name: categoryWithDetails.name, href: "" },
       ]);
     }
   }
@@ -66,7 +72,17 @@ export function CategoryPage({ loadingPage }) {
 
     if (category) {
       setCurrentCategory(category);
+      selectedCategory(category);
     }
+  }
+
+  async function fetchCategoryById(id) {
+    const categoryName = await ProductCategoriesApi.fetchCategoryById(id);
+
+    if (categoryName) {
+      return { id: id, name: categoryName };
+    }
+    return "";
   }
 
   useEffect(() => {
