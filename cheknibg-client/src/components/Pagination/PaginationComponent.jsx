@@ -3,11 +3,7 @@ import Stack from "@mui/material/Stack";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
-export function PaginationComponent({
-  elements,
-  handlePageChange,
-  isPageCleared,
-}) {
+export function PaginationComponent({ elements, handlePageChange, pages }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page"))
     ? parseInt(searchParams.get("page"))
@@ -15,15 +11,13 @@ export function PaginationComponent({
 
   function handlePageChange_(event, page) {
     handlePageChange(page);
-    setSearchParams({ page: page });
   }
 
   useEffect(() => {
-    if (isPageCleared) {
-      handlePageChange(1);
-      setSearchParams({ page: 1 });
+    if (pages) {
+      setSearchParams({ page: pages });
     }
-  }, [isPageCleared]);
+  }, [pages]);
 
   return (
     <Stack sx={{ marginTop: 2 }}>

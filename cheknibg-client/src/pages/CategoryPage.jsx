@@ -102,7 +102,7 @@ export function CategoryPage({ loadingPage }) {
     <>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
 
-      <Grid container spacing={1} sx={{ px: { xs: 2, md: 0 } }}>
+      <Grid container sx={{ px: { xs: 2, md: 0 } }}>
         <Grid item md={12} xs={12} sm={12}>
           {currentCategory && <h3>Категория {currentCategory.name}</h3>}
         </Grid>

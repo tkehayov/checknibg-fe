@@ -9,6 +9,7 @@ import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 import {
   Backdrop,
+  IconButton,
   InputAdornment,
   useMediaQuery,
   useTheme,
@@ -20,6 +21,10 @@ export function SearchProduct() {
   const navigate = useNavigate();
   const theme = useTheme();
   const isNotSmall = useMediaQuery(theme.breakpoints.up("md"));
+  const [isFocused, setIsFocused] = useState(false);
+  const [zIndexText, setZIndexText] = useState(1000);
+  const [zIndexBackdrop, setZIndexBackdrop] = useState(999);
+  const [searchTerm, setSearchTerm] = useState("");
 
   async function getData(searchTerm) {
     const productResponse = await ProductApi.searchProduct(searchTerm);
@@ -31,7 +36,7 @@ export function SearchProduct() {
   }
 
   function clickOnProduct(event, value, reason) {
-    if (value) {
+    if (event.key !== "Enter" && value) {
       navigate(PAGES_URL.product + `/${value.id}`);
     }
   }
@@ -39,13 +44,17 @@ export function SearchProduct() {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      event.stopPropagation();
+      if (searchTerm.length > 2) {
+        setIsFocused(false);
+        navigate(PAGES_URL.searchResultPage + `/${searchTerm}`);
+      }
     }
   };
 
   const onInputChange = (event, value, reason) => {
     clearTimeout(timer);
     const trimmedValue = value.trim();
+    setSearchTerm(trimmedValue);
     if (value && trimmedValue.length > 2) {
       value = value.replace(/[^\w\s]/gi, "");
 
@@ -59,9 +68,13 @@ export function SearchProduct() {
     }
   };
 
-  const [isFocused, setIsFocused] = useState(false);
-  const [zIndexText, setZIndexText] = useState(1000);
-  const [zIndexBackdrop, setZIndexBackdrop] = useState(999);
+  const handleSearchClick = (event) => {
+    if (searchTerm.length > 2) {
+      setIsFocused(false);
+      navigate(PAGES_URL.searchResultPage + `/${searchTerm}`);
+    }
+  };
+
   return (
     <>
       <Backdrop
@@ -80,7 +93,18 @@ export function SearchProduct() {
             options={options}
             filterOptions={(options) => options}
             onInputChange={onInputChange}
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => {
+              // If option is an object (a structured product), return its name
+              if (
+                typeof option === "object" &&
+                option !== null &&
+                option.name
+              ) {
+                return option.name;
+              }
+              // If option is a string (free solo input), return the string itself
+              return String(option);
+            }}
             onChange={clickOnProduct}
             onKeyDown={handleKeyDown}
             sx={{
@@ -95,7 +119,7 @@ export function SearchProduct() {
                 borderWidth: "3px",
               },
               "& .MuiInputBase-input": {
-                color: (theme) => "#6f767fff",
+                color: (theme) => "#090a0cff",
               },
               zIndex: zIndexText,
               position: "relative",
@@ -120,6 +144,7 @@ export function SearchProduct() {
                   setZIndexBackdrop(999);
                 }}
                 onKeyDown={handleKeyDown}
+                InputLabelProps={{ shrink: true }}
                 sx={{
                   width: { md: 600, sm: 400, xs: 250 },
                   backgroundColor: "white",
@@ -132,10 +157,15 @@ export function SearchProduct() {
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon
-                        sx={{ color: (theme) => theme.palette.primary.main }}
-                      />
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleSearchClick}
+                        aria-label="search"
+                      >
+                        <SearchIcon
+                          sx={{ color: (theme) => theme.palette.primary.main }}
+                        />
+                      </IconButton>
                     </InputAdornment>
                   ),
                 }}
