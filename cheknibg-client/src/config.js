@@ -1,4 +1,9 @@
-const PAGES_URL = { home: "/", category: "/category", product: "/product" };
+const PAGES_URL = {
+  home: "/",
+  category: "/category",
+  product: "/product",
+  searchResultPage: "/search",
+};
 const IMAGES_URL = "/images";
 const PRODUCTS_IMAGES_URL = IMAGES_URL + "/products";
 const MERCHANTS_IMAGES_URL = IMAGES_URL + "/merchants";

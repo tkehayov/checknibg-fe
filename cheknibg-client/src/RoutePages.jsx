@@ -3,7 +3,6 @@ import { HomePage } from "./pages/HomePage";
 import React, { Suspense, useEffect, useState } from "react";
 import { PAGES_URL } from "./config";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
-// import { useEffect, useState } from "react";
 import axios from "axios";
 import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
 import { Container } from "@mui/material";
@@ -11,6 +10,7 @@ import { Container } from "@mui/material";
 const ProductPage = React.lazy(() => import("./pages/ProductPage"));
 const CategoryPage = React.lazy(() => import("./pages/CategoryPage"));
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
+const SearchResultPage = React.lazy(() => import("./pages/SearchResultPage"));
 
 export function RoutePages() {
   const [loadingPage, setLoadingPage] = useState();
@@ -61,6 +61,11 @@ export function RoutePages() {
               path={PAGES_URL.category + "/:id"}
               exact
               element={<CategoryPage loadingPage={loadingPage} />}
+            />
+            <Route
+              path={PAGES_URL.searchResultPage + "/:searchTerm"}
+              exact
+              element={<SearchResultPage />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

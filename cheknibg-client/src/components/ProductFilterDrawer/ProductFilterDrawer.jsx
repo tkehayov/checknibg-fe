@@ -20,7 +20,6 @@ export default function ProductFilterDrawer({
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
-    console.log("newOpen", currentCategoryFilters);
     setOpen(newOpen);
   };
 

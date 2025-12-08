@@ -7,7 +7,6 @@ import { PaginationComponent } from "../Pagination/PaginationComponent";
 export function ProductList({ categoryFilters, selectedProductFilters }) {
   const [currentProducts, setCurrentProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [isPageCleared, setIsPageCleared] = useState(false);
 
   async function fetchProductFilters() {
     const products = await ProductCategoriesApi.fetchProductFilters(
@@ -36,28 +35,25 @@ export function ProductList({ categoryFilters, selectedProductFilters }) {
     setPage(page);
   }
 
-  function changeClearPagination(isPageCleared) {
-    setIsPageCleared(isPageCleared);
-  }
-
   // Loads products when category filter is selected
   useEffect(() => {
     if (selectedProductFilters.length === 0) {
       fetchCategoryProducts();
       return;
     }
-    changeClearPagination(true);
     fetchProductFilters();
-  }, [categoryFilters, selectedProductFilters]);
+  }, [page]);
 
   useEffect(() => {
+    handlePageChange(1);
+
     if (selectedProductFilters.length === 0) {
       fetchCategoryProducts();
       return;
     }
-    changeClearPagination(false);
+
     fetchProductFilters();
-  }, [page]);
+  }, [selectedProductFilters]);
 
   return (
     <Grid container spacing={2}>
@@ -76,7 +72,7 @@ export function ProductList({ categoryFilters, selectedProductFilters }) {
             <PaginationComponent
               elements={currentProducts}
               handlePageChange={handlePageChange}
-              isPageCleared={isPageCleared}
+              pages={page}
             />
           )}
         </Grid>

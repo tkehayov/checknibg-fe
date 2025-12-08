@@ -27,7 +27,10 @@ export function ProductListItem({ currentProduct }) {
   });
 
   useEffect(() => {
-    let imageUrl = "/" + currentProduct.images[0].filename;
+    let imageUrl = "";
+    if (currentProduct.images.length > 0) {
+      imageUrl = "/" + currentProduct.images[0].filename;
+    }
     setImageUrl(imageUrl);
   }, []);
 
