@@ -8,6 +8,7 @@ export function SearchFilterList({
   filters,
   onClickItem,
   selectedProductFilters,
+  loadingPage,
 }) {
   const sortedFilters = [...filters].sort((a, b) => {
     const nameA = a.value;
@@ -28,6 +29,7 @@ export function SearchFilterList({
           filters={sortedFilters}
           onClickItem={onClickItem}
           selectedProductFilters={selectedProductFilters}
+          loadingPage={loadingPage}
         />
       </Box>
       <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -39,7 +41,8 @@ export function SearchFilterList({
                 <SearchGroupListItem
                   onChangeProductItem={onClickItem}
                   filter={filter}
-                  //   loadingPage={loadingPage}
+                  selectedProductFilters={selectedProductFilters}
+                  loadingPage={loadingPage}
                 />
               </div>
             );

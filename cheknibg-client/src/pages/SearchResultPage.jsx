@@ -17,8 +17,7 @@ export function SearchResultPage({ loadingPage }) {
   const currentSearchTerm = params.searchTerm;
   const [filters, setFilters] = useState([]);
   const [products, setProducts] = useState([]);
-  const [resetSelectedProductFilters, setResetSelectedProductFilters] =
-    useState(false);
+
   const [selectedProductFilters, setSelectedProductFilters] = useState([]);
 
   async function fetchFiltersBySearchTerm(searchTerm) {
@@ -42,11 +41,6 @@ export function SearchResultPage({ loadingPage }) {
   }
 
   function updateSelectedProductFilters(productFilter, event) {
-    if (resetSelectedProductFilters) {
-      setResetSelectedProductFilters(false);
-      setSelectedProductFilters([productFilter.id]);
-      return;
-    }
     if (event.target.checked) {
       setSelectedProductFilters([...selectedProductFilters, productFilter.id]);
     } else {
@@ -73,6 +67,7 @@ export function SearchResultPage({ loadingPage }) {
     if (currentSearchTerm) {
       fetchFiltersBySearchTerm(currentSearchTerm);
       fetchProducts(currentSearchTerm);
+      setSelectedProductFilters([]);
     }
   }, [currentSearchTerm]);
 
@@ -98,6 +93,7 @@ export function SearchResultPage({ loadingPage }) {
             onClickItem={updateSelectedProductFilters}
             filters={filters}
             selectedProductFilters={selectedProductFilters}
+            loadingPage={loadingPage}
           />
         </Grid>
         <Grid item md={10} sm={12} xs={12}>

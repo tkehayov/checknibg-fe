@@ -4,6 +4,7 @@ export function SearchGroupListItem({
   filter,
   onChangeProductItem,
   selectedProductFilters,
+  loadingPage,
 }) {
   return (
     <div>
@@ -13,6 +14,7 @@ export function SearchGroupListItem({
             productFilter={filter}
             onChange={onChangeProductItem}
             selectedProductFilters={selectedProductFilters}
+            loadingPage={loadingPage}
           />
         }
       </div>
