@@ -40,7 +40,7 @@ export function ProductSearchList({ selectedProductFilters, searchTerm }) {
       return;
     }
     fetchCategoryProducts();
-  }, [selectedProductFilters]);
+  }, [selectedProductFilters, searchTerm]);
 
   return (
     <Grid container spacing={2}>

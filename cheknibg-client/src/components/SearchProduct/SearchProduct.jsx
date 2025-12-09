@@ -154,6 +154,10 @@ export function SearchProduct() {
                     opacity: 1,
                   },
                 }}
+                inputProps={{
+                  ...params.inputProps,
+                  maxLength: 100,
+                }}
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (

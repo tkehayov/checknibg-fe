@@ -15,6 +15,7 @@ export default function ProductSearchFilterDrawer({
   filters,
   onClickItem,
   selectedProductFilters,
+  loadingPage,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -54,10 +55,14 @@ export default function ProductSearchFilterDrawer({
         <FormGroup>
           {filters.map((filter) => {
             return (
-              <SearchGroupListItem
-                onChangeProductItem={onClickItem}
-                filter={filter}
-              />
+              <div key={filter.id}>
+                <SearchGroupListItem
+                  onChangeProductItem={onClickItem}
+                  filter={filter}
+                  selectedProductFilters={selectedProductFilters}
+                  loadingPage={loadingPage}
+                />
+              </div>
             );
           })}
         </FormGroup>

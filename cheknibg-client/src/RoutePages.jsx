@@ -65,7 +65,7 @@ export function RoutePages() {
             <Route
               path={PAGES_URL.searchResultPage + "/:searchTerm"}
               exact
-              element={<SearchResultPage />}
+              element={<SearchResultPage loadingPage={loadingPage} />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
