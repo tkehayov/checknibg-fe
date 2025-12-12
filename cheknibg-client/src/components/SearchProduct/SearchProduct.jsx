@@ -4,7 +4,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { ProductApi } from "../../api/product";
 import Autocomplete from "@mui/material/Autocomplete";
-import { PAGES_URL } from "../../config";
+import {
+  API_URLS,
+  PAGES_URL,
+  PRODUCTS_IMAGES_URL,
+  PRODUCTS_IMAGES_URL_THUMBNAILS,
+} from "../../config";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 import {
@@ -107,6 +112,42 @@ export function SearchProduct() {
             }}
             onChange={clickOnProduct}
             onKeyDown={handleKeyDown}
+            renderOption={(props, option) => {
+              const src =
+                option &&
+                typeof option === "object" &&
+                (option.image || option.imageUrl || option.thumbnail);
+              return (
+                <li
+                  {...props}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <Box
+                    component="img"
+                    src={
+                      src ||
+                      API_URLS.products +
+                        PRODUCTS_IMAGES_URL_THUMBNAILS +
+                        "/" +
+                        option.images[0].filename
+                    }
+                    alt={
+                      typeof option === "object" ? option.name : String(option)
+                    }
+                    sx={{
+                      width: 40,
+                      height: "auto",
+                      objectFit: "cover",
+                      borderRadius: 1,
+                      mr: 1,
+                    }}
+                  />
+                  <Box component="span">
+                    {typeof option === "object" ? option.name : String(option)}
+                  </Box>
+                </li>
+              );
+            }}
             sx={{
               "& .MuiOutlinedInput-notchedOutline": {
                 borderColor: (theme) => theme.palette.primary.main,
