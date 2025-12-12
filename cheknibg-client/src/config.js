@@ -6,6 +6,7 @@ const PAGES_URL = {
 };
 const IMAGES_URL = "/images";
 const PRODUCTS_IMAGES_URL = IMAGES_URL + "/products";
+const PRODUCTS_IMAGES_URL_THUMBNAILS = IMAGES_URL + "/products/thumbnails";
 const MERCHANTS_IMAGES_URL = IMAGES_URL + "/merchants";
 
 const API_URLS = {
@@ -14,4 +15,10 @@ const API_URLS = {
   finance: `/finance-service/api`,
 };
 
-export { PAGES_URL, PRODUCTS_IMAGES_URL, MERCHANTS_IMAGES_URL, API_URLS };
+export {
+  PAGES_URL,
+  PRODUCTS_IMAGES_URL,
+  PRODUCTS_IMAGES_URL_THUMBNAILS,
+  MERCHANTS_IMAGES_URL,
+  API_URLS,
+};

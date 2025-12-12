@@ -12,9 +12,7 @@ export function ProductGallery({ images }) {
       if (images.length !== 0) {
         const currentImages = [];
         images.forEach((image) => {
-          let imageUrl = image.filename.includes("cdn")
-            ? "?url=" + image.filename
-            : "/" + image.filename;
+          let imageUrl = "/" + image.filename;
           const galleryImage = {
             original: API_URLS.products + PRODUCTS_IMAGES_URL + imageUrl,
             thumbnail: API_URLS.products + PRODUCTS_IMAGES_URL + imageUrl,
