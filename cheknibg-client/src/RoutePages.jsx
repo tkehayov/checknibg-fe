@@ -45,33 +45,35 @@ export function RoutePages() {
     </div>
   );
   return (
-    <Container maxWidth="xl">
+    <>
       <ProgressBar show={loadingPage} />
 
-      <Router>
-        <Suspense fallback={<LazyFallback />}>
-          <Routes>
-            <Route path={PAGES_URL.home} exact element={<HomePage />} />
-            <Route
-              path={PAGES_URL.product + "/:id"}
-              exact
-              element={<ProductPage />}
-            />
-            <Route
-              path={PAGES_URL.category + "/:id"}
-              exact
-              element={<CategoryPage loadingPage={loadingPage} />}
-            />
-            <Route
-              path={PAGES_URL.searchResultPage + "/:searchTerm"}
-              exact
-              element={<SearchResultPage loadingPage={loadingPage} />}
-            />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Suspense>
-      </Router>
-      <ScrollToTop />
-    </Container>
+      <Container maxWidth="xl">
+        <Router>
+          <Suspense fallback={<LazyFallback />}>
+            <Routes>
+              <Route path={PAGES_URL.home} exact element={<HomePage />} />
+              <Route
+                path={PAGES_URL.product + "/:id"}
+                exact
+                element={<ProductPage />}
+              />
+              <Route
+                path={PAGES_URL.category + "/:id"}
+                exact
+                element={<CategoryPage loadingPage={loadingPage} />}
+              />
+              <Route
+                path={PAGES_URL.searchResultPage + "/:searchTerm"}
+                exact
+                element={<SearchResultPage loadingPage={loadingPage} />}
+              />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
+        </Router>
+        <ScrollToTop />
+      </Container>
+    </>
   );
 }

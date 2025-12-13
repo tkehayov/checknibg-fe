@@ -1,5 +1,7 @@
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { ChekniIcon } from "../CheckBoxIcon/ChekniIcon";
+import { ChekniIconChecked } from "../CheckBoxIcon/ChekniIconChecked";
 
 export function ProductSearchFiltersListItem({
   productFilter,
@@ -14,8 +16,26 @@ export function ProductSearchFiltersListItem({
 
   return (
     <FormControlLabel
+      sx={{
+        "& .MuiFormControlLabel-label": {
+          fontSize: 15,
+        },
+      }}
       onChange={onChange_}
-      control={<Checkbox disabled={loadingPage} size="medium" />}
+      control={
+        <Checkbox
+          color="primary"
+          icon={<ChekniIcon />}
+          checkedIcon={<ChekniIconChecked />}
+          disabled={loadingPage}
+          sx={{
+            "& .MuiSvgIcon-root": { fontSize: 28 },
+            "&:not(.Mui-checked)": {
+              color: (theme) => theme.palette.primary.main,
+            },
+          }}
+        />
+      }
       label={productFilter.value}
       checked={isChecked}
     />
