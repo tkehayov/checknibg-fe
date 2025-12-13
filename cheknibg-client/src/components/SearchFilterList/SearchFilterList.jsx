@@ -34,7 +34,7 @@ export function SearchFilterList({
       </Box>
       <Box sx={{ display: { xs: "none", md: "flex" } }}>
         <FormGroup>
-          Категория
+          <h3>Категория</h3>
           {sortedFilters.map((filter) => {
             return (
               <div key={filter.id}>
