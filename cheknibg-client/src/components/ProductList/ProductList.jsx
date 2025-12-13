@@ -10,7 +10,6 @@ export function ProductList({ categoryFilters, selectedProductFilters }) {
 
   async function fetchProductFilters() {
     const products = await ProductCategoriesApi.fetchProductFilters(
-      categoryFilters.id,
       selectedProductFilters,
       page
     );

@@ -32,11 +32,10 @@ export class ProductCategoriesApi {
     return response.data;
   }
 
-  static async fetchProductFilters(categoryId, filtersId, page) {
-    const response = await axios.get(
-      `${API_URLS.products}/products/filters/${categoryId}`,
-      { params: { filters: `${filtersId}`, page: `${page - 1}` } }
-    );
+  static async fetchProductFilters(filtersId, page) {
+    const response = await axios.get(`${API_URLS.products}/products/filters`, {
+      params: { filters: `${filtersId}`, page: `${page - 1}` },
+    });
 
     return response.data;
   }
