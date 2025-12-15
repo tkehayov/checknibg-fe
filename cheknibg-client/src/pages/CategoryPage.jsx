@@ -7,8 +7,11 @@ import { ProductList } from "../components/ProductList/ProductList.jsx";
 import { PAGES_URL } from "../config.js";
 import { useLocation } from "react-router-dom";
 import { Footer } from "../components/Footer/Footer.jsx";
+import { useTheme } from "@mui/material";
 
 export function CategoryPage({ loadingPage }) {
+  const theme = useTheme();
+
   const [currentCategory, setCurrentCategory] = useState();
   const [selectedProductFilters, setSelectedProductFilters] = useState([]);
   const [breadcrumbs, setBreadcrumbs] = useState();
@@ -102,7 +105,7 @@ export function CategoryPage({ loadingPage }) {
     <>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
 
-      <Grid container sx={{ px: { xs: 2, md: 0 } }}>
+      <Grid container sx={{ px: { xs: 2, md: 1 } }} spacing={2}>
         <Grid item md={12} xs={12} sm={12}>
           {currentCategory && <h3>Категория {currentCategory.name}</h3>}
         </Grid>
@@ -116,6 +119,10 @@ export function CategoryPage({ loadingPage }) {
             position: "sticky",
             top: 115,
             backgroundColor: "white",
+            borderRight: {
+              xs: "none",
+              md: `1px solid ${theme.palette.primary.main}`,
+            },
             zIndex: 100,
             paddingBottom: 2,
           }}

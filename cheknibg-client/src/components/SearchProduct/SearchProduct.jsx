@@ -7,7 +7,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import {
   API_URLS,
   PAGES_URL,
-  PRODUCTS_IMAGES_URL,
   PRODUCTS_IMAGES_URL_THUMBNAILS,
 } from "../../config";
 import Stack from "@mui/material/Stack";
@@ -193,6 +192,9 @@ export function SearchProduct() {
                   "& .MuiInputBase-input::placeholder": {
                     color: "#6f767fff",
                     opacity: 1,
+                  },
+                  "& .MuiInputBase-input": {
+                    fontSize: "16px",
                   },
                 }}
                 inputProps={{
