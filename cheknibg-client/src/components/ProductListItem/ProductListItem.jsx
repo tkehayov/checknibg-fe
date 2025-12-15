@@ -48,7 +48,6 @@ export function ProductListItem({ currentProduct }) {
       }}
     >
       <Card
-        variant="outlined"
         key={currentProduct.id}
         sx={{
           width: 300,
@@ -56,9 +55,13 @@ export function ProductListItem({ currentProduct }) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          boxShadow: "none",
         }}
       >
-        <CardActionArea>
+        <CardActionArea
+          component={Link}
+          to={PAGES_URL.product + `/${currentProduct.id}`}
+        >
           {imageUrl && (
             <CardMedia
               component="img"
@@ -68,7 +71,7 @@ export function ProductListItem({ currentProduct }) {
               title={currentProduct.name}
             />
           )}
-          <CardContent sx={{ height: 80 }}>
+          <CardContent sx={{ height: 117 }}>
             <Typography variant="body3">{currentProduct.name}</Typography>
           </CardContent>
         </CardActionArea>
@@ -79,10 +82,13 @@ export function ProductListItem({ currentProduct }) {
             sx={{
               color: "#fff",
               borderRadius: 6,
+              boxShadow: "none",
+              border: (theme) => `1px solid ${theme.palette.primary.main}`,
+
               "&:hover": {
                 backgroundColor: "transparent",
                 color: (theme) => theme.palette.primary.main,
-                border: (theme) => `2px solid ${theme.palette.primary.main}`,
+                border: (theme) => `1px solid ${theme.palette.primary.main}`,
                 boxShadow: "none",
               },
             }}

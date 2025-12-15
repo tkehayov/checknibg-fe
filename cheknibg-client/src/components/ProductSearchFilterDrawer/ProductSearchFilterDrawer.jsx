@@ -95,7 +95,16 @@ export default function ProductSearchFilterDrawer({
         sx={{
           color: "#fff",
           borderRadius: 6,
+          boxShadow: "none",
+          border: (theme) => `1px solid ${theme.palette.primary.main}`,
           fontWeight: 900,
+
+          "&:hover": {
+            backgroundColor: "transparent",
+            color: (theme) => theme.palette.primary.main,
+            border: (theme) => `1px solid ${theme.palette.primary.main}`,
+            boxShadow: "none",
+          },
         }}
       >
         Филтри

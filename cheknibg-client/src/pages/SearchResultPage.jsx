@@ -7,12 +7,14 @@ import { useParams } from "react-router-dom";
 import { DetailedSearchApi } from "../api/detailed-search";
 import { SearchFilterList } from "../components/SearchFilterList/SearchFilterList";
 import { ProductSearchList } from "../components/ProductSearchList/ProductSearchList";
+import { useTheme } from "@mui/material";
 
 export function SearchResultPage({ loadingPage }) {
   const breadcrumbs = [
     { key: 1, name: "Home", href: PAGES_URL.home },
     { key: 2, name: "Търсене", href: "" },
   ];
+  const theme = useTheme();
   const params = useParams();
   const currentSearchTerm = params.searchTerm;
   const [filters, setFilters] = useState([]);
@@ -74,7 +76,7 @@ export function SearchResultPage({ loadingPage }) {
   return (
     <>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
-      <Grid container sx={{ px: { xs: 2, md: 0 } }}>
+      <Grid container sx={{ px: { xs: 2, md: 1 } }} spacing={2}>
         {/* Filter Section */}
         <Grid
           item
@@ -85,6 +87,10 @@ export function SearchResultPage({ loadingPage }) {
             position: "sticky",
             top: 115,
             backgroundColor: "white",
+            borderRight: {
+              xs: "none",
+              md: `1px solid ${theme.palette.primary.main}`,
+            },
             zIndex: 100,
             paddingBottom: 2,
           }}
