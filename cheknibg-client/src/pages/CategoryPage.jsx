@@ -1,156 +1,218 @@
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useTheme, Grid } from "@mui/material";
+
 import { Header } from "../components/Header/Header";
 import { CategoryFilterList } from "../components/CategoryFilterList/CategoryFilterList";
-import { useState, useEffect } from "react";
-import { ProductCategoriesApi } from "../api/product-categories.js";
-import Grid from "@mui/material/Grid";
 import { ProductList } from "../components/ProductList/ProductList.jsx";
-import { PAGES_URL } from "../config.js";
-import { useLocation } from "react-router-dom";
 import { Footer } from "../components/Footer/Footer.jsx";
-import { useTheme } from "@mui/material";
+
+import { ProductCategoriesApi } from "../api/product-categories.js";
+import { PAGES_URL } from "../config.js";
 
 export function CategoryPage({ loadingPage }) {
   const theme = useTheme();
-
-  const [currentCategory, setCurrentCategory] = useState();
-  const [selectedProductFilters, setSelectedProductFilters] = useState([]);
-  const [breadcrumbs, setBreadcrumbs] = useState();
-
   const location = useLocation();
   const locationFilters = location.state?.filters;
+
+  const [currentCategory, setCurrentCategory] = useState();
+  const [currentCategoryFilters, setCurrentCategoryFilters] = useState([]);
+  const [selectedProductFilters, setSelectedProductFilters] = useState([]);
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
+  const [currentProducts, setCurrentProducts] = useState([]);
+  const [page, setPage] = useState(1);
+
+  const [productFilterPrice, setProductFilterPrice] = useState({});
+  const [selectedProductFilterPrice, setSelectedProductFilterPrice] = useState(
+    {}
+  );
   const [resetSelectedProductFilters, setResetSelectedProductFilters] =
     useState(false);
-
-  async function selectedCategory(currentCategory) {
-    if (currentCategory) {
-      let categoryWithDetails = currentCategory;
-
-      if (!currentCategory.name) {
-        categoryWithDetails = await fetchCategoryById(currentCategory.id);
-      }
-
-      setCurrentCategory(categoryWithDetails);
-      setBreadcrumbs([
-        { key: 1, name: "Начало", href: PAGES_URL.home },
-        { key: 2, name: "Категория", href: "" },
-        { key: 3, name: categoryWithDetails.name, href: "" },
-      ]);
-    }
-  }
-
-  function updateSelectedProductFilters(productFilter, event) {
-    if (resetSelectedProductFilters) {
-      setResetSelectedProductFilters(false);
-      setSelectedProductFilters([productFilter.id]);
-      return;
-    }
-
-    if (event.target.checked) {
-      setSelectedProductFilters([...selectedProductFilters, productFilter.id]);
-    } else {
-      const index = selectedProductFilters.indexOf(productFilter.id);
-      if (index !== -1) {
-        removeProduct(index);
-      }
-    }
-  }
-
-  const removeProduct = (index) => {
-    setSelectedProductFilters([
-      ...selectedProductFilters.slice(0, index),
-      ...selectedProductFilters.slice(
-        index + 1,
-        selectedProductFilters.selectedProductFilters
-      ),
-    ]);
-  };
 
   async function fetchCurrentCategory() {
     const url = window.location.pathname.split("/");
     const categoryUrl = url[url.length - 1];
-
     const category = await ProductCategoriesApi.fetchCategoryByAlias(
       categoryUrl
     );
-
     if (category) {
       setCurrentCategory(category);
       selectedCategory(category);
     }
   }
 
-  async function fetchCategoryById(id) {
-    const categoryName = await ProductCategoriesApi.fetchCategoryById(id);
+  async function selectedCategory(category) {
+    if (!category) return;
 
-    if (categoryName) {
-      return { id: id, name: categoryName };
+    if (category.id === 0) {
+      console.log("Selected All Categories");
+      setSelectedProductFilters([]);
+      setPage(1);
+      return;
     }
-    return "";
+
+    let categoryWithDetails = category;
+    if (!category.name) {
+      const categoryName = await ProductCategoriesApi.fetchCategoryById(
+        category.id
+      );
+      categoryWithDetails = { id: category.id, name: categoryName };
+    }
+
+    setCurrentCategory(categoryWithDetails);
+    setBreadcrumbs([
+      { key: 1, name: "Начало", href: PAGES_URL.home },
+      { key: 2, name: "Категория", href: "" },
+      { key: 3, name: categoryWithDetails.name, href: "" },
+    ]);
+  }
+
+  async function fetchCategoryFilters() {
+    const categoryFilters = await ProductCategoriesApi.fetchCategoryFilters(
+      currentCategory.id
+    );
+    if (categoryFilters.length > 0) {
+      setCurrentCategoryFilters(categoryFilters);
+    }
+  }
+
+  async function fetchCategoryMinMaxFilterPrice() {
+    let filtersToUse = selectedProductFilters;
+    if (filtersToUse.length === 0 || filtersToUse[0] === undefined) {
+      filtersToUse = currentCategoryFilters.flatMap((cat) =>
+        cat.productFilters.map((pf) => pf.id)
+      );
+    }
+
+    const minMaxPrice =
+      await ProductCategoriesApi.fetchCategoryMinMaxFilterPrice(filtersToUse);
+    let safeMin = minMaxPrice.minPrice;
+    let safeMax = minMaxPrice.maxPrice;
+
+    if (safeMin === null || safeMax === null) {
+      safeMin = 0;
+      safeMax = 0;
+    }
+    if (safeMin < 0) safeMin = 0;
+
+    if (safeMin === safeMax && safeMax !== 0) {
+      safeMin = Math.max(0, safeMax - 10);
+    }
+    const sanitizedResult = {
+      minPrice: safeMin,
+      maxPrice: safeMax,
+    };
+    setSelectedProductFilterPrice(sanitizedResult);
+    setProductFilterPrice(sanitizedResult);
+
+    return sanitizedResult;
+  }
+
+  async function loadProductData() {
+    if (!currentCategory) return;
+
+    let filtersToUse = selectedProductFilters;
+    if (filtersToUse.length === 0 || filtersToUse[0] === undefined) {
+      filtersToUse = currentCategoryFilters.flatMap((cat) =>
+        cat.productFilters.map((pf) => pf.id)
+      );
+    }
+
+    const products = await ProductCategoriesApi.fetchProducts(
+      filtersToUse,
+      page,
+      selectedProductFilterPrice.minPrice,
+      selectedProductFilterPrice.maxPrice,
+      currentCategory.id
+    );
+
+    if (products) setCurrentProducts(products);
+  }
+
+  function updateSelectedProductFilters(productFilter, event) {
+    if (productFilter.id === 0) {
+      setSelectedProductFilters([]);
+      setPage(1);
+      return;
+    }
+    if (resetSelectedProductFilters) {
+      setResetSelectedProductFilters(false);
+      setSelectedProductFilters([productFilter.id]);
+      setPage(1);
+      return;
+    }
+    if (event.target.checked) {
+      setSelectedProductFilters([...selectedProductFilters, productFilter.id]);
+    } else {
+      setSelectedProductFilters(
+        selectedProductFilters.filter((id) => id !== productFilter.id)
+      );
+    }
+    setPage(1);
   }
 
   useEffect(() => {
-    if (!currentCategory) {
-      fetchCurrentCategory();
-    }
+    fetchCurrentCategory();
   }, []);
 
   useEffect(() => {
-    if (locationFilters) {
-      setSelectedProductFilters([locationFilters]);
-      setResetSelectedProductFilters(true);
+    if (currentCategory) {
+      fetchCategoryFilters();
+      if (locationFilters) {
+        setSelectedProductFilters([locationFilters]);
+        setResetSelectedProductFilters(true);
+      }
     }
-  }, [locationFilters]);
+  }, [currentCategory]);
+
+  useEffect(() => {
+    if (currentCategory && currentCategoryFilters.length > 0) {
+      fetchCategoryMinMaxFilterPrice();
+    }
+  }, [selectedProductFilters, currentCategoryFilters]);
+
+  useEffect(() => {
+    if (currentCategory && selectedProductFilterPrice.minPrice !== undefined) {
+      loadProductData();
+    }
+  }, [selectedProductFilterPrice, page]);
 
   return (
     <>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
-
       <Grid container sx={{ px: { xs: 2, md: 1 } }} spacing={2}>
-        <Grid item md={12} xs={12} sm={12}>
+        <Grid item xs={12}>
           {currentCategory && <h3>Категория {currentCategory.name}</h3>}
         </Grid>
-        {/* Filter Section */}
         <Grid
           item
           md={2}
           xs={12}
-          sm={12}
-          sx={{
-            position: "sticky",
-            top: 115,
-            backgroundColor: "white",
-            borderRight: {
-              xs: "none",
-              md: `1px solid ${theme.palette.primary.main}`,
-            },
-            zIndex: 100,
-            paddingBottom: 2,
-          }}
+          sx={{ position: "sticky", top: 115, zIndex: 100 }}
         >
           {currentCategory && (
-            <>
-              <CategoryFilterList
-                onClickItem={updateSelectedProductFilters}
-                category={currentCategory}
-                loadingPage={loadingPage}
-                selectedProductFilters={selectedProductFilters}
-              />
-            </>
-          )}
-        </Grid>
-        {/* Products Section */}
-        <Grid item md={10} sm={12} xs={12}>
-          {currentCategory && (
-            <ProductList
-              categoryFilters={currentCategory}
+            <CategoryFilterList
+              onClickItem={updateSelectedProductFilters}
               selectedProductFilters={selectedProductFilters}
+              setSelectedProductFilterPrice={setSelectedProductFilterPrice}
+              currentCategoryFilters={currentCategoryFilters}
+              productFilterPrice={productFilterPrice}
+              setPage={setPage}
+              page={page}
             />
           )}
         </Grid>
+        <Grid item md={10} xs={12}>
+          <ProductList
+            currentProducts={currentProducts}
+            setPage={setPage}
+            page={page}
+          />
+        </Grid>
       </Grid>
-
       <Footer />
     </>
   );
 }
+
 export default CategoryPage;

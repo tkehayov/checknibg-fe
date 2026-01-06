@@ -48,12 +48,12 @@ export function NavBarHeader({ navData, selectedCategory }) {
     setSelectedMainIndex(null);
     if (submenuId === 0) {
       navigate(PAGES_URL.category + `/${alias}`);
-      navigate(0);
+
+      selectedCategory({ id: 0 });
       return;
     }
 
     selectedCategory(currentCategory);
-
     navigate(PAGES_URL.category + `/${alias}`, {
       state: { filters: submenuId },
     });

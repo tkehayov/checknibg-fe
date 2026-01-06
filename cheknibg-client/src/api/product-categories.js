@@ -32,18 +32,54 @@ export class ProductCategoriesApi {
     return response.data;
   }
 
-  static async fetchProductFilters(filtersId, page) {
+  static async fetchCategoryMinMaxFilterPrice(filters) {
+    if (filters.length > 0) {
+      const response = await axios.get(
+        `${API_URLS.products}/categories/filters/price-range`,
+        {
+          params: { filters: `${filters}` },
+        }
+      );
+
+      return response.data;
+    }
+  }
+
+  static async fetchProducts(filtersId, page, minPrice, maxPrice) {
+    if (minPrice === undefined || maxPrice === undefined) {
+      const response = await axios.get(
+        `${API_URLS.products}/products/filters`,
+        {
+          params: {
+            filters: `${filtersId}`,
+            page: `${page - 1}`,
+          },
+        }
+      );
+      return response.data;
+    }
     const response = await axios.get(`${API_URLS.products}/products/filters`, {
-      params: { filters: `${filtersId}`, page: `${page - 1}` },
+      params: {
+        filters: `${filtersId}`,
+        page: `${page - 1}`,
+        minPrice: `${minPrice}`,
+        maxPrice: `${maxPrice}`,
+      },
     });
 
     return response.data;
   }
 
-  static async fetchCategoryProducts(categoryId, page) {
+  static async fetchCategoryProducts(categoryId, page, minPrice, maxPrice) {
     const response = await axios.get(
       `${API_URLS.products}/products/category/${categoryId}`,
-      { params: { page: `${page - 1}` } }
+      {
+        params: {
+          page: `${page - 1}`,
+          minPrice: `${minPrice}`,
+          maxPrice: `${maxPrice}`,
+        },
+      }
     );
 
     return response.data;

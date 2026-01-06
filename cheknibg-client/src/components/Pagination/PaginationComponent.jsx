@@ -1,13 +1,9 @@
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function PaginationComponent({ elements, handlePageChange, pages }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = parseInt(searchParams.get("page"))
-    ? parseInt(searchParams.get("page"))
-    : 1;
+  const [currentPage, setCurrentPage] = useState(pages);
 
   function handlePageChange_(event, page) {
     handlePageChange(page);
@@ -15,7 +11,7 @@ export function PaginationComponent({ elements, handlePageChange, pages }) {
 
   useEffect(() => {
     if (pages) {
-      setSearchParams({ page: pages });
+      setCurrentPage(pages);
     }
   }, [pages]);
 
