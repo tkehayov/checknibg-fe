@@ -1,9 +1,13 @@
+import { useTheme } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
+import { tokens } from "../../theme";
 
 export function PaginationComponent({ elements, handlePageChange, pages }) {
   const [currentPage, setCurrentPage] = useState(pages);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   function handlePageChange_(event, page) {
     handlePageChange(page);
@@ -23,6 +27,15 @@ export function PaginationComponent({ elements, handlePageChange, pages }) {
         color="primary"
         onChange={handlePageChange_}
         page={currentPage}
+        sx={{
+          "& .MuiPaginationItem-root:not(.Mui-selected)": {
+            color: "secondary.main",
+            "&:hover": {
+              border: (theme) => `1px solid ${theme.palette.secondary.main}`,
+              backgroundColor: "white",
+            },
+          },
+        }}
       />
     </Stack>
   );

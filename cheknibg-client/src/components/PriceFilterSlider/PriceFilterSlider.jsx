@@ -39,7 +39,14 @@ export function PriceFilterSlider({
   }, [productFilterPrice]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        ml: 1,
+        width: {
+          xs: "90%",
+        },
+      }}
+    >
       Цена
       <Slider
         step={stepSize}

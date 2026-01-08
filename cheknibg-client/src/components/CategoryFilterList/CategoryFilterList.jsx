@@ -20,6 +20,8 @@ export function CategoryFilterList({
           onClickItem={onClickItem}
           loadingPage={loadingPage}
           selectedProductFilters={selectedProductFilters}
+          productFilterPrice={productFilterPrice}
+          setSelectedProductFilterPrice={setSelectedProductFilterPrice}
         />
       </Box>
       <Box sx={{ display: { xs: "none", md: "flex" } }}>

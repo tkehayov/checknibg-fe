@@ -10,12 +10,15 @@ import {
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import { CategoryGroupListItem } from "../CategoryGroupListItem/CategoryGroupListItem";
+import { PriceFilterSlider } from "../PriceFilterSlider/PriceFilterSlider";
 
 export default function ProductFilterDrawer({
   currentCategoryFilters,
   onClickItem,
   loadingPage,
   selectedProductFilters,
+  productFilterPrice,
+  setSelectedProductFilterPrice,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -53,6 +56,10 @@ export default function ProductFilterDrawer({
       </Box>
       <List sx={{ marginBottom: 5, paddingLeft: 2 }}>
         <FormGroup>
+          <PriceFilterSlider
+            productFilterPrice={productFilterPrice}
+            setSelectedProductFilterPrice={setSelectedProductFilterPrice}
+          />
           {currentCategoryFilters.map((filter) => {
             return (
               <div key={filter.id}>

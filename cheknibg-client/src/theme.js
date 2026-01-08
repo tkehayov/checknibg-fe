@@ -67,10 +67,13 @@ export const themeSettings = () => {
     palette: {
       primary: {
         main: colors.primary[900],
+        contrastText: colors.white[0],
       },
       secondary: {
-        main: colors.greenAccent[700],
+        main: colors.primary[900],
+        contrastText: colors.white[0],
       },
+
       neutral: {
         dark: colors.grey[700],
         main: colors.grey[500],

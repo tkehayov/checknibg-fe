@@ -188,7 +188,13 @@ export function CategoryPage({ loadingPage }) {
           item
           md={2}
           xs={12}
-          sx={{ position: "sticky", top: 115, zIndex: 100 }}
+          sx={{
+            position: "sticky",
+            top: 115,
+            pb: 2,
+            zIndex: 100,
+            backgroundColor: "white",
+          }}
         >
           {currentCategory && (
             <CategoryFilterList

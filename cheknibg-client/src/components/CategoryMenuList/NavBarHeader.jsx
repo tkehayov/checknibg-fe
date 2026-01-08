@@ -17,8 +17,13 @@ import { useState } from "react";
 import { DrawerNavList } from "./DrawerNavList";
 import { useNavigate } from "react-router-dom";
 import { PAGES_URL } from "../../config";
+import { useTheme } from "@emotion/react";
+import { tokens } from "../../theme";
 
 export function NavBarHeader({ navData, selectedCategory }) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
   const [selectedMainIndex, setSelectedMainIndex] = useState(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -115,16 +120,16 @@ export function NavBarHeader({ navData, selectedCategory }) {
                     },
                   }),
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#24b2cc",
+                    backgroundColor: colors.primary[900],
                     color: "white",
                   },
                   "&.Mui-selected": {
-                    backgroundColor: "#24b2cc",
+                    backgroundColor: colors.primary[900],
                     color: "white",
                   },
 
                   "&:hover,click": {
-                    backgroundColor: "#24b2cc",
+                    backgroundColor: colors.primary[900],
                     color: "white",
                   },
                   marginTop: "10px",
