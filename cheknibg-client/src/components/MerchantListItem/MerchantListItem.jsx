@@ -26,7 +26,7 @@ export function MerchantListItem({ merchant, productId }) {
     }
 
     if (merchant) {
-      fetchMerchantInfo(merchant.id);
+      fetchMerchantInfo(merchant.merchantId);
     }
   }, [merchant]);
 
@@ -40,7 +40,7 @@ export function MerchantListItem({ merchant, productId }) {
                 className={s.image}
                 src={
                   API_URLS.products +
-                  "/images" +
+                  "/" +
                   MERCHANTS_IMAGES_URL +
                   "/" +
                   merchantDetails.logo

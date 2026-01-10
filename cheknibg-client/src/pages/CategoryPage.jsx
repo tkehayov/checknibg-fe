@@ -45,7 +45,6 @@ export function CategoryPage({ loadingPage }) {
     if (!category) return;
 
     if (category.id === 0) {
-      console.log("Selected All Categories");
       setSelectedProductFilters([]);
       setPage(1);
       return;

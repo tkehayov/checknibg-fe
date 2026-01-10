@@ -51,7 +51,7 @@ export function ProductListItem({ currentProduct }) {
         key={currentProduct.id}
         sx={{
           width: 300,
-          height: 300,
+          height: 350,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -71,8 +71,20 @@ export function ProductListItem({ currentProduct }) {
               title={currentProduct.name}
             />
           )}
-          <CardContent sx={{ height: 117 }}>
+          <CardContent
+            sx={{
+              height: 140,
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: 1,
+            }}
+          >
             <Typography variant="body3">{currentProduct.name}</Typography>
+            <Typography variant="body4" sx={{ marginTop: "auto" }}>
+              <p style={{ margin: 0 }}>
+                <strong>Цена от: {currentProduct.minPrice}&#8364;</strong>
+              </p>
+            </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
