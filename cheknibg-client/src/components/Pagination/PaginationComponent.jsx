@@ -1,13 +1,9 @@
-import { useTheme } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
-import { tokens } from "../../theme";
 
 export function PaginationComponent({ elements, handlePageChange, pages }) {
   const [currentPage, setCurrentPage] = useState(pages);
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
 
   function handlePageChange_(event, page) {
     handlePageChange(page);
