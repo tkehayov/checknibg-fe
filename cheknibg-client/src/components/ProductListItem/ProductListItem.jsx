@@ -2,14 +2,24 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions, styled } from "@mui/material";
+import {
+  Button,
+  CardActionArea,
+  CardActions,
+  styled,
+  useMediaQuery,
+} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { API_URLS, PAGES_URL, PRODUCTS_IMAGES_URL } from "../../config";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ChekniIcon } from "../ChekniIcon/ChekniIcon";
+import { useTheme } from "@emotion/react";
 
-export function ProductListItem({ currentProduct }) {
+export function ProductListItem({ currentProduct, viewMode }) {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isList = viewMode === "listview" && !isSmallScreen;
   const [imageUrl, setImageUrl] = useState();
   const DEFAULT_BUTTON_TEXT = "Сравни цените";
 
@@ -39,9 +49,9 @@ export function ProductListItem({ currentProduct }) {
       item
       xs={12}
       sm={4}
-      md={3}
-      lg={3}
-      xl={3}
+      md={isList ? 12 : 3}
+      lg={isList ? 12 : 3}
+      xl={isList ? 12 : 3}
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -50,10 +60,12 @@ export function ProductListItem({ currentProduct }) {
       <Card
         key={currentProduct.id}
         sx={{
-          width: 300,
-          height: 350,
+          // width: 300,
+          // height: 350,
           display: "flex",
-          flexDirection: "column",
+          flexDirection: isList ? "row" : "column",
+          width: isList ? "100%" : 300,
+          height: isList ? 160 : 350,
           justifyContent: "space-between",
           boxShadow: "none",
         }}
@@ -61,6 +73,11 @@ export function ProductListItem({ currentProduct }) {
         <CardActionArea
           component={Link}
           to={PAGES_URL.product + `/${currentProduct.id}`}
+          sx={{
+            display: "flex",
+            flexDirection: isList ? "row" : "column",
+            alignItems: "stretch",
+          }}
         >
           {imageUrl && (
             <CardMedia
@@ -69,10 +86,17 @@ export function ProductListItem({ currentProduct }) {
               image={API_URLS.products + PRODUCTS_IMAGES_URL + `${imageUrl}`}
               alt={currentProduct.name}
               title={currentProduct.name}
+              sx={{
+                width: isList ? 180 : "100%",
+                flexShrink: 0,
+
+                height: isList ? "100%" : 140,
+              }}
             />
           )}
           <CardContent
             sx={{
+              flex: isList ? "0 0 calc(100% - 260px)" : "unset",
               height: 140,
               display: "flex",
               flexDirection: "column",
@@ -92,6 +116,8 @@ export function ProductListItem({ currentProduct }) {
             fullWidth
             color="primary"
             sx={{
+              flex: isList ? "0 0 260px" : "unset",
+              flexGrow: 1,
               color: "#fff",
               borderRadius: 6,
               boxShadow: "none",
