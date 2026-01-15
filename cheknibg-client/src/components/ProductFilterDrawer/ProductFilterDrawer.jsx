@@ -6,11 +6,18 @@ import {
   List,
   IconButton,
   FormGroup,
+  Accordion,
+  AccordionDetails,
+  Grid,
 } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import { CategoryGroupListItem } from "../CategoryGroupListItem/CategoryGroupListItem";
 import { PriceFilterSlider } from "../PriceFilterSlider/PriceFilterSlider";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import SortTwoToneIcon from "@mui/icons-material/SortTwoTone";
+import PageSizeProducts from "../PageSizeProducts/PageSizeProducts";
 
 export default function ProductFilterDrawer({
   currentCategoryFilters,
@@ -19,11 +26,17 @@ export default function ProductFilterDrawer({
   selectedProductFilters,
   productFilterPrice,
   setSelectedProductFilterPrice,
+  sortSize,
+  onSizeChange,
 }) {
   const [open, setOpen] = useState(false);
-
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
+  };
+  const [expanded, setExpanded] = useState(false);
+
+  const handleAccordionToggle = () => {
+    setExpanded(!expanded);
   };
 
   const drawerList = (
@@ -93,20 +106,50 @@ export default function ProductFilterDrawer({
 
   return (
     <Box>
-      <Button
-        color="primary"
-        startIcon={<FilterAltIcon />}
-        onClick={toggleDrawer(true)}
-        size="large"
-        variant="contained"
+      <Box display={"flex"} gap={1} alignItems="center">
+        <Button
+          color="primary"
+          startIcon={<FilterAltIcon />}
+          onClick={toggleDrawer(true)}
+          size="large"
+          variant="contained"
+          sx={{
+            borderRadius: 6,
+            fontWeight: 900,
+          }}
+        >
+          Филтри
+        </Button>
+        <Button
+          color="secondary"
+          startIcon={<SortTwoToneIcon />}
+          endIcon={expanded ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+          onClick={handleAccordionToggle}
+          size="large"
+          variant="outlined"
+          sx={{
+            borderRadius: 6,
+            fontWeight: 900,
+          }}
+        >
+          сортирай
+        </Button>
+      </Box>
+      <Accordion
+        expanded={expanded}
+        elevation={0}
+        disableGutters
         sx={{
-          color: "#fff",
-          borderRadius: 6,
-          fontWeight: 900,
+          visibility: expanded ? "visible" : "hidden",
+          height: expanded ? "auto" : 0,
         }}
       >
-        Филтри
-      </Button>
+        <AccordionDetails>
+          <Grid container justifyContent="flex-end" gap={2}>
+            <PageSizeProducts sortSize={sortSize} onSizeChange={onSizeChange} />
+          </Grid>
+        </AccordionDetails>
+      </Accordion>
       <Drawer
         PaperProps={{
           sx: {

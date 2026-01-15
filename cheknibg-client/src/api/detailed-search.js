@@ -19,13 +19,14 @@ export class DetailedSearchApi {
     return response.data;
   }
 
-  static async fetchProductsWithFilters(searchTerm, filtersId, page) {
+  static async fetchProductsWithFilters(searchTerm, filtersId, page, size) {
     const response = await axios.get(
       `${API_URLS.products}/products/search/detailed`,
       {
         params: {
           s: `${searchTerm}`,
           filtersId: `${filtersId}`,
+          size: `${size}`,
           page: `${page - 1}`,
         },
       }

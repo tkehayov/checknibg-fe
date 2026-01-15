@@ -4,7 +4,13 @@ import { PaginationComponent } from "../Pagination/PaginationComponent";
 import SortSection from "../SortSection/SortSection";
 import { useEffect, useState } from "react";
 
-export function ProductList({ currentProducts, setPage, page }) {
+export function ProductList({
+  currentProducts,
+  setPage,
+  page,
+  sortSize,
+  onSizeChange,
+}) {
   const [viewMode, setViewMode] = useState("grid");
 
   function handlePageChange(page) {
@@ -25,7 +31,7 @@ export function ProductList({ currentProducts, setPage, page }) {
 
   return (
     <Grid container spacing={2}>
-      <SortSection />
+      <SortSection sortSize={sortSize} onSizeChange={onSizeChange} />
       {currentProducts.content &&
         currentProducts.content.map((currentProduct) => {
           return (

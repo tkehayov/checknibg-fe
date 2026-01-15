@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useTheme, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import { Header } from "../components/Header/Header";
 import { CategoryFilterList } from "../components/CategoryFilterList/CategoryFilterList";
@@ -11,7 +11,6 @@ import { ProductCategoriesApi } from "../api/product-categories.js";
 import { PAGES_URL } from "../config.js";
 
 export function CategoryPage({ loadingPage }) {
-  const theme = useTheme();
   const location = useLocation();
   const locationFilters = location.state?.filters;
 
@@ -28,6 +27,7 @@ export function CategoryPage({ loadingPage }) {
   );
   const [resetSelectedProductFilters, setResetSelectedProductFilters] =
     useState(false);
+  const [sortSize, setSortSize] = useState("20");
 
   async function fetchCurrentCategory() {
     const url = window.location.pathname.split("/");
@@ -122,7 +122,7 @@ export function CategoryPage({ loadingPage }) {
       page,
       selectedProductFilterPrice.minPrice,
       selectedProductFilterPrice.maxPrice,
-      currentCategory.id
+      sortSize
     );
 
     if (products) setCurrentProducts(products);
@@ -174,7 +174,13 @@ export function CategoryPage({ loadingPage }) {
     if (currentCategory && selectedProductFilterPrice.minPrice !== undefined) {
       loadProductData();
     }
-  }, [selectedProductFilterPrice, page]);
+  }, [selectedProductFilterPrice, page, sortSize]);
+
+  useEffect(() => {
+    if (sortSize) {
+      setPage(1);
+    }
+  }, [sortSize]);
 
   return (
     <>
@@ -204,6 +210,8 @@ export function CategoryPage({ loadingPage }) {
               productFilterPrice={productFilterPrice}
               setPage={setPage}
               page={page}
+              sortSize={sortSize}
+              onSizeChange={setSortSize}
             />
           )}
         </Grid>
@@ -212,6 +220,8 @@ export function CategoryPage({ loadingPage }) {
             currentProducts={currentProducts}
             setPage={setPage}
             page={page}
+            sortSize={sortSize}
+            onSizeChange={(newSize) => setSortSize(newSize)}
           />
         </Grid>
       </Grid>
