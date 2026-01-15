@@ -8,6 +8,7 @@ import { DetailedSearchApi } from "../api/detailed-search";
 import { SearchFilterList } from "../components/SearchFilterList/SearchFilterList";
 import { ProductSearchList } from "../components/ProductSearchList/ProductSearchList";
 import { useTheme } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 export function SearchResultPage({ loadingPage }) {
   const breadcrumbs = [
@@ -19,6 +20,10 @@ export function SearchResultPage({ loadingPage }) {
   const currentSearchTerm = params.searchTerm;
   const [filters, setFilters] = useState([]);
   const [products, setProducts] = useState([]);
+  const [sortSize, setSortSize] = useState("20");
+  const [currentProducts, setCurrentProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [selectedProductFilters, setSelectedProductFilters] = useState([]);
 
@@ -40,6 +45,11 @@ export function SearchResultPage({ loadingPage }) {
       setProducts(productsResponse);
     }
     return "";
+  }
+
+  function handlePageChange(page) {
+    setPage(page);
+    setSearchParams({ page: page });
   }
 
   function updateSelectedProductFilters(productFilter, event) {
@@ -65,6 +75,19 @@ export function SearchResultPage({ loadingPage }) {
 
   function selectedCategory(currentCategory) {}
 
+  async function fetchCategoryProducts() {
+    const productsResponse = await DetailedSearchApi.fetchProductsWithFilters(
+      currentSearchTerm,
+      selectedProductFilters,
+      page,
+      sortSize
+    );
+    if (productsResponse) {
+      setCurrentProducts(productsResponse);
+    }
+    return "";
+  }
+
   useEffect(() => {
     if (currentSearchTerm) {
       fetchFiltersBySearchTerm(currentSearchTerm);
@@ -72,6 +95,21 @@ export function SearchResultPage({ loadingPage }) {
       setSelectedProductFilters([]);
     }
   }, [currentSearchTerm]);
+
+  useEffect(() => {
+    if (selectedProductFilters) {
+      fetchCategoryProducts();
+    }
+  }, [page]);
+
+  useEffect(() => {
+    handlePageChange(1);
+    if (selectedProductFilters.length === 0) {
+      fetchCategoryProducts();
+      return;
+    }
+    fetchCategoryProducts();
+  }, [selectedProductFilters, currentSearchTerm, sortSize]);
 
   return (
     <>
@@ -100,15 +138,19 @@ export function SearchResultPage({ loadingPage }) {
             filters={filters}
             selectedProductFilters={selectedProductFilters}
             loadingPage={loadingPage}
+            sortSize={sortSize}
+            setSortSize={setSortSize}
+            onSizeChange={(newSize) => setSortSize(newSize)}
           />
         </Grid>
         <Grid item md={10} sm={12} xs={12}>
           <h2>Резултати за "{currentSearchTerm}"</h2>
           {products && (
             <ProductSearchList
-              searchTerm={currentSearchTerm}
-              products={products}
-              selectedProductFilters={selectedProductFilters}
+              currentProducts={currentProducts}
+              handlePageChange={handlePageChange}
+              sortSize={sortSize}
+              onSizeChange={(newSize) => setSortSize(newSize)}
             />
           )}
         </Grid>
