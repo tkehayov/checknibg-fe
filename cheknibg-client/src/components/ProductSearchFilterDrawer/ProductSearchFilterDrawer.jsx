@@ -17,6 +17,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import SortTwoToneIcon from "@mui/icons-material/SortTwoTone";
 import PageSizeProducts from "../PageSizeProducts/PageSizeProducts";
+import PriceNameSortProducts from "../PriceNameSortProducts/PriceNameSortProducts";
 
 export default function ProductSearchFilterDrawer({
   filters,
@@ -25,6 +26,7 @@ export default function ProductSearchFilterDrawer({
   loadingPage,
   sortSize,
   onSizeChange,
+  onSortNamePrice,
 }) {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -139,6 +141,7 @@ export default function ProductSearchFilterDrawer({
       >
         <AccordionDetails>
           <Grid container justifyContent="flex-end" gap={2}>
+            <PriceNameSortProducts onSortNamePrice={onSortNamePrice} />
             <PageSizeProducts sortSize={sortSize} onSizeChange={onSizeChange} />
           </Grid>
         </AccordionDetails>

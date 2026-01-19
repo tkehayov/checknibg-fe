@@ -19,7 +19,13 @@ export class DetailedSearchApi {
     return response.data;
   }
 
-  static async fetchProductsWithFilters(searchTerm, filtersId, page, size) {
+  static async fetchProductsWithFilters(
+    searchTerm,
+    filtersId,
+    page,
+    size,
+    sortNamePrice
+  ) {
     const response = await axios.get(
       `${API_URLS.products}/products/search/detailed`,
       {
@@ -28,6 +34,8 @@ export class DetailedSearchApi {
           filtersId: `${filtersId}`,
           size: `${size}`,
           page: `${page - 1}`,
+          sortPrice:
+            sortNamePrice.sort === "priceSort" ? sortNamePrice.direction : null,
         },
       }
     );
