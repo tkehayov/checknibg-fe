@@ -18,7 +18,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import SortTwoToneIcon from "@mui/icons-material/SortTwoTone";
 import PageSizeProducts from "../PageSizeProducts/PageSizeProducts";
-import PriceSortProducts from "../PriceSortProducts/PriceSortProducts";
+import PriceNameSortProducts from "../PriceNameSortProducts/PriceNameSortProducts";
 
 export default function ProductFilterDrawer({
   currentCategoryFilters,
@@ -148,7 +148,7 @@ export default function ProductFilterDrawer({
       >
         <AccordionDetails>
           <Grid container justifyContent="flex-end" gap={2}>
-            <PriceSortProducts onSortNamePrice={onSortNamePrice} />
+            <PriceNameSortProducts onSortNamePrice={onSortNamePrice} />
             <PageSizeProducts sortSize={sortSize} onSizeChange={onSizeChange} />
           </Grid>
         </AccordionDetails>

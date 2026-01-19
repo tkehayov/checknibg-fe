@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { ViewToggle } from "../ViewToggle/ViewToggle";
 import PageSizeProducts from "../PageSizeProducts/PageSizeProducts";
-import PriceSortProducts from "../PriceSortProducts/PriceSortProducts";
+import PriceNameSortProducts from "../PriceNameSortProducts/PriceNameSortProducts";
 
 export default function SortSection({
   sortSize,
@@ -14,7 +14,7 @@ export default function SortSection({
         <label>Сортиране по:</label>
       </Grid>
 
-      <PriceSortProducts
+      <PriceNameSortProducts
         onSortNamePrice={onSortNamePrice}
         onSizeChange={onSizeChange}
       />
