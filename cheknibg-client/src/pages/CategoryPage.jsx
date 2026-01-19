@@ -28,6 +28,10 @@ export function CategoryPage({ loadingPage }) {
   const [resetSelectedProductFilters, setResetSelectedProductFilters] =
     useState(false);
   const [sortSize, setSortSize] = useState("20");
+  const [sortNamePrice, setSortNamePrice] = useState({
+    sort: null,
+    direction: null,
+  });
 
   async function fetchCurrentCategory() {
     const url = window.location.pathname.split("/");
@@ -122,7 +126,8 @@ export function CategoryPage({ loadingPage }) {
       page,
       selectedProductFilterPrice.minPrice,
       selectedProductFilterPrice.maxPrice,
-      sortSize
+      sortSize,
+      sortNamePrice
     );
 
     if (products) setCurrentProducts(products);
@@ -174,7 +179,7 @@ export function CategoryPage({ loadingPage }) {
     if (currentCategory && selectedProductFilterPrice.minPrice !== undefined) {
       loadProductData();
     }
-  }, [selectedProductFilterPrice, page, sortSize]);
+  }, [selectedProductFilterPrice, page, sortSize, sortNamePrice]);
 
   useEffect(() => {
     if (sortSize) {
@@ -182,6 +187,11 @@ export function CategoryPage({ loadingPage }) {
     }
   }, [sortSize]);
 
+  useEffect(() => {
+    if (sortNamePrice.sort && sortNamePrice.direction) {
+      setPage(1);
+    }
+  }, [sortNamePrice]);
   return (
     <>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
@@ -212,6 +222,9 @@ export function CategoryPage({ loadingPage }) {
               page={page}
               sortSize={sortSize}
               onSizeChange={setSortSize}
+              onSortNamePrice={(newSort, newDirection) =>
+                setSortNamePrice({ sort: newSort, direction: newDirection })
+              }
             />
           )}
         </Grid>
@@ -222,6 +235,9 @@ export function CategoryPage({ loadingPage }) {
             page={page}
             sortSize={sortSize}
             onSizeChange={(newSize) => setSortSize(newSize)}
+            onSortNamePrice={(newSort, newDirection) =>
+              setSortNamePrice({ sort: newSort, direction: newDirection })
+            }
           />
         </Grid>
       </Grid>

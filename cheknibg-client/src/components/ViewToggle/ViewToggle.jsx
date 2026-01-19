@@ -18,6 +18,7 @@ export function ViewToggle() {
   return (
     <Grid item>
       <ToggleButtonGroup
+        size="small"
         value={alignment}
         exclusive
         onChange={handleAlignment}

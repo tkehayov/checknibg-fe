@@ -1,20 +1,25 @@
 import { Grid } from "@mui/material";
 import { ViewToggle } from "../ViewToggle/ViewToggle";
-import { useTheme } from "@emotion/react";
-import { useMediaQuery } from "@mui/material";
 import PageSizeProducts from "../PageSizeProducts/PageSizeProducts";
+import PriceSortProducts from "../PriceSortProducts/PriceSortProducts";
 
-export default function SortSection({ sortSize, onSizeChange }) {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-
+export default function SortSection({
+  sortSize,
+  onSizeChange,
+  onSortNamePrice,
+}) {
   return (
     <Grid container justifyContent="flex-end" gap={2}>
-      {!isSmallScreen && (
-        <PageSizeProducts sortSize={sortSize} onSizeChange={onSizeChange} />
-      )}
+      <Grid item>
+        <label>Сортиране по:</label>
+      </Grid>
 
-      {!isSmallScreen && <ViewToggle />}
+      <PriceSortProducts
+        onSortNamePrice={onSortNamePrice}
+        onSizeChange={onSizeChange}
+      />
+      <PageSizeProducts sortSize={sortSize} onSizeChange={onSizeChange} />
+      <ViewToggle />
     </Grid>
   );
 }

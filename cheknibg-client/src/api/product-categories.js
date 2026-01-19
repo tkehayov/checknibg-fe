@@ -45,7 +45,14 @@ export class ProductCategoriesApi {
     }
   }
 
-  static async fetchProducts(filtersId, page, minPrice, maxPrice, size) {
+  static async fetchProducts(
+    filtersId,
+    page,
+    minPrice,
+    maxPrice,
+    size,
+    sortNamePrice
+  ) {
     if (minPrice === undefined || maxPrice === undefined) {
       const response = await axios.get(
         `${API_URLS.products}/products/filters`,
@@ -54,6 +61,10 @@ export class ProductCategoriesApi {
             filters: `${filtersId}`,
             page: `${page - 1}`,
             size: size,
+            sortPrice:
+              sortNamePrice.sort === "priceSort"
+                ? sortNamePrice.direction
+                : null,
           },
         }
       );
@@ -66,6 +77,8 @@ export class ProductCategoriesApi {
         minPrice: `${minPrice}`,
         maxPrice: `${maxPrice}`,
         size: size,
+        sortPrice:
+          sortNamePrice.sort === "priceSort" ? sortNamePrice.direction : null,
       },
     });
 

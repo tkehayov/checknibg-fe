@@ -11,6 +11,7 @@ export function SearchFilterList({
   loadingPage,
   sortSize,
   onSizeChange,
+  onSortNamePrice,
 }) {
   const sortedFilters = [...filters].sort((a, b) => {
     const nameA = a.value;
@@ -34,6 +35,7 @@ export function SearchFilterList({
           loadingPage={loadingPage}
           sortSize={sortSize}
           onSizeChange={onSizeChange}
+          onSortNamePrice={onSortNamePrice}
         />
       </Box>
       <Box sx={{ display: { xs: "none", md: "flex" } }}>

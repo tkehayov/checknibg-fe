@@ -24,8 +24,11 @@ export function SearchResultPage({ loadingPage }) {
   const [currentProducts, setCurrentProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [selectedProductFilters, setSelectedProductFilters] = useState([]);
+  const [sortNamePrice, setSortNamePrice] = useState({
+    sort: null,
+    direction: null,
+  });
 
   async function fetchFiltersBySearchTerm(searchTerm) {
     const filtersResponse = await DetailedSearchApi.fetchFiltersBySearchTerm(
@@ -80,7 +83,8 @@ export function SearchResultPage({ loadingPage }) {
       currentSearchTerm,
       selectedProductFilters,
       page,
-      sortSize
+      sortSize,
+      sortNamePrice
     );
     if (productsResponse) {
       setCurrentProducts(productsResponse);
@@ -109,7 +113,13 @@ export function SearchResultPage({ loadingPage }) {
       return;
     }
     fetchCategoryProducts();
-  }, [selectedProductFilters, currentSearchTerm, sortSize]);
+  }, [selectedProductFilters, currentSearchTerm, sortSize, sortNamePrice]);
+
+  useEffect(() => {
+    if (sortNamePrice.sort && sortNamePrice.direction) {
+      setPage(1);
+    }
+  }, [sortNamePrice]);
 
   return (
     <>
@@ -141,6 +151,9 @@ export function SearchResultPage({ loadingPage }) {
             sortSize={sortSize}
             setSortSize={setSortSize}
             onSizeChange={(newSize) => setSortSize(newSize)}
+            onSortNamePrice={(newSort, newDirection) =>
+              setSortNamePrice({ sort: newSort, direction: newDirection })
+            }
           />
         </Grid>
         <Grid item md={10} sm={12} xs={12}>
@@ -151,6 +164,9 @@ export function SearchResultPage({ loadingPage }) {
               handlePageChange={handlePageChange}
               sortSize={sortSize}
               onSizeChange={(newSize) => setSortSize(newSize)}
+              onSortNamePrice={(newSort, newDirection) =>
+                setSortNamePrice({ sort: newSort, direction: newDirection })
+              }
             />
           )}
         </Grid>

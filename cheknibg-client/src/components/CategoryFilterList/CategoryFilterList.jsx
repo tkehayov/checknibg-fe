@@ -13,6 +13,7 @@ export function CategoryFilterList({
   productFilterPrice,
   sortSize,
   onSizeChange,
+  onSortNamePrice,
 }) {
   return (
     <>
@@ -26,6 +27,7 @@ export function CategoryFilterList({
           setSelectedProductFilterPrice={setSelectedProductFilterPrice}
           sortSize={sortSize}
           onSizeChange={onSizeChange}
+          onSortNamePrice={onSortNamePrice}
         />
       </Box>
       <Box sx={{ display: { xs: "none", md: "flex" } }}>

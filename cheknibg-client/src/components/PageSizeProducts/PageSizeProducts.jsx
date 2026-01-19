@@ -10,6 +10,7 @@ export default function PageSizeProducts({ sortSize, onSizeChange }) {
   return (
     <Grid item>
       <ToggleButtonGroup
+        size="small"
         value={sortSize}
         exclusive
         onChange={handleSortSize}

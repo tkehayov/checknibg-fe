@@ -3,6 +3,8 @@ import Grid from "@mui/material/Grid";
 import { PaginationComponent } from "../Pagination/PaginationComponent";
 import SortSection from "../SortSection/SortSection";
 import { useEffect, useState } from "react";
+import { useTheme } from "@emotion/react";
+import { useMediaQuery } from "@mui/material";
 
 export function ProductList({
   currentProducts,
@@ -10,8 +12,11 @@ export function ProductList({
   page,
   sortSize,
   onSizeChange,
+  onSortNamePrice,
 }) {
   const [viewMode, setViewMode] = useState("grid");
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   function handlePageChange(page) {
     setPage(page);
@@ -31,7 +36,13 @@ export function ProductList({
 
   return (
     <Grid container spacing={2}>
-      <SortSection sortSize={sortSize} onSizeChange={onSizeChange} />
+      {!isSmallScreen && (
+        <SortSection
+          sortSize={sortSize}
+          onSizeChange={onSizeChange}
+          onSortNamePrice={onSortNamePrice}
+        />
+      )}
       {currentProducts.content &&
         currentProducts.content.map((currentProduct) => {
           return (
