@@ -10,13 +10,13 @@ export default function PageSizeProducts({ sortSize, onSizeChange }) {
   return (
     <Grid item>
       <ToggleButtonGroup
-        size="small"
         value={sortSize}
         exclusive
         onChange={handleSortSize}
         aria-label="sort size"
         sx={{
-          gap: 0,
+          gap: 1,
+          height: "28px",
           "& .MuiToggleButtonGroup-grouped": {
             border: "none",
             borderRadius: 0,
@@ -29,12 +29,12 @@ export default function PageSizeProducts({ sortSize, onSizeChange }) {
             value={size.toString()}
             disableRipple
             sx={{
-              marginTop: "-5px",
+              padding: "0px",
               fontSize: "0.95rem",
-              borderBottom: "2px solid transparent",
 
               "&:hover": {
-                paddingBottom: "9px",
+                margin: "0px",
+                paddingTop: "2px",
                 background: "transparent",
                 color: "primary.main",
                 borderBottom: (theme) =>
@@ -42,10 +42,11 @@ export default function PageSizeProducts({ sortSize, onSizeChange }) {
               },
 
               "&.Mui-selected": {
+                margin: "0px",
+                paddingTop: "2px",
                 background: "transparent",
                 color: "primary.main",
                 fontWeight: "bold",
-                paddingBottom: "9px",
                 borderBottom: (theme) =>
                   `2px solid ${theme.palette.primary.main}`,
                 "&:hover": {

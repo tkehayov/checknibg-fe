@@ -65,6 +65,10 @@ export class ProductCategoriesApi {
               sortNamePrice.sort === "priceSort"
                 ? sortNamePrice.direction
                 : null,
+            sortName:
+              sortNamePrice.sort === "nameSort"
+                ? sortNamePrice.direction
+                : null,
           },
         }
       );
@@ -79,6 +83,8 @@ export class ProductCategoriesApi {
         size: size,
         sortPrice:
           sortNamePrice.sort === "priceSort" ? sortNamePrice.direction : null,
+        sortName:
+          sortNamePrice.sort === "nameSort" ? sortNamePrice.direction : null,
       },
     });
 
