@@ -18,13 +18,13 @@ export function ViewToggle() {
   return (
     <Grid item>
       <ToggleButtonGroup
-        size="small"
         value={alignment}
         exclusive
         onChange={handleAlignment}
         aria-label="text alignment"
         color="primary"
         sx={{
+          height: "28px",
           "& .MuiToggleButton-root": {
             color: (theme) => `${theme.palette.secondary.main}`,
           },

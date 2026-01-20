@@ -36,6 +36,8 @@ export class DetailedSearchApi {
           page: `${page - 1}`,
           sortPrice:
             sortNamePrice.sort === "priceSort" ? sortNamePrice.direction : null,
+          sortName:
+            sortNamePrice.sort === "nameSort" ? sortNamePrice.direction : null,
         },
       }
     );

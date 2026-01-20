@@ -10,8 +10,14 @@ export default function SortSection({
 }) {
   return (
     <Grid container justifyContent="flex-end" gap={2}>
-      <Grid item>
-        <label>Сортиране по:</label>
+      <Grid
+        item
+        sx={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        Сортирай по:
       </Grid>
 
       <PriceNameSortProducts
