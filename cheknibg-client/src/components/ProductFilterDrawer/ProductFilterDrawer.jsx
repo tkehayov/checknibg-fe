@@ -8,7 +8,6 @@ import {
   FormGroup,
   Accordion,
   AccordionDetails,
-  Grid,
 } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CloseIcon from "@mui/icons-material/Close";
@@ -115,7 +114,9 @@ export default function ProductFilterDrawer({
           onClick={toggleDrawer(true)}
           size="large"
           variant="contained"
+          disableElevation
           sx={{
+            width: "50%",
             borderRadius: 6,
             fontWeight: 900,
           }}
@@ -130,6 +131,7 @@ export default function ProductFilterDrawer({
           size="large"
           variant="outlined"
           sx={{
+            width: "50%",
             borderRadius: 6,
             fontWeight: 900,
           }}
@@ -142,15 +144,28 @@ export default function ProductFilterDrawer({
         elevation={0}
         disableGutters
         sx={{
+          borderRadius: "0px !important",
+          borderBottom: (theme) => `2px solid ${theme.palette.primary.main}`,
           visibility: expanded ? "visible" : "hidden",
           height: expanded ? "auto" : 0,
         }}
       >
-        <AccordionDetails>
-          <Grid container justifyContent="flex-end" gap={2}>
+        <AccordionDetails
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              pt: 1,
+              gap: 2,
+            }}
+          >
             <PriceNameSortProducts onSortNamePrice={onSortNamePrice} />
             <PageSizeProducts sortSize={sortSize} onSizeChange={onSizeChange} />
-          </Grid>
+          </Box>
         </AccordionDetails>
       </Accordion>
       <Drawer

@@ -23,7 +23,7 @@ export function CategoryPage({ loadingPage }) {
 
   const [productFilterPrice, setProductFilterPrice] = useState({});
   const [selectedProductFilterPrice, setSelectedProductFilterPrice] = useState(
-    {}
+    {},
   );
   const [resetSelectedProductFilters, setResetSelectedProductFilters] =
     useState(false);
@@ -36,9 +36,8 @@ export function CategoryPage({ loadingPage }) {
   async function fetchCurrentCategory() {
     const url = window.location.pathname.split("/");
     const categoryUrl = url[url.length - 1];
-    const category = await ProductCategoriesApi.fetchCategoryByAlias(
-      categoryUrl
-    );
+    const category =
+      await ProductCategoriesApi.fetchCategoryByAlias(categoryUrl);
     if (category) {
       setCurrentCategory(category);
       selectedCategory(category);
@@ -57,7 +56,7 @@ export function CategoryPage({ loadingPage }) {
     let categoryWithDetails = category;
     if (!category.name) {
       const categoryName = await ProductCategoriesApi.fetchCategoryById(
-        category.id
+        category.id,
       );
       categoryWithDetails = { id: category.id, name: categoryName };
     }
@@ -72,7 +71,7 @@ export function CategoryPage({ loadingPage }) {
 
   async function fetchCategoryFilters() {
     const categoryFilters = await ProductCategoriesApi.fetchCategoryFilters(
-      currentCategory.id
+      currentCategory.id,
     );
     if (categoryFilters.length > 0) {
       setCurrentCategoryFilters(categoryFilters);
@@ -83,7 +82,7 @@ export function CategoryPage({ loadingPage }) {
     let filtersToUse = selectedProductFilters;
     if (filtersToUse.length === 0 || filtersToUse[0] === undefined) {
       filtersToUse = currentCategoryFilters.flatMap((cat) =>
-        cat.productFilters.map((pf) => pf.id)
+        cat.productFilters.map((pf) => pf.id),
       );
     }
 
@@ -117,7 +116,7 @@ export function CategoryPage({ loadingPage }) {
     let filtersToUse = selectedProductFilters;
     if (filtersToUse.length === 0 || filtersToUse[0] === undefined) {
       filtersToUse = currentCategoryFilters.flatMap((cat) =>
-        cat.productFilters.map((pf) => pf.id)
+        cat.productFilters.map((pf) => pf.id),
       );
     }
 
@@ -127,7 +126,7 @@ export function CategoryPage({ loadingPage }) {
       selectedProductFilterPrice.minPrice,
       selectedProductFilterPrice.maxPrice,
       sortSize,
-      sortNamePrice
+      sortNamePrice,
     );
 
     if (products) setCurrentProducts(products);
@@ -149,7 +148,7 @@ export function CategoryPage({ loadingPage }) {
       setSelectedProductFilters([...selectedProductFilters, productFilter.id]);
     } else {
       setSelectedProductFilters(
-        selectedProductFilters.filter((id) => id !== productFilter.id)
+        selectedProductFilters.filter((id) => id !== productFilter.id),
       );
     }
     setPage(1);

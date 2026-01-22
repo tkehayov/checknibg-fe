@@ -24,11 +24,11 @@ const PriceNameSortProducts = ({ onSortNamePrice }) => {
   return (
     <Grid item>
       <ToggleButtonGroup
+        size="small"
         value={sortOrder}
         exclusive
         onChange={handleSort}
         sx={{
-          height: "28px",
           "& .MuiToggleButton-root": {
             color: (theme) => theme.palette.secondary.main,
             textTransform: "none",

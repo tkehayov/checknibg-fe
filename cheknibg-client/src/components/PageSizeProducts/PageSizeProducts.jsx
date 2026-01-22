@@ -10,13 +10,13 @@ export default function PageSizeProducts({ sortSize, onSizeChange }) {
   return (
     <Grid item>
       <ToggleButtonGroup
+        size="small"
         value={sortSize}
         exclusive
         onChange={handleSortSize}
         aria-label="sort size"
         sx={{
           gap: 1,
-          height: "28px",
           "& .MuiToggleButtonGroup-grouped": {
             border: "none",
             borderRadius: 0,
