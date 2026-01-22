@@ -7,7 +7,9 @@ import { useState } from "react";
 
 export function ViewToggle() {
   const [alignment, setAlignment] = useState(
-    localStorage.getItem("productView") !== "listview" ? "gridview" : "listview"
+    localStorage.getItem("productView") !== "listview"
+      ? "gridview"
+      : "listview",
   );
 
   const handleAlignment = (event, newAlignment) => {
@@ -18,13 +20,13 @@ export function ViewToggle() {
   return (
     <Grid item>
       <ToggleButtonGroup
+        size="small"
         value={alignment}
         exclusive
         onChange={handleAlignment}
         aria-label="text alignment"
         color="primary"
         sx={{
-          height: "28px",
           "& .MuiToggleButton-root": {
             color: (theme) => `${theme.palette.secondary.main}`,
           },
