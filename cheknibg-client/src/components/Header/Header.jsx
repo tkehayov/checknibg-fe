@@ -32,6 +32,7 @@ export function Header({ selectedCategory, breadcrumbs }) {
           items.push({
             name: capitalizeFirstLetter(productFilter.filter),
             id: productFilter.id,
+            orders: productFilter.orders,
           });
         });
 

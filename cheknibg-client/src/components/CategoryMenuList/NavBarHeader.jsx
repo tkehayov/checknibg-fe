@@ -205,14 +205,16 @@ export function NavBarHeader({ navData, selectedCategory }) {
                     <ListSubheader disableSticky sx={{ pl: 0 }}>
                       {subItem.title}
                     </ListSubheader>
-                    {subItem.items.map((item, itemIndex) => (
-                      <MenuItem
-                        key={`item-${subIndex}-${itemIndex}`}
-                        onClick={() => handleCloseSubmenu(index, item.id)}
-                      >
-                        {item.name}
-                      </MenuItem>
-                    ))}
+                    {subItem.items
+                      .sort((a, b) => a.orders - b.orders)
+                      .map((item, itemIndex) => (
+                        <MenuItem
+                          key={`item-${subIndex}-${itemIndex}`}
+                          onClick={() => handleCloseSubmenu(index, item.id)}
+                        >
+                          {item.name}
+                        </MenuItem>
+                      ))}
                   </Box>
                 ))}
               </Menu>
