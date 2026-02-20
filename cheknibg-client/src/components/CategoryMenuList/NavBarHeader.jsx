@@ -54,7 +54,7 @@ export function NavBarHeader({ navData, selectedCategory }) {
     if (submenuId === 0) {
       navigate(PAGES_URL.category + `/${alias}`);
 
-      selectedCategory({ id: 0 });
+      selectedCategory(currentCategory);
       return;
     }
 

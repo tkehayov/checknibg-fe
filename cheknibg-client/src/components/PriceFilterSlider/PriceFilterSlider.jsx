@@ -28,9 +28,13 @@ export function PriceFilterSlider({
   useEffect(() => {
     if (productFilterPrice.minPrice || productFilterPrice.maxPrice) {
       setStepSize(
-        parseInt(
-          (productFilterPrice.maxPrice - productFilterPrice.minPrice) / 10
-        )
+        // Make insure at least one step
+        Math.max(
+          1,
+          parseInt(
+            (productFilterPrice.maxPrice - productFilterPrice.minPrice) / 10,
+          ),
+        ),
       );
       setPriceValue([productFilterPrice.minPrice, productFilterPrice.maxPrice]);
     } else {
