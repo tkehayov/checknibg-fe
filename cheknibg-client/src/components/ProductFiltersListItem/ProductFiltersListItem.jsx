@@ -17,8 +17,12 @@ export function ProductFiltersListItem({
   return (
     <FormControlLabel
       sx={{
+        width: "100%",
         "& .MuiFormControlLabel-label": {
-          fontSize: 15,
+          fontSize: 14,
+          display: "flex",
+          width: "100%",
+          justifyContent: "space-between",
         },
       }}
       onChange={onChange_}
@@ -36,7 +40,12 @@ export function ProductFiltersListItem({
           }}
         />
       }
-      label={productFilter.filter}
+      label={
+        <>
+          <span>{productFilter.filter}</span>
+          <span style={{ color: "grey" }}>{productFilter.productCount}</span>
+        </>
+      }
       checked={isChecked}
     />
   );

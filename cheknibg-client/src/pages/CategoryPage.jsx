@@ -69,9 +69,10 @@ export function CategoryPage({ loadingPage }) {
     ]);
   }
 
-  async function fetchCategoryFilters() {
+  async function fetchCategoryFilters(selectedFilters = []) {
     const categoryFilters = await ProductCategoriesApi.fetchCategoryFilters(
       currentCategory.id,
+      selectedFilters,
     );
     if (categoryFilters.length > 0) {
       setCurrentCategoryFilters(categoryFilters);
@@ -170,12 +171,19 @@ export function CategoryPage({ loadingPage }) {
 
   useEffect(() => {
     if (currentCategory && currentCategoryFilters.length > 0) {
+      fetchCategoryFilters(selectedProductFilters);
+    }
+  }, [selectedProductFilters]);
+
+  useEffect(() => {
+    if (currentCategory && currentCategoryFilters.length > 0) {
       fetchCategoryMinMaxFilterPrice();
     }
   }, [selectedProductFilters, currentCategoryFilters]);
 
   useEffect(() => {
     if (currentCategory && selectedProductFilterPrice.minPrice !== undefined) {
+      console.log("tralalal");
       loadProductData();
     }
   }, [selectedProductFilterPrice, page, sortSize, sortNamePrice]);
