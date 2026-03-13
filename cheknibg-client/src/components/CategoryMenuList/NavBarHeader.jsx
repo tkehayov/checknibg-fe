@@ -52,9 +52,11 @@ export function NavBarHeader({ navData, selectedCategory }) {
     setSubmenuAnchorEls({ ...submenuAnchorEls, [index]: null });
     setSelectedMainIndex(null);
     if (submenuId === 0) {
-      navigate(PAGES_URL.category + `/${alias}`);
-
       selectedCategory(currentCategory);
+
+      navigate(PAGES_URL.category + `/${alias}`, {
+        state: { filters: 0 },
+      });
       return;
     }
 

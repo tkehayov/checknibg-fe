@@ -47,12 +47,6 @@ export function CategoryPage({ loadingPage }) {
   async function selectedCategory(category) {
     if (!category) return;
 
-    if (category.id === 0) {
-      setSelectedProductFilters([]);
-      setPage(1);
-      return;
-    }
-
     let categoryWithDetails = category;
     if (!category.name) {
       const categoryName = await ProductCategoriesApi.fetchCategoryById(
@@ -162,9 +156,11 @@ export function CategoryPage({ loadingPage }) {
   useEffect(() => {
     if (currentCategory) {
       fetchCategoryFilters();
-      if (locationFilters) {
-        setSelectedProductFilters([locationFilters]);
-        setResetSelectedProductFilters(true);
+      if (locationFilters !== undefined && locationFilters !== null) {
+        setSelectedProductFilters(
+          locationFilters === 0 ? [] : [locationFilters],
+        );
+        setResetSelectedProductFilters(locationFilters !== 0);
       }
     }
   }, [currentCategory]);
@@ -183,10 +179,15 @@ export function CategoryPage({ loadingPage }) {
 
   useEffect(() => {
     if (currentCategory && selectedProductFilterPrice.minPrice !== undefined) {
-      console.log("tralalal");
       loadProductData();
     }
-  }, [selectedProductFilterPrice, page, sortSize, sortNamePrice]);
+  }, [
+    selectedProductFilterPrice,
+    page,
+    sortSize,
+    sortNamePrice,
+    selectedProductFilters,
+  ]);
 
   useEffect(() => {
     if (sortSize) {
