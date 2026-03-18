@@ -8,6 +8,7 @@ import {
   FormGroup,
   Accordion,
   AccordionDetails,
+  Chip,
 } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CloseIcon from "@mui/icons-material/Close";
@@ -68,6 +69,40 @@ export default function ProductFilterDrawer({
           <CloseIcon />
         </IconButton>
       </Box>
+
+      {selectedProductFilters.length > 0 && (
+        <Box
+          sx={{
+            px: 2,
+            pt: 1,
+            pb: 0.5,
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 0.5,
+          }}
+        >
+          {currentCategoryFilters
+            .flatMap((cat) => cat.productFilters)
+            .filter((pf) => selectedProductFilters.includes(pf.id))
+            .map((pf) => (
+              <Chip
+                key={pf.id}
+                variant="outlined"
+                size="small"
+                label={pf.filter}
+                color="primary"
+                onDelete={() => onClickItem(pf, { target: { checked: false } })}
+              />
+            ))}
+          <Chip
+            size="small"
+            label="Изчисти филтри"
+            variant="filled"
+            color="primary"
+            onClick={() => onClickItem({ id: 0 }, {})}
+          />
+        </Box>
+      )}
       <List sx={{ marginBottom: 5, paddingLeft: 2 }}>
         <FormGroup>
           <PriceFilterSlider

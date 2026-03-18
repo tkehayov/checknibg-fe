@@ -43,6 +43,7 @@ export function CategoryFilterList({
                   onChangeProductItem={onClickItem}
                   filter={filter}
                   loadingPage={loadingPage}
+                  selectedProductFilters={selectedProductFilters}
                 />
               </div>
             );
