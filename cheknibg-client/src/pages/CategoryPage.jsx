@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Box, Chip, Grid } from "@mui/material";
 
 import { Header } from "../components/Header/Header";
 import { CategoryFilterList } from "../components/CategoryFilterList/CategoryFilterList";
@@ -219,6 +219,36 @@ export function CategoryPage({ loadingPage }) {
             backgroundColor: "white",
           }}
         >
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
+            {currentCategoryFilters
+              .flatMap((cat) => cat.productFilters)
+              .filter((pf) => selectedProductFilters.includes(pf.id))
+              .map((pf) => (
+                <Chip
+                  key={pf.id}
+                  variant="outlined"
+                  size="small"
+                  label={pf.filter}
+                  color="primary"
+                  onDelete={() =>
+                    updateSelectedProductFilters(pf, {
+                      target: { checked: false },
+                    })
+                  }
+                  sx={{ mr: 0.5, mb: 0.5 }}
+                />
+              ))}
+            {selectedProductFilters.length > 0 && (
+              <Chip
+                size="small"
+                label="Изчисти филтри"
+                variant="filled"
+                color="primary"
+                onClick={() => updateSelectedProductFilters({ id: 0 }, {})}
+                sx={{ mr: 0.5, mb: 0.5 }}
+              />
+            )}
+          </Box>
           {currentCategory && (
             <CategoryFilterList
               onClickItem={updateSelectedProductFilters}
