@@ -10,7 +10,7 @@ export class ProductApi {
 
   static async searchProduct(searchTerm) {
     const response = await axios.get(
-      `${API_URLS.products}/products/search/?s=${searchTerm}`
+      `${API_URLS.products}/products/search?s=${searchTerm}`,
     );
 
     return response.data;

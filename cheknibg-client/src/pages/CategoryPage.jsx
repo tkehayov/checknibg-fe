@@ -181,13 +181,7 @@ export function CategoryPage({ loadingPage }) {
     if (currentCategory && selectedProductFilterPrice.minPrice !== undefined) {
       loadProductData();
     }
-  }, [
-    selectedProductFilterPrice,
-    page,
-    sortSize,
-    sortNamePrice,
-    selectedProductFilters,
-  ]);
+  }, [selectedProductFilterPrice, page, sortSize, sortNamePrice]);
 
   useEffect(() => {
     if (sortSize) {
