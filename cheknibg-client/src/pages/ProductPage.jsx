@@ -8,9 +8,10 @@ import { Container } from "@mui/material";
 import { PAGES_URL } from "../config";
 import { Footer } from "../components/Footer/Footer";
 import { LazyLoad } from "../components/LazyLoad/LazyLoad";
+import { Helmet } from "react-helmet-async";
 
-const LazyProductTabs = React.lazy(() =>
-  import("../components/ProductTabs/ProductTabs")
+const LazyProductTabs = React.lazy(
+  () => import("../components/ProductTabs/ProductTabs"),
 );
 
 export function ProductPage() {
@@ -18,6 +19,7 @@ export function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState();
   const [breadcrumbs, setBreadcrumbs] = useState();
+  const seoDescription = `Намери най-добрата цена за ${product?.name} в Chekni.bg.`;
 
   async function fetchProduct() {
     const productResponse = await ProductApi.fetchProduct(id);
@@ -43,6 +45,10 @@ export function ProductPage() {
   function selectedCategory(currentCategory) {}
   return (
     <div>
+      <Helmet>
+        <title>{`${product?.name} - Сравни цени и характеристики | Chekni.bg`}</title>
+        <meta name="description" content={seoDescription} />
+      </Helmet>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
 
       {product && (

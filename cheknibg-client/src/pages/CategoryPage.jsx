@@ -9,6 +9,7 @@ import { Footer } from "../components/Footer/Footer.jsx";
 
 import { ProductCategoriesApi } from "../api/product-categories.js";
 import { PAGES_URL } from "../config.js";
+import { Helmet } from "react-helmet-async";
 
 export function CategoryPage({ loadingPage }) {
   const location = useLocation();
@@ -196,6 +197,19 @@ export function CategoryPage({ loadingPage }) {
   }, [sortNamePrice]);
   return (
     <>
+      <Helmet>
+        <title>
+          {currentCategory?.name
+            ? `${currentCategory.name} - Сравни цени | Chekni.bg`
+            : "Категория | Chekni.bg"}
+        </title>
+        {currentCategory?.name && (
+          <meta
+            name="description"
+            content={`Търсиш ${currentCategory.name}? Сравни цени и характеристики в Chekni.bg и намери най-добрата оферта днес!`}
+          />
+        )}
+      </Helmet>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
       <Grid container sx={{ px: { xs: 2, md: 1 } }} spacing={2}>
         <Grid item xs={12}>

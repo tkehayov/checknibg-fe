@@ -9,6 +9,7 @@ import { SearchFilterList } from "../components/SearchFilterList/SearchFilterLis
 import { ProductSearchList } from "../components/ProductSearchList/ProductSearchList";
 import { useTheme } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export function SearchResultPage({ loadingPage }) {
   const breadcrumbs = [
@@ -29,11 +30,13 @@ export function SearchResultPage({ loadingPage }) {
     sort: null,
     direction: null,
   });
+  const seoTitle = currentSearchTerm
+    ? `Резултати за "${currentSearchTerm}" | Chekni.bg`
+    : "Търсене на продукти | Chekni.bg";
 
   async function fetchFiltersBySearchTerm(searchTerm) {
-    const filtersResponse = await DetailedSearchApi.fetchFiltersBySearchTerm(
-      searchTerm
-    );
+    const filtersResponse =
+      await DetailedSearchApi.fetchFiltersBySearchTerm(searchTerm);
 
     if (filtersResponse) {
       setFilters(filtersResponse);
@@ -71,7 +74,7 @@ export function SearchResultPage({ loadingPage }) {
       ...selectedProductFilters.slice(0, index),
       ...selectedProductFilters.slice(
         index + 1,
-        selectedProductFilters.selectedProductFilters
+        selectedProductFilters.selectedProductFilters,
       ),
     ]);
   };
@@ -84,7 +87,7 @@ export function SearchResultPage({ loadingPage }) {
       selectedProductFilters,
       page,
       sortSize,
-      sortNamePrice
+      sortNamePrice,
     );
     if (productsResponse) {
       setCurrentProducts(productsResponse);
@@ -123,6 +126,10 @@ export function SearchResultPage({ loadingPage }) {
 
   return (
     <>
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
       <Grid container sx={{ px: { xs: 2, md: 1 } }} spacing={2}>
         {/* Filter Section */}
@@ -135,10 +142,6 @@ export function SearchResultPage({ loadingPage }) {
             position: "sticky",
             top: 115,
             backgroundColor: "white",
-            borderRight: {
-              xs: "none",
-              md: `1px solid ${theme.palette.primary.main}`,
-            },
             zIndex: 100,
             paddingBottom: 2,
           }}
