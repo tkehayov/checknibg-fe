@@ -3,15 +3,23 @@ import { Header } from "../components/Header/Header";
 import { Banner } from "../components/Banner/Banner";
 import React from "react";
 import { LazyLoad } from "../components/LazyLoad/LazyLoad";
+import { Helmet } from "react-helmet-async";
 
-const LazyCarouselAd = React.lazy(() =>
-  import("../components/Carousel/Carousel")
+const LazyCarouselAd = React.lazy(
+  () => import("../components/Carousel/Carousel"),
 );
 const LazyFooter = React.lazy(() => import("../components/Footer/Footer"));
 export function HomePage() {
   function selectedCategory(currentCategory) {}
   return (
     <>
+      <Helmet>
+        <title>Chekni.bg - Търси, сравни, купи</title>
+        <meta
+          name="description"
+          content="Намери най-ниската цена в България! Сравни оферти от стотици онлайн магазини. Търси, сравни, купи с Chekni.bg."
+        />
+      </Helmet>
       <Header selectedCategory={selectedCategory} />
       <Grid container>
         <Banner />
