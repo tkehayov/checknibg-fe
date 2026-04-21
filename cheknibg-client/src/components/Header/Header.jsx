@@ -15,6 +15,19 @@ export function Header({ selectedCategory, breadcrumbs }) {
 
   const [navData, setNavData] = useState([{}]);
 
+  const [appBarZIndex, setAppBarZIndex] = useState(1200);
+
+  useEffect(() => {
+    const lower = () => setAppBarZIndex(0);
+    const restore = () => setAppBarZIndex(1200);
+    window.addEventListener("bannerSearchFocus", lower);
+    window.addEventListener("bannerSearchBlur", restore);
+    return () => {
+      window.removeEventListener("bannerSearchFocus", lower);
+      window.removeEventListener("bannerSearchBlur", restore);
+    };
+  }, []);
+
   async function fetchProductCategories() {
     let categoriesResponse = await ProductCategoriesApi.fetchCategories();
     mapCategoriesResponse(categoriesResponse);
@@ -79,6 +92,7 @@ export function Header({ selectedCategory, breadcrumbs }) {
         sx={{
           backgroundColor: `${colors.white[0]}`,
           marginBottom: "10px",
+          zIndex: appBarZIndex,
         }}
         elevation={0}
       >
