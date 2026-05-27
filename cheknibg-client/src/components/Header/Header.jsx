@@ -109,39 +109,45 @@ export function Header({ selectedCategory, breadcrumbs }) {
           {/* LOGO */}
           <Grid
             item
-            xl={3}
-            md={4}
-            xs={12}
-            order={{ xl: 1, md: 1, sm: 1, xs: 1 }}
+            xl={2}
+            md={2}
+            xs={2}
+            order={{ xl: 1, md: 1, sm: 2, xs: 2 }}
           >
             <Box
-              sx={{
-                width: {
-                  xs: "150px",
-                  sm: "150px",
-                  md: "150px",
-                  lg: "200px",
-                },
-              }}
+
+            //   width: {
+            //     xs: "150px",
+            //     sm: "150px",
+            //     md: "150px",
+            //     lg: "200px",
+            //   },
+            // }}
             >
               <Link href={PAGES_URL.home}>
-                <Logo style={{ width: "100%", height: "auto" }} />
+                <Logo style={{ width: "90%", height: "auto" }} />
               </Link>
             </Box>
           </Grid>
           {/* SEARCH */}
           <Grid
             item
-            xl={6}
-            md={8}
-            xs={9}
-            order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
+            xl={3}
+            md={2}
+            xs={2}
+            order={{ xl: 3, md: 3, sm: 3, xs: 3 }}
           >
             <SearchProduct />
           </Grid>
           {/* NAV */}
           {navData.length > 1 && (
-            <Grid item order={{ xl: 3, md: 2, sm: 1, xs: 2 }}>
+            <Grid
+              item
+              xl={7}
+              md={6}
+              xs={8}
+              order={{ xl: 2, md: 2, sm: 1, xs: 1 }}
+            >
               <NavBarHeader
                 navData={navData}
                 selectedCategory={selectedCategory}
