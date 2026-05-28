@@ -20,7 +20,7 @@ export function HomePage() {
           content="Намери най-ниската цена в България! Сравни оферти от стотици онлайн магазини. Търси, сравни, купи с Chekni.bg."
         />
       </Helmet>
-      <Header selectedCategory={selectedCategory} />
+      <Header selectedCategory={selectedCategory} hideSearch />
       <Grid container>
         <Banner />
       </Grid>

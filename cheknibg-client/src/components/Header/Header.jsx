@@ -8,7 +8,7 @@ import { NavBarHeader } from "../CategoryMenuList/NavBarHeader.jsx";
 import { tokens } from "../../theme.js";
 import { ReactComponent as Logo } from "../../assets/images/CHEKNI-LOGO.svg";
 
-export function Header({ selectedCategory, breadcrumbs }) {
+export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
   const colors = tokens();
   const theme = useTheme();
   const gradient = theme.palette.gradient.main;
@@ -110,8 +110,8 @@ export function Header({ selectedCategory, breadcrumbs }) {
           <Grid
             item
             xl={3}
-            md={4}
-            xs={12}
+            lg={4}
+            xs="auto"
             order={{ xl: 1, md: 1, sm: 1, xs: 1 }}
           >
             <Box
@@ -130,18 +130,20 @@ export function Header({ selectedCategory, breadcrumbs }) {
             </Box>
           </Grid>
           {/* SEARCH */}
-          <Grid
-            item
-            xl={6}
-            md={8}
-            xs={9}
-            order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
-          >
-            <SearchProduct />
-          </Grid>
+          {!hideSearch && (
+            <Grid
+              item
+              xl={6}
+              lg={8}
+              xs={true}
+              order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
+            >
+              <SearchProduct />
+            </Grid>
+          )}
           {/* NAV */}
           {navData.length > 1 && (
-            <Grid item order={{ xl: 3, md: 2, sm: 1, xs: 2 }}>
+            <Grid item order={{ xl: 3, lg: 2, md: 1, sm: 1, xs: 2 }}>
               <NavBarHeader
                 navData={navData}
                 selectedCategory={selectedCategory}

@@ -71,7 +71,7 @@ export function NavBarHeader({ navData, selectedCategory }) {
       <Toolbar disableGutters>
         <StepIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
 
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", lg: "none" } }}>
           <IconButton
             size="large"
             aria-label="account of current user"
@@ -94,7 +94,7 @@ export function NavBarHeader({ navData, selectedCategory }) {
           sx={{
             paddingBottom: "0px",
             flexGrow: 1,
-            display: { xs: "none", md: "flex" },
+            display: { xs: "none", lg: "flex" },
           }}
         >
           {navData.map((page, index) => (
