@@ -6,6 +6,7 @@ const PAGES_URL = {
   contact: "/contact",
   about: "/about",
   terms: "/terms",
+  privacy: "/privacy",
 };
 const IMAGES_URL = "/images";
 const PRODUCTS_IMAGES_URL = IMAGES_URL + "/products";
