@@ -3,6 +3,7 @@ const PAGES_URL = {
   category: "/category",
   product: "/product",
   searchResultPage: "/search",
+  contact: "/contact",
 };
 const IMAGES_URL = "/images";
 const PRODUCTS_IMAGES_URL = IMAGES_URL + "/products";
