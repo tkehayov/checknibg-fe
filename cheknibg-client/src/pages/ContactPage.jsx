@@ -17,7 +17,7 @@ export function ContactPage() {
         />
       </Helmet>
 
-      <Header selectedCategory={() => {}} hideSearch />
+      <Header selectedCategory={() => {}} />
 
       <Container maxWidth="md" sx={{ py: { xs: 4, md: 6 } }}>
         <Typography variant="h3" fontWeight={700} gutterBottom>
@@ -37,7 +37,10 @@ export function ContactPage() {
             mb: 5,
           }}
         >
-          <Typography variant="h6" sx={{ lineHeight: 1.8, color: "text.primary", fontWeight: 400 }}>
+          <Typography
+            variant="h6"
+            sx={{ lineHeight: 1.8, color: "text.primary", fontWeight: 400 }}
+          >
             Уважаеми клиенти, платформи като chekni.bg функционират като
             търсачки и агрегатори на оферти и не обработват директно поръчки или
             доставки. При въпроси относно закупени продукти, моля, обръщайте се
@@ -58,7 +61,11 @@ export function ContactPage() {
                 <Typography variant="h6" fontWeight={600} gutterBottom>
                   Адрес
                 </Typography>
-                <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{ lineHeight: 1.8 }}
+                >
                   бул. Витоша 1<br />
                   1000 София, България
                 </Typography>
