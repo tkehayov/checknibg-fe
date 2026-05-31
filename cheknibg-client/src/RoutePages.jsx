@@ -14,6 +14,7 @@ const SearchResultPage = React.lazy(() => import("./pages/SearchResultPage"));
 const ContactPage = React.lazy(() => import("./pages/ContactPage"));
 const AboutPage = React.lazy(() => import("./pages/AboutPage"));
 const TermsPage = React.lazy(() => import("./pages/TermsPage"));
+const PrivacyPage = React.lazy(() => import("./pages/PrivacyPage"));
 
 export function RoutePages() {
   const [loadingPage, setLoadingPage] = useState();
@@ -74,6 +75,7 @@ export function RoutePages() {
               <Route path={PAGES_URL.contact} exact element={<ContactPage />} />
               <Route path={PAGES_URL.about} exact element={<AboutPage />} />
               <Route path={PAGES_URL.terms} exact element={<TermsPage />} />
+              <Route path={PAGES_URL.privacy} exact element={<PrivacyPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>

@@ -111,8 +111,8 @@ export function Footer() {
             Общи условия
           </Link>
           <Link
-            href="/поверителност"
-            key="поверителност"
+            href="/privacy"
+            key="Поверителност"
             sx={{ display: "block" }}
             variant="subtitle1"
             underline="hover"
@@ -154,7 +154,7 @@ export function Footer() {
               >
                 {link.name}
               </Link>
-            ))
+            )),
           )}
         </Grid>
       </Grid>
