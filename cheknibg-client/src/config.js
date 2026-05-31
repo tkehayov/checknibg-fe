@@ -8,6 +8,7 @@ const PAGES_URL = {
   terms: "/terms",
   privacy: "/privacy",
   cookies: "/cookies-policy",
+  cookieSettings: "/cookies-settings",
 };
 const IMAGES_URL = "/images";
 const PRODUCTS_IMAGES_URL = IMAGES_URL + "/products";
