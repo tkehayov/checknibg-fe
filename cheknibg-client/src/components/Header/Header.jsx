@@ -1,7 +1,17 @@
 import { ProductCategoriesApi } from "../../api/product-categories.js";
 import { useEffect, useState } from "react";
-import { AppBar, Box, Grid, Link, useTheme } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Grid,
+  IconButton,
+  Link,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { SearchProduct } from "../SearchProduct/SearchProduct.jsx";
+import { SearchOverlay } from "../SearchProduct/SearchOverlay.jsx";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs.jsx";
 import { PAGES_URL } from "../../config.js";
 import { NavBarHeader } from "../CategoryMenuList/NavBarHeader.jsx";
@@ -12,8 +22,10 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
   const colors = tokens();
   const theme = useTheme();
   const gradient = theme.palette.gradient.main;
+  const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
 
   const [navData, setNavData] = useState([{}]);
+  const [searchOverlayOpen, setSearchOverlayOpen] = useState(false);
 
   const [appBarZIndex, setAppBarZIndex] = useState(1200);
 
@@ -112,7 +124,7 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
             xl={3}
             lg={4}
             xs="auto"
-            order={{ xl: 1, md: 1, sm: 1, xs: 1 }}
+            order={{ xl: 1, md: 2, sm: 2, xs: 2 }}
           >
             <Box
               sx={{
@@ -137,13 +149,36 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
               lg={8}
               xs={true}
               order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: { xs: "flex-end", lg: "flex-start" },
+              }}
             >
-              <SearchProduct />
+              {isDesktop ? (
+                <SearchProduct />
+              ) : (
+                <IconButton
+                  onClick={() => setSearchOverlayOpen(true)}
+                  aria-label="open search"
+                  size="large"
+                >
+                  <SearchIcon sx={{ fontSize: 28, color: "text.primary" }} />
+                </IconButton>
+              )}
             </Grid>
+          )}
+
+          {/* Full-screen search overlay (mobile / tablet only) */}
+          {!hideSearch && (
+            <SearchOverlay
+              open={searchOverlayOpen}
+              onClose={() => setSearchOverlayOpen(false)}
+            />
           )}
           {/* NAV */}
           {navData.length > 1 && (
-            <Grid item order={{ xl: 3, lg: 2, md: 1, sm: 1, xs: 2 }}>
+            <Grid item order={{ xl: 3, lg: 2, md: 1, sm: 1, xs: 1 }}>
               <NavBarHeader
                 navData={navData}
                 selectedCategory={selectedCategory}
