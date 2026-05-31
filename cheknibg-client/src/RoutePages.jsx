@@ -16,6 +16,7 @@ const AboutPage = React.lazy(() => import("./pages/AboutPage"));
 const TermsPage = React.lazy(() => import("./pages/TermsPage"));
 const PrivacyPage = React.lazy(() => import("./pages/PrivacyPage"));
 const CookiePolicyPage = React.lazy(() => import("./pages/CookiePolicyPage"));
+const CookieSettingsPage = React.lazy(() => import("./pages/CookieSettingsPage"));
 
 export function RoutePages() {
   const [loadingPage, setLoadingPage] = useState();
@@ -78,6 +79,7 @@ export function RoutePages() {
               <Route path={PAGES_URL.terms} exact element={<TermsPage />} />
               <Route path={PAGES_URL.privacy} exact element={<PrivacyPage />} />
               <Route path={PAGES_URL.cookies} exact element={<CookiePolicyPage />} />
+              <Route path={PAGES_URL.cookieSettings} exact element={<CookieSettingsPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
