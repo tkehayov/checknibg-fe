@@ -4,6 +4,7 @@ const PAGES_URL = {
   product: "/product",
   searchResultPage: "/search",
   contact: "/contact",
+  about: "/about",
 };
 const IMAGES_URL = "/images";
 const PRODUCTS_IMAGES_URL = IMAGES_URL + "/products";
