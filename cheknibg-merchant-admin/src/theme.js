@@ -1,6 +1,13 @@
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 
+// Shared brand colour constants — import these instead of hardcoding hex values
+export const BRAND = {
+  teal: "#24b2cc",       // Chekni primary brand colour
+  navyDark: "#0c101b",   // tokens(dark).primary[700]
+  navyMid: "#1F2A40",    // tokens(dark).primary[400]
+};
+
 // color design tokens export
 export const tokens = (mode) => ({
   ...(mode === "dark"
