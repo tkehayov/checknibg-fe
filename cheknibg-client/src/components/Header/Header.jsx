@@ -123,8 +123,12 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
             item
             xl={3}
             lg={4}
-            xs="auto"
+            xs={true}
             order={{ xl: 1, md: 2, sm: 2, xs: 2 }}
+            sx={{
+              display: "flex",
+              justifyContent: { xs: "center", lg: "flex-start" },
+            }}
           >
             <Box
               sx={{
@@ -147,7 +151,7 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
               item
               xl={6}
               lg={8}
-              xs={true}
+              xs="auto"
               order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
               sx={{
                 display: "flex",
@@ -166,6 +170,19 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
                   <SearchIcon sx={{ fontSize: 28, color: "text.primary" }} />
                 </IconButton>
               )}
+            </Grid>
+          )}
+
+          {/* Spacer: balances the burger icon width so the logo stays centred
+              on mobile when the search icon is hidden (hideSearch pages) */}
+          {hideSearch && (
+            <Grid
+              item
+              xs="auto"
+              order={{ xs: 3 }}
+              sx={{ display: { lg: "none" } }}
+            >
+              <Box sx={{ width: 56 }} />
             </Grid>
           )}
 

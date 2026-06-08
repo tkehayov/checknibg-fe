@@ -3,6 +3,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemIcon,
   Divider,
   ListItemText,
   Box,
@@ -15,9 +16,40 @@ import { ReactComponent as Logo } from "../../assets/images/CHEKNI-LOGO.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import DescriptionIcon from "@mui/icons-material/DescriptionOutlined";
+import TvIcon from "@mui/icons-material/TvOutlined";
+import SmartphoneIcon from "@mui/icons-material/SmartphoneOutlined";
+import CameraAltIcon from "@mui/icons-material/CameraAltOutlined";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCarFilledOutlined";
+import LaptopIcon from "@mui/icons-material/LaptopOutlined";
+import TabletMacIcon from "@mui/icons-material/TabletMac";
+import DevicesIcon from "@mui/icons-material/Devices";
+import WatchIcon from "@mui/icons-material/Watch";
+import MonitorIcon from "@mui/icons-material/Monitor";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import MouseIcon from "@mui/icons-material/Mouse";
+import MemoryIcon from "@mui/icons-material/Memory";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import { useState } from "react";
 import { PAGES_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
+
+const categoryIconMap = {
+  laptops: <LaptopIcon />,
+  pc: <DevicesIcon />,
+  tablets: <TabletMacIcon />,
+  smartphones: <SmartphoneIcon />,
+  watches: <WatchIcon />,
+  audio: <HeadsetMicIcon />,
+  monitors: <MonitorIcon />,
+  tv: <LiveTvIcon />,
+  peripheral: <MouseIcon />,
+  components: <MemoryIcon />,
+  accessories: <BusinessCenterIcon />,
+};
+
+const FallbackIcon = <DescriptionIcon />;
 
 export function DrawerNavList({ pages, open, toggleDrawer, selectedCategory }) {
   const navigate = useNavigate();
@@ -80,6 +112,9 @@ export function DrawerNavList({ pages, open, toggleDrawer, selectedCategory }) {
           <div key={index}>
             <ListItem key={page.main} disablePadding>
               <ListItemButton onClick={() => handleClick(index)}>
+                <ListItemIcon sx={{ minWidth: 40, color: "text.primary" }}>
+                  {categoryIconMap[page.alias] ?? FallbackIcon}
+                </ListItemIcon>
                 <ListItemText primary={page.main} />
                 {page.sub &&
                   (openSubMenus[index] ? <ExpandLess /> : <ExpandMore />)}
