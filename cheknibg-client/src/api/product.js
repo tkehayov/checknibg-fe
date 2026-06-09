@@ -8,6 +8,14 @@ export class ProductApi {
     return response.data;
   }
 
+  static async fetchProducts(ids) {
+    const response = await axios.get(
+      `${API_URLS.products}/products?ids=${ids}`,
+    );
+
+    return response.data;
+  }
+
   static async searchProduct(searchTerm) {
     const response = await axios.get(
       `${API_URLS.products}/products/search?s=${searchTerm}`,
