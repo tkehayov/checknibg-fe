@@ -60,8 +60,6 @@ export function ProductListItem({ currentProduct, viewMode }) {
       <Card
         key={currentProduct.id}
         sx={{
-          // width: 300,
-          // height: 350,
           display: "flex",
           flexDirection: isList ? "row" : "column",
           width: isList ? "100%" : 300,
@@ -89,7 +87,6 @@ export function ProductListItem({ currentProduct, viewMode }) {
               sx={{
                 width: isList ? 180 : "100%",
                 flexShrink: 0,
-
                 height: isList ? "100%" : 140,
               }}
             />

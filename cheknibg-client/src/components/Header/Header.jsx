@@ -145,49 +145,34 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
               </Link>
             </Box>
           </Grid>
-          {/* SEARCH */}
-          {!hideSearch && (
-            <Grid
-              item
-              xl={6}
-              lg={8}
-              xs="auto"
-              order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: { xs: "flex-end", lg: "flex-start" },
-              }}
-            >
-              {isDesktop ? (
-                <SearchProduct />
-              ) : (
-                <IconButton
-                  onClick={() => setSearchOverlayOpen(true)}
-                  aria-label="open search"
-                  size="large"
-                >
-                  <SearchIcon sx={{ fontSize: 28, color: "text.primary" }} />
-                </IconButton>
-              )}
-            </Grid>
-          )}
-
-          {/* Spacer: balances the burger icon width so the logo stays centred
-              on mobile when the search icon is hidden (hideSearch pages) */}
-          {hideSearch && (
-            <Grid
-              item
-              xs="auto"
-              order={{ xs: 3 }}
-              sx={{ display: { lg: "none" } }}
-            >
-              <Box sx={{ width: 56 }} />
-            </Grid>
-          )}
+          {/* SEARCH — always visible on mobile; hidden on desktop when hideSearch */}
+          <Grid
+            item
+            xl={6}
+            lg={8}
+            xs="auto"
+            order={{ xl: 2, md: 2, sm: 3, xs: 3 }}
+            sx={{
+              display: { xs: "flex", lg: hideSearch ? "none" : "flex" },
+              alignItems: "center",
+              justifyContent: { xs: "flex-end", lg: "flex-start" },
+            }}
+          >
+            {isDesktop ? (
+              <SearchProduct />
+            ) : (
+              <IconButton
+                onClick={() => setSearchOverlayOpen(true)}
+                aria-label="open search"
+                size="large"
+              >
+                <SearchIcon sx={{ fontSize: 28, color: "text.primary" }} />
+              </IconButton>
+            )}
+          </Grid>
 
           {/* Full-screen search overlay (mobile / tablet only) */}
-          {!hideSearch && (
+          {!isDesktop && (
             <SearchOverlay
               open={searchOverlayOpen}
               onClose={() => setSearchOverlayOpen(false)}

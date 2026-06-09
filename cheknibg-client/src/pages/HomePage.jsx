@@ -5,6 +5,10 @@ import React from "react";
 import { LazyLoad } from "../components/LazyLoad/LazyLoad";
 import { Helmet } from "react-helmet-async";
 
+const popularProducts = { ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] };
+const iphoneProducts = { ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] };
+const laptopProducts = { ids: [1, 2, 3] };
+
 const LazyCarouselAd = React.lazy(
   () => import("../components/Carousel/Carousel"),
 );
@@ -29,15 +33,7 @@ export function HomePage() {
           <h2>Популярни продукти</h2>
           <LazyLoad
             component={LazyCarouselAd}
-            componentProps={{
-              items: [
-                "laptops.jpg",
-                "slider2.jpg",
-                "slider3.jpg",
-                "laptops.jpg",
-                "laptops.jpg",
-              ],
-            }}
+            componentProps={popularProducts}
             fallback={
               <div style={{ minHeight: "500px" }}>
                 Loading product details...
@@ -49,15 +45,7 @@ export function HomePage() {
           <h2>Чекни най-новия Iphone 17</h2>
           <LazyLoad
             component={LazyCarouselAd}
-            componentProps={{
-              items: [
-                "laptops.jpg",
-                "slider2.jpg",
-                "slider3.jpg",
-                "laptops.jpg",
-                "laptops.jpg",
-              ],
-            }}
+            componentProps={iphoneProducts}
             fallback={
               <div style={{ minHeight: "500px" }}>
                 Loading product details...
@@ -69,15 +57,7 @@ export function HomePage() {
           <h2>Чекни най-новите лаптопи</h2>
           <LazyLoad
             component={LazyCarouselAd}
-            componentProps={{
-              items: [
-                "laptops.jpg",
-                "slider2.jpg",
-                "slider3.jpg",
-                "laptops.jpg",
-                "laptops.jpg",
-              ],
-            }}
+            componentProps={laptopProducts}
             fallback={
               <div style={{ minHeight: "500px" }}>
                 Loading product details...
