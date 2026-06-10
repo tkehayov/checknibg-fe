@@ -189,7 +189,7 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
           )}
         </Grid>
       </AppBar>
-      <Grid container>
+      <Grid container sx={{ pl: { xs: 2, md: 1 } }}>
         <Grid item>
           <BreadCrumbs breadcrumbs={breadcrumbs} />
         </Grid>

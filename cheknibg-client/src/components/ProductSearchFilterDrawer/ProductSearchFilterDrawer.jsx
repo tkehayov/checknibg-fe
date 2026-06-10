@@ -110,7 +110,6 @@ export default function ProductSearchFilterDrawer({
           disableElevation
           sx={{
             width: "50%",
-
             borderRadius: 6,
             fontWeight: 900,
           }}

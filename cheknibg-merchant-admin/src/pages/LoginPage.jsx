@@ -65,7 +65,7 @@ export function LoginPage({ changeSidebar }) {
         setErrorMessage("");
         setAuthToken(response.access_token);
         changeSidebar(true);
-        navigate("/import");
+        navigate("/");
       });
     },
   });

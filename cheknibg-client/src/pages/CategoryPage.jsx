@@ -221,7 +221,7 @@ export function CategoryPage({ loadingPage }) {
           xs={12}
           sx={{
             position: "sticky",
-            top: 115,
+            top: 60,
             pb: 2,
             zIndex: 100,
             backgroundColor: "white",
