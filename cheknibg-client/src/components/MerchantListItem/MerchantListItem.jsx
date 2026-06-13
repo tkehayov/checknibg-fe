@@ -40,7 +40,6 @@ export function MerchantListItem({ merchant, productId }) {
                 className={s.image}
                 src={
                   API_URLS.products +
-                  "/" +
                   MERCHANTS_IMAGES_URL +
                   "/" +
                   merchantDetails.logo

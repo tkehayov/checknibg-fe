@@ -32,11 +32,14 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
   useEffect(() => {
     const lower = () => setAppBarZIndex(0);
     const restore = () => setAppBarZIndex(1200);
+    const openSearch = () => setSearchOverlayOpen(true);
     window.addEventListener("bannerSearchFocus", lower);
     window.addEventListener("bannerSearchBlur", restore);
+    window.addEventListener("openHeaderSearch", openSearch);
     return () => {
       window.removeEventListener("bannerSearchFocus", lower);
       window.removeEventListener("bannerSearchBlur", restore);
+      window.removeEventListener("openHeaderSearch", openSearch);
     };
   }, []);
 
