@@ -25,6 +25,7 @@ export function SearchProduct({ isBanner }) {
   const navigate = useNavigate();
   const theme = useTheme();
   const isNotSmall = useMediaQuery(theme.breakpoints.up("md"));
+  const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
   const [isFocused, setIsFocused] = useState(false);
   const [zIndexText, setZIndexText] = useState(isBanner ? 1300 : 1000);
   const [zIndexBackdrop, setZIndexBackdrop] = useState(isBanner ? 1250 : 999);
@@ -215,12 +216,17 @@ export function SearchProduct({ isBanner }) {
                 }
                 variant="outlined"
                 onClick={() => {
+                  if (isBanner && !isDesktop) {
+                    window.dispatchEvent(new Event("openHeaderSearch"));
+                    return;
+                  }
                   if (!isBanner) {
                     setZIndexText(1102);
                     setZIndexBackdrop(1101);
                   }
                 }}
                 onFocus={() => {
+                  if (isBanner && !isDesktop) return;
                   setIsFocused(true);
                   if (isBanner)
                     window.dispatchEvent(new Event("bannerSearchFocus"));
@@ -258,6 +264,7 @@ export function SearchProduct({ isBanner }) {
                 inputProps={{
                   ...params.inputProps,
                   maxLength: 100,
+                  readOnly: isBanner && !isDesktop,
                 }}
                 InputProps={{
                   ...params.InputProps,

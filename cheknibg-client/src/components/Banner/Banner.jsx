@@ -14,6 +14,8 @@ export function Banner() {
       xs={12}
       sx={{
         position: "relative",
+        borderRadius: 5,
+        overflow: "hidden",
       }}
     >
       <picture>
@@ -65,7 +67,13 @@ export function Banner() {
             alignItems: "baseline",
             gap: { xs: "6px", md: "12px" },
             fontWeight: "900",
-            fontSize: { xs: "28px", sm: "36px", md: "48px", lg: "60px", xl: "72px" },
+            fontSize: {
+              xs: "28px",
+              sm: "36px",
+              md: "48px",
+              lg: "60px",
+              xl: "72px",
+            },
             letterSpacing: "-0.02em",
             color: "#fff",
             margin: 0,
@@ -73,7 +81,9 @@ export function Banner() {
           }}
         >
           <Box component="span">Чекни,</Box>
-          <Box component="span" sx={{ color: "#ffd809" }}>Сравни,</Box>
+          <Box component="span" sx={{ color: "#ffd809" }}>
+            Сравни,
+          </Box>
           <Box component="span">Избери</Box>
         </Box>
 
@@ -81,7 +91,13 @@ export function Banner() {
         <Typography
           component="h2"
           sx={{
-            fontSize: { xs: "16px", sm: "22px", md: "32px", lg: "44px", xl: "52px" },
+            fontSize: {
+              xs: "16px",
+              sm: "22px",
+              md: "32px",
+              lg: "44px",
+              xl: "52px",
+            },
             fontWeight: "700",
             lineHeight: 1.2,
             color: "#fff",
