@@ -100,10 +100,9 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
   return (
     <>
       <AppBar
-        position="sticky"
+        position="relative"
         sx={{
           backgroundColor: `${colors.white[0]}`,
-          marginBottom: "10px",
           zIndex: appBarZIndex,
         }}
         elevation={0}
@@ -189,8 +188,8 @@ export function Header({ selectedCategory, breadcrumbs, hideSearch = false }) {
           )}
         </Grid>
       </AppBar>
-      <Grid container>
-        <Grid item>
+      <Grid container sx={{ pl: 2, py: 0.5 }}>
+        <Grid container>
           <BreadCrumbs breadcrumbs={breadcrumbs} />
         </Grid>
       </Grid>

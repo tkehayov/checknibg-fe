@@ -1,4 +1,5 @@
 import { Box, Grid, Typography, Link, IconButton } from "@mui/material";
+import { MERCHANT_PORTAL_URL } from "../../config";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -52,7 +53,7 @@ export function Footer() {
           </Typography>
 
           <Link
-            href="/merchant-portal"
+            href={MERCHANT_PORTAL_URL}
             key="Портал"
             sx={{ display: "block" }}
             variant="subtitle1"
@@ -61,7 +62,7 @@ export function Footer() {
             Портал
           </Link>
           <Typography variant="h5" color="text.primary" gutterBottom>
-            Социалкни мрежи
+            Социални мрежи
           </Typography>
           <Box>
             {socialLinks.map((social) => (

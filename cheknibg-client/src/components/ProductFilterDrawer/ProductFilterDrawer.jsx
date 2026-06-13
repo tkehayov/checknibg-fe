@@ -126,8 +126,7 @@ export default function ProductFilterDrawer({
       <Button
         sx={{
           width: "100%",
-          position: "fixed",
-          bottom: 0,
+          position: "relative",
           color: "#fff",
           fontWeight: 900,
         }}

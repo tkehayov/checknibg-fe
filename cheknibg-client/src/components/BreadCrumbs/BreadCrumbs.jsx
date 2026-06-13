@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 
 export function BreadCrumbs({ breadcrumbs }) {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={0}>
       {breadcrumbs && (
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           {breadcrumbs.map((breadcrumb) => {

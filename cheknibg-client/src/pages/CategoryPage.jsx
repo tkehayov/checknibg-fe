@@ -211,7 +211,7 @@ export function CategoryPage({ loadingPage }) {
         )}
       </Helmet>
       <Header selectedCategory={selectedCategory} breadcrumbs={breadcrumbs} />
-      <Grid container sx={{ px: { xs: 2, md: 1 } }} spacing={2}>
+      <Grid container sx={{ px: { xs: 2, md: 2 } }} spacing={2}>
         <Grid item xs={12}>
           {currentCategory && <h3>Категория {currentCategory.name}</h3>}
         </Grid>
@@ -220,11 +220,8 @@ export function CategoryPage({ loadingPage }) {
           md={2}
           xs={12}
           sx={{
-            position: "sticky",
-            top: 115,
+            position: "relative",
             pb: 2,
-            zIndex: 100,
-            backgroundColor: "white",
           }}
         >
           <Box sx={{ display: { xs: "none", md: "block" } }}>
