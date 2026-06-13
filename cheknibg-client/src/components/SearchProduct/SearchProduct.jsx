@@ -119,7 +119,7 @@ export function SearchProduct({ isBanner }) {
               lg: 500,
               md: 400,
               sm: 290,
-              xs: isBanner ? 200 : 300,
+              xs: isBanner ? 350 : 300,
             },
           }}
         >

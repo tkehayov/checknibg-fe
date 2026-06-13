@@ -48,93 +48,56 @@ export function Banner() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          paddingLeft: "6%",
+          paddingLeft: { xs: "4%", md: "5%", lg: "6%" },
           paddingY: { xs: "6%", sm: "5%", md: "4%" },
-          gap: { xs: 1, sm: 1.5, md: 2 },
+          gap: { xs: 1, sm: 2, md: 3 },
           zIndex: 10,
           color: "white",
         }}
       >
-        <Typography
-          variant="h1"
-          sx={{
-            fontSize: {
-              xs: "40px",
-              sm: "3.5rem",
-              md: "75px",
-              lg: "5.3125rem",
-            },
-            fontWeight: "900",
-            lineHeight: {
-              md: 1.2,
-              lg: 1.3,
-            },
-            letterSpacing: "-0.02em",
-            textTransform: "none",
-            color: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-        >
-          Чекни
-          <Box
-            component="span"
-            sx={{
-              color: "#ffd809",
-              fontSize: {
-                xs: "30px",
-                sm: "3.5rem",
-                md: "55px",
-                lg: "4.0625rem",
-              },
-            }}
-          >
-            Сравни
-          </Box>
-          <Box
-            sx={{
-              fontSize: {
-                xs: "25px",
-                sm: "3.5rem",
-                md: "37px",
-                lg: "45px",
-              },
-            }}
-          >
-            Избери
-          </Box>
-        </Typography>
+        {/* Line 1 */}
         <Box
+          component="h1"
           sx={{
             display: "flex",
-            alignItems: "center",
-            gap: { lg: 10, md: 10, sm: 10, xs: 3 },
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "baseline",
+            gap: { xs: "6px", md: "12px" },
+            fontWeight: "900",
+            fontSize: { xs: "28px", sm: "36px", md: "48px", lg: "60px", xl: "72px" },
+            letterSpacing: "-0.02em",
+            color: "#fff",
+            margin: 0,
+            textShadow: "0 2px 8px rgba(0,0,0,0.18)",
           }}
         >
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: {
-                xs: "0.75rem",
-                sm: "20px",
-                md: "20px",
-                lg: "1.5625rem",
-              },
-              fontWeight: "500",
-              lineHeight: 1.3,
-              flexShrink: 0,
-            }}
-          >
-            Сравни цените
-            <br /> на IT продукти
-          </Typography>
-          <LazyLoad
-            component={LazySearchProduct}
-            componentProps={{ isBanner: true }}
-            fallback={null}
-          />
+          <Box component="span">Чекни,</Box>
+          <Box component="span" sx={{ color: "#ffd809" }}>Сравни,</Box>
+          <Box component="span">Избери</Box>
         </Box>
+
+        {/* Line 2 */}
+        <Typography
+          component="h2"
+          sx={{
+            fontSize: { xs: "16px", sm: "22px", md: "32px", lg: "44px", xl: "52px" },
+            fontWeight: "700",
+            lineHeight: 1.2,
+            color: "#fff",
+            margin: 0,
+            textShadow: "0 2px 8px rgba(0,0,0,0.18)",
+          }}
+        >
+          Сравни цените на IT продукти
+        </Typography>
+
+        {/* Line 3: search */}
+        <LazyLoad
+          component={LazySearchProduct}
+          componentProps={{ isBanner: true }}
+          fallback={null}
+        />
       </Box>
     </Grid>
   );
